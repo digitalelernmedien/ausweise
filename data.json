@@ -5,9 +5,9 @@
   },
   "steckbriefe": {
     "S001": {
-      "name": "Herr Muster Hans Peter",
-      "de": "Hans Peter Muster, 45 Jahre, wohnhaft in Zürich.",
-      "fr": "Hans Peter Muster, 45 ans, domicilié à Zurich."
+      "name": "Herr Muster Peter",
+      "de": "Peter Muster, 45 Jahre, wohnhaft in Zürich.",
+      "fr": "Peter Muster, 45 ans, domicilié à Zurich."
     },
     "S002": {
       "name": "Frau Beispiel Anna",
