@@ -1,51 +1,56 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lernkarte</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Einfaches App-Layout */
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      padding: 1.5rem;
-      background: #f5f6f7;
-    }
-    main {
-      max-width: 420px;
-      margin: auto;
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-    }
-    h1 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-    #lang-switch {
-      margin-bottom: 1rem;
-    }
-    button {
-      padding: 0.3rem 0.6rem;
-      margin-right: 0.5rem;
-      border: none;
-      border-radius: 5px;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-    button.active { background-color: #0056b3; }
-  </style>
-</head>
 <body>
   <main>
-    <div id="lang-switch">
-      <button id="btn-de">Deutsch</button>
-      <button id="btn-fr">Français</button>
-    </div>
     <h1 id="title">Lade...</h1>
-    <p id="text"></p>
+    <div id="text"></div>
   </main>
-  
+
+  <!-- Zahnrad & Sprachmenü -->
+  <div id="settings">
+    <button id="settings-btn">⚙️</button>
+    <div id="settings-menu" style="display:none;">
+      <button data-lang="de">Deutsch</button>
+      <button data-lang="fr">Français</button>
+    </div>
+  </div>
+
   <script src="app.js"></script>
+
+  <style>
+    /* Zahnrad & Menü */
+    #settings {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+    #settings-btn {
+      font-size: 1.8rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+    #settings-menu {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    #settings-menu button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    #settings-menu button:hover {
+      background: #f0f0f0;
+    }
+  </style>
 </body>
-</html>
