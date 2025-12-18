@@ -5,7 +5,7 @@ let lang = navigator.language.startsWith("fr") ? "fr" : "de";
 
 let dataGlobal = null;
 
-// Settings-Menü
+// Footer-Menü
 const settingsBtn = document.getElementById("settings-btn");
 const settingsMenu = document.getElementById("settings-menu");
 
@@ -13,7 +13,6 @@ settingsBtn.addEventListener("click", () => {
   settingsMenu.style.display = settingsMenu.style.display === "none" ? "flex" : "none";
 });
 
-// Sprachbuttons im Menü
 settingsMenu.querySelectorAll("button").forEach(btn => {
   btn.addEventListener("click", () => {
     lang = btn.dataset.lang;
@@ -22,7 +21,6 @@ settingsMenu.querySelectorAll("button").forEach(btn => {
   });
 });
 
-// Render-Funktion (Akkordeon wie vorher)
 function render() {
   if(!dataGlobal) return;
   const steckbriefId = dataGlobal.zuordnung[karte];
@@ -45,9 +43,9 @@ function render() {
     const sectionDiv = document.createElement("div");
 
     const header = document.createElement("h3");
+    header.innerText = `${key} (${items.length})`;
     header.style.cursor = "pointer";
     header.style.marginBottom = "0.2rem";
-    header.innerText = `${key} (${items.length})`;
 
     const contentDiv = document.createElement("div");
     contentDiv.style.display = "none";
