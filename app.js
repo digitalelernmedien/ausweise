@@ -21,6 +21,22 @@ settingsMenu.querySelectorAll("button").forEach(btn => {
   });
 });
 
+// Sanftes Auf-/Zuklappen
+function slideToggle(element, duration = 300) {
+  if (window.getComputedStyle(element).display === "none") {
+    element.style.display = "block";
+    let height = element.scrollHeight;
+    element.style.height = "0px";
+    setTimeout(() => { element.style.transition = `height ${duration}ms`; element.style.height = height + "px"; }, 10);
+    setTimeout(() => { element.style.height = "auto"; element.style.transition = ""; }, duration + 10);
+  } else {
+    let height = element.scrollHeight;
+    element.style.height = height + "px";
+    setTimeout(() => { element.style.transition = `height ${duration}ms`; element.style.height = "0px"; }, 10);
+    setTimeout(() => { element.style.display = "none"; element.style.transition = ""; element.style.height = ""; }, duration + 10);
+  }
+}
+
 function render() {
   if(!dataGlobal) return;
   const steckbriefId = dataGlobal.zuordnung[karte];
@@ -32,7 +48,6 @@ function render() {
   }
 
   document.getElementById("title").innerText = steckbrief.name;
-
   const container = document.getElementById("text");
   container.innerHTML = "";
 
@@ -43,9 +58,16 @@ function render() {
     const sectionDiv = document.createElement("div");
 
     const header = document.createElement("h3");
-    header.innerText = `${key} (${items.length})`;
-    header.style.cursor = "pointer";
-    header.style.marginBottom = "0.2rem";
+
+    const arrow = document.createElement("span");
+    arrow.classList.add("arrow");
+    arrow.innerText = "▶";
+
+    // Pfeilfarbe: schwarz wenn Inhalt, grau wenn leer
+    arrow.style.color = items.length > 0 ? "#000" : "#999";
+
+    header.appendChild(arrow);
+    header.appendChild(document.createTextNode(` ${key} (${items.length})`));
 
     const contentDiv = document.createElement("div");
     contentDiv.style.display = "none";
@@ -64,9 +86,13 @@ function render() {
       contentDiv.style.fontStyle = "italic";
     }
 
-    header.addEventListener("click", () => {
-      contentDiv.style.display = contentDiv.style.display === "none" ? "block" : "none";
-    });
+    // Nur klickbar / Pfeil drehbar, wenn Inhalt vorhanden
+    if(items.length > 0){
+      header.addEventListener("click", () => {
+        slideToggle(contentDiv, 300);
+        arrow.style.transform = (arrow.style.transform === "rotate(90deg)" ? "rotate(0deg)" : "rotate(90deg)");
+      });
+    }
 
     sectionDiv.appendChild(header);
     sectionDiv.appendChild(contentDiv);
@@ -77,10 +103,7 @@ function render() {
 // Daten laden
 fetch("data.json")
   .then(res => res.json())
-  .then(data => {
-    dataGlobal = data;
-    render();
-  })
+  .then(data => { dataGlobal = data; render(); })
   .catch(() => {
     document.getElementById("title").innerText = "Fehler";
     document.getElementById("text").innerText = "Daten konnten nicht geladen werden.";
