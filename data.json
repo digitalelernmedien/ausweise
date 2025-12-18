@@ -1,18 +1,20 @@
 {
   "zuordnung": {
-    "K003": "S001",
-    "K002": "S002"
+    "K001": "S001"
   },
   "steckbriefe": {
     "S001": {
       "name": "Herr Muster Peter",
-      "de": "Peter Muster, 45 Jahre, wohnhaft in Zürich.",
-      "fr": "Peter Muster, 45 ans, domicilié à Zurich."
-    },
-    "S002": {
-      "name": "Frau Beispiel Anna",
-      "de": "Anna Beispiel, 32 Jahre, wohnhaft in Bern.",
-      "fr": "Anna Exemple, 32 ans, domiciliée à Berne."
+      "de": {
+        "Berufserfahrung": ["Softwareentwickler bei Firma X", "Projektleiter bei Firma Y"],
+        "Hobbys": ["Tennis", "Kochen"],
+        "Familie": []
+      },
+      "fr": {
+        "Expérience professionnelle": ["Développeur chez X", "Chef de projet chez Y"],
+        "Loisirs": ["Tennis", "Cuisine"],
+        "Famille": []
+      }
     }
   }
 }
