@@ -3,21 +3,26 @@ const karte = params.get("karte") || "K001";
 
 let lang = navigator.language.startsWith("fr") ? "fr" : "de";
 
-const btnDE = document.getElementById("btn-de");
-const btnFR = document.getElementById("btn-fr");
-
-btnDE.addEventListener("click", () => { lang = "de"; render(); });
-btnFR.addEventListener("click", () => { lang = "fr"; render(); });
-
-function setActiveButton() {
-  btnDE.classList.remove("active");
-  btnFR.classList.remove("active");
-  if(lang === "de") btnDE.classList.add("active");
-  else btnFR.classList.add("active");
-}
-
 let dataGlobal = null;
 
+// Settings-Menü
+const settingsBtn = document.getElementById("settings-btn");
+const settingsMenu = document.getElementById("settings-menu");
+
+settingsBtn.addEventListener("click", () => {
+  settingsMenu.style.display = settingsMenu.style.display === "none" ? "flex" : "none";
+});
+
+// Sprachbuttons im Menü
+settingsMenu.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    lang = btn.dataset.lang;
+    render();
+    settingsMenu.style.display = "none";
+  });
+});
+
+// Render-Funktion (Akkordeon wie vorher)
 function render() {
   if(!dataGlobal) return;
   const steckbriefId = dataGlobal.zuordnung[karte];
@@ -29,10 +34,9 @@ function render() {
   }
 
   document.getElementById("title").innerText = steckbrief.name;
-  setActiveButton();
 
   const container = document.getElementById("text");
-  container.innerHTML = ""; // reset
+  container.innerHTML = "";
 
   const sections = steckbrief[lang];
 
@@ -40,18 +44,16 @@ function render() {
     const items = sections[key];
     const sectionDiv = document.createElement("div");
 
-    // Überschrift mit Anzahl
     const header = document.createElement("h3");
     header.style.cursor = "pointer";
     header.style.marginBottom = "0.2rem";
     header.innerText = `${key} (${items.length})`;
-    
-    // Inhalt, versteckt
+
     const contentDiv = document.createElement("div");
     contentDiv.style.display = "none";
     contentDiv.style.marginBottom = "1rem";
 
-    if(items.length > 0) {
+    if(items.length > 0){
       const ul = document.createElement("ul");
       items.forEach(i => {
         const li = document.createElement("li");
@@ -64,7 +66,6 @@ function render() {
       contentDiv.style.fontStyle = "italic";
     }
 
-    // Klick-Event für Toggle
     header.addEventListener("click", () => {
       contentDiv.style.display = contentDiv.style.display === "none" ? "block" : "none";
     });
