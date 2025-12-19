@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (items.length > 0) {
         const ul = document.createElement("ul");
-        ul.style.paddingLeft = "2.5rem";
+        ul.style.paddingLeft = "1.5rem";
         items.forEach(i => {
           const li = document.createElement("li");
           li.innerText = i;
