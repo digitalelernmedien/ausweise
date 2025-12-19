@@ -53,6 +53,63 @@ li {
   margin-bottom: 0.2rem;
 }
 
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  color: #007AFF; /* iOS System Blue */
+}
+
+.info-icon {
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+.info-icon::before {
+  content: "i";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -58%);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: system-ui, -apple-system;
+  color: currentColor;
+}
+
+.gear-icon {
+  box-sizing: border-box;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+.gear-icon::before,
+.gear-icon::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+.gear-icon::after {
+  inset: 9px;
+  background: currentColor;
+  border: none;
+}
+
+.icon-btn:active .icon {
+  opacity: 0.6;
+}
+
 #footer {
   position: fixed;
   bottom: 0;
