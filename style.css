@@ -109,7 +109,7 @@ li {
   box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
   display: none;
   flex-direction: column;
-  z-index: 100;
+  z-index: 200;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -142,18 +142,17 @@ li {
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
   display: none;
-  z-index: 90;
+  z-index: 190;
 }
 
-/* Hintergrund Overlay */
 #info-modal {
   position: fixed;
   inset: 0;
-  display: none; /* unsichtbar, bis Button geklickt wird */
+  display: none; 
   background: rgba(0,0,0,0.35);
   justify-content: center;
   align-items: center;
-  z-index: 200; /* über Footer und Settings */
+  z-index: 300; 
 }
 
 /* Info Box */
