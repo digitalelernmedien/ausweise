@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       if (modalFunctionsList) {
         modalFunctionsList.innerHTML = ""; // Alte Liste leeren
+        modalFunctionsList.classList.add("info-list");
         infoData.functions.forEach(item => {
           const li = document.createElement("li");
           li.innerText = item;
