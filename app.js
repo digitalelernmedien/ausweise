@@ -69,15 +69,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const modalFunctionsTitle = document.getElementById("modal-functions-title");
       const modalFunctionsList = document.getElementById("modal-functions-list");
       const modalWarning = document.getElementById("modal-warning");
+      const modalCredits = document.getElementById("modal-credits"); // Diese Zeile hat gefehlt!
       const infoCloseBtn = document.getElementById("info-close-btn");
 
-      // Nur aktualisieren, wenn die Elemente im HTML existieren
       if (modalTitle) modalTitle.innerText = infoData.title;
       if (modalBody) modalBody.innerHTML = infoData.body;
       if (modalFunctionsTitle) modalFunctionsTitle.innerText = infoData.functions_title;
       
       if (modalFunctionsList) {
-        modalFunctionsList.innerHTML = ""; // Alte Liste leeren
+        modalFunctionsList.innerHTML = ""; 
         modalFunctionsList.classList.add("info-list");
         infoData.functions.forEach(item => {
           const li = document.createElement("li");
@@ -87,9 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (modalWarning) modalWarning.innerHTML = infoData.warning;
+
+      // Jetzt funktioniert dieser Zugriff:
       if (modalCredits && infoData.credits) {
         modalCredits.innerHTML = infoData.credits;
       }      
+      
       if (infoCloseBtn) infoCloseBtn.innerText = lang === "fr" ? "Fermer" : "OK";
     }
 
