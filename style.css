@@ -74,6 +74,13 @@ li {
 }
 
 
+.icon-btn.disabled {
+    color: #8e8e93; 
+    opacity: 0.6;   
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 #footer {
     position: fixed;
     bottom: 0;
@@ -93,15 +100,6 @@ li {
     z-index: 100;
     border-top: 1px solid #e5e5e5;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-}
-
-/* Falls du willst, dass es trotzdem "schwebend" aussieht, 
-   machen wir einen Trick mit dem inneren Bereich */
-.icon-btn {
-    padding: 10px;
-    color: #007AFF;
-    background: none;
-    border: none;
 }
 
 #settings-btn {
