@@ -75,10 +75,12 @@ li {
 
 
 .icon-btn.disabled {
-    color: #8e8e93; 
-    opacity: 0.6;   
+    color: #c7c7cc; 
+    opacity: 0.4;
+    filter: grayscale(100%);
     cursor: not-allowed;
     pointer-events: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #footer {
