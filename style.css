@@ -76,7 +76,7 @@ li {
 
 #footer {
   position: fixed;
-  bottom: 10px; /* Abstand nach unten verkleinert */
+  bottom: 1px; /* Abstand nach unten verkleinert */
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
