@@ -22,24 +22,15 @@
 </footer>
  
 <div id="info-modal">
-    <div id="info-content">
-      <h2 class="info-header">Über diese Schulungs-App</h2>
-      <p class="info-text">
-        Diese Anwendung dient ausschliesslich <strong>Ausbildungszwecken</strong>. 
-        Sie wurde speziell dafür entwickelt, theoretisches Wissen in die praktische Anwendung zu überführen. 
-        Insbesondere soll sie im <strong>Szenarientraining</strong> und bei <strong>Rollenspielen</strong> eingesetzt werden.
-      </p>
-      <p class="info-subheader">Funktionen:</p>
-      <ul class="info-list">
-        <li>Simulation von Datenbankabfragen (z.B. INPOL, SIS, Melderegister)</li>
-        <li>Darstellung von Trefferszenarien (Fahndungen, Einreisesperren, Sachfahndung)</li>
-      </ul>
-      <div class="info-warning">
-        <strong>Wichtig:</strong> Alle in dieser App angezeigten Daten und Personenprofile sind frei erfunden.
-      </div>
-      <button id="info-close-btn">OK</button>
-    </div>
+  <div id="info-content">
+    <h2 id="modal-title" class="info-header"></h2>
+    <p id="modal-body" class="info-text"></p>
+    <p id="modal-functions-title" class="info-subheader"></p>
+    <ul id="modal-functions-list" class="info-list"></ul>
+    <div id="modal-warning" class="info-warning"></div>
+    <button id="info-close-btn">OK</button>
   </div>
+</div>
 
   <div id="settings-menu">
     <button data-lang="de">Deutsch</button>
