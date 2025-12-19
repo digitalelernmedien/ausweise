@@ -1,7 +1,45 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f6f7;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+}
+
+main {
+  max-width: 420px;
+  width: 90%;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 h3 {
   background: #e0e0e0;
   padding: 0.4rem 0.6rem;
   border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+}
+
+h3 span.arrow {
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.3s ease;
+  font-weight: bold;
 }
 
 ul {
@@ -12,4 +50,50 @@ ul {
 
 li {
   margin-bottom: 0.2rem;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #007bff;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+}
+
+#settings-btn {
+  font-size: 1.2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#settings-menu {
+  position: absolute;
+  bottom: 60px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+}
+
+#settings-menu button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+#settings-menu button:hover {
+  background: #f0f0f0;
 }
