@@ -70,7 +70,7 @@
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": [Aufenthaltstitel F],
+        "ZEMIS": ["Aufenthaltstitel F"],
         "Hoogan": [],
         "RIPOL": []
       },
@@ -80,7 +80,7 @@
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": [Livret F (pour étrangers admis provisoirement)],
+        "ZEMIS": ["Livret F (pour étrangers admis provisoirement)"],
         "Hoogan": [],
         "RIPOL": []
       }
