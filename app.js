@@ -59,6 +59,37 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- RENDER FUNKTION ---
   function render() {
     if (!dataGlobal) return;
+
+    // --- 1. MODAL-TEXTE AKTUALISIEREN ---
+    const infoData = dataGlobal.info_text ? dataGlobal.info_text[lang] : null;
+    
+    if (infoData) {
+      const modalTitle = document.getElementById("modal-title");
+      const modalBody = document.getElementById("modal-body");
+      const modalFunctionsTitle = document.getElementById("modal-functions-title");
+      const modalFunctionsList = document.getElementById("modal-functions-list");
+      const modalWarning = document.getElementById("modal-warning");
+      const infoCloseBtn = document.getElementById("info-close-btn");
+
+      // Nur aktualisieren, wenn die Elemente im HTML existieren
+      if (modalTitle) modalTitle.innerText = infoData.title;
+      if (modalBody) modalBody.innerHTML = infoData.body;
+      if (modalFunctionsTitle) modalFunctionsTitle.innerText = infoData.functions_title;
+      
+      if (modalFunctionsList) {
+        modalFunctionsList.innerHTML = ""; // Alte Liste leeren
+        infoData.functions.forEach(item => {
+          const li = document.createElement("li");
+          li.innerText = item;
+          modalFunctionsList.appendChild(li);
+        });
+      }
+
+      if (modalWarning) modalWarning.innerHTML = infoData.warning;
+      if (infoCloseBtn) infoCloseBtn.innerText = lang === "fr" ? "Fermer" : "OK";
+    }
+
+    // --- 2. STECKBRIEF RENDERN (bestehende Logik) ---
     const steckbriefId = dataGlobal.zuordnung[karte];
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
@@ -109,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
           arrow.style.transform = isVisible ? "rotate(0deg)" : "rotate(90deg)";
         });
       } else {
-        contentDiv.innerText = "(keine Einträge)";
+        contentDiv.innerText = lang === "fr" ? "(aucune entrée)" : "(keine Einträge)";
         contentDiv.style.fontStyle = "italic";
         contentDiv.style.paddingLeft = "25px";
       }
@@ -118,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
       textEl.appendChild(contentDiv);
     });
   }
-
+  
   // --- DATEN LADEN ---
   fetch("data.json")
     .then(res => {
