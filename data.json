@@ -4,7 +4,10 @@
   },
   "steckbriefe": {
     "S001": {
-      "name": "Herr Muster Peter",
+      "name": {
+        "de": "Herr Muster Peter",
+        "fr": "Monsieur Pierre Exemple"
+      },
       "de": {
         "Vorgangsbearbeitung": ["2025 Geschädigt EBD", "2024 Geschädigt Sachbeschädigung"],
         "ISA": ["+ / Herr Muster Peter, m , 10.10.1950, von Bern BE"],
