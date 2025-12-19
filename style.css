@@ -56,6 +56,7 @@ li {
 .icon-btn {
   background: none;
   border: none;
+  color: #007AFF;
   cursor: pointer;
   padding: 0.5rem;
 }
@@ -63,7 +64,7 @@ li {
 .icon-btn svg {
   width: 24px;
   height: 24px;
-  stroke: #007AFF; /* iOS Blau */
+  stroke: currentColor; 
   transition: opacity 0.2s;
 }
 
