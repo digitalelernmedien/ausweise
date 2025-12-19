@@ -87,6 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (modalWarning) modalWarning.innerHTML = infoData.warning;
+      if (modalCredits && infoData.credits) {
+        modalCredits.innerHTML = infoData.credits;
+      }      
       if (infoCloseBtn) infoCloseBtn.innerText = lang === "fr" ? "Fermer" : "OK";
     }
 
