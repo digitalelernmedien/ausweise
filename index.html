@@ -12,7 +12,6 @@
     <div id="text"></div>
   </main>
 
-<script src="https://unpkg.com/feather-icons"></script>
 <footer id="footer">
   <button id="info-btn" class="icon-btn" aria-label="Information" data-feather="info"></button>
   <button id="settings-btn" class="icon-btn" aria-label="Sprache" data-feather="globe"></button>
@@ -22,10 +21,37 @@
   -->
 </footer>
  
-<script>
-  feather.replace();
-</script>
-<script src="app.js"></script>
+<div id="info-modal">
+    <div id="info-content">
+      <h2 class="info-header">Über diese Schulungs-App</h2>
+      <p class="info-text">
+        Diese Anwendung dient ausschliesslich <strong>Ausbildungszwecken</strong>. 
+        Sie wurde speziell dafür entwickelt, theoretisches Wissen in die praktische Anwendung zu überführen. 
+        Insbesondere soll sie im <strong>Szenarientraining</strong> und bei <strong>Rollenspielen</strong> eingesetzt werden.
+      </p>
+      <p class="info-subheader">Funktionen:</p>
+      <ul class="info-list">
+        <li>Simulation von Datenbankabfragen (z.B. INPOL, SIS, Melderegister)</li>
+        <li>Darstellung von Trefferszenarien (Fahndungen, Einreisesperren, Sachfahndung)</li>
+      </ul>
+      <div class="info-warning">
+        <strong>Wichtig:</strong> Alle in dieser App angezeigten Daten und Personenprofile sind frei erfunden.
+      </div>
+      <button id="info-close-btn">OK</button>
+    </div>
+  </div>
 
+  <div id="settings-menu">
+    <button data-lang="de">Deutsch</button>
+    <button data-lang="fr">Französisch</button>
+  </div>
+
+  <div id="backdrop"></div>
+
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="app.js"></script>
+  <script>
+    feather.replace(); 
+  </script>
 </body>
 </html>
