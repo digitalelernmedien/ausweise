@@ -78,7 +78,7 @@ infoModal.addEventListener("click", (e) => {
     }
 
     // Name des Steckbriefes
-    titleEl.innerText = steckbrief.name;
+    titleEl.innerText = steckbrief.name[lang];
     textEl.innerHTML = "";
 
     Object.keys(sections).forEach(key => {
