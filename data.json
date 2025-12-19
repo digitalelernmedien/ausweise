@@ -65,22 +65,22 @@
         "fr": "Résultat de la requête"
       },
       "de": {
-        "Vorgangsbearbeitung": ["2021 prévenu de vol à l'étalage"],
+        "Vorgangsbearbeitung": ["2021 Beschuldigt Ladendiebstahl"],
         "GERES": [],
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": ["Aufenthaltstitel F"],
+        "ZEMIS": ["Ali Mubarak, m, 01.01.2000, von Tunesien, Aufenthaltstitel F"],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
-        "Traitement des processus": ["2021 lésé vandalisme"],
+        "Traitement des processus": ["2021 prévenu de vol à l'étalage"],
         "GERES": [],
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": ["Livret F (pour étrangers admis provisoirement)"],
+        "ZEMIS": ["Ali Mubarak, m, 01.01.2000, de Tunisie, Livret F (pour étrangers admis provisoirement)"],
         "Hoogan": [],
         "RIPOL": []
       }
