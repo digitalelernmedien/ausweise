@@ -76,32 +76,30 @@ li {
 
 #footer {
   position: fixed;
-  bottom: 0; /* Kein Abstand nach unten */
+  bottom: 0;
   left: 0;
   width: 100%;
-  max-width: none;
-  transform: none;
   
-  /* Hintergrund */
-  background: rgba(255, 255, 255, 0.95);
+  /* Solidere Farbe, damit das Grau des Bodys nicht durchscheint */
+  background: #ffffff; 
+  
+  /* Falls du Transparenz willst, nutze ein sehr hohes Alpha: */
+  /* background: rgba(255, 255, 255, 0.98); */
+  
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  
-  /* Abstände */
+
+  /* Der Bereich unter den Icons füllt den iPhone-Spalt */
   padding-top: 10px;
-  /* Dies füllt den grauen Spalt mit der Hintergrundfarbe des Footers: */
   padding-bottom: calc(10px + env(safe-area-inset-bottom)); 
   
-  /* Optik */
   border-top: 1px solid rgba(0,0,0,0.1);
-  /* Ecken nur oben abrunden, damit es unten bündig abschließt */
-  border-radius: 15px 15px 0 0; 
+  border-radius: 20px 20px 0 0; /* Schöne Rundung oben */
   
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   z-index: 100;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
 }
 
 #settings-btn {
