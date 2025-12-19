@@ -79,27 +79,28 @@ li {
   bottom: 0;
   left: 0;
   width: 100%;
+  max-width: none;
+  transform: none;
   
-  /* Solidere Farbe, damit das Grau des Bodys nicht durchscheint */
-  background: #ffffff; 
-  
-  /* Falls du Transparenz willst, nutze ein sehr hohes Alpha: */
-  /* background: rgba(255, 255, 255, 0.98); */
-  
+  /* Hintergrund weiß, damit er den grauen Spalt überdeckt */
+  background: #ffffff;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-
-  /* Der Bereich unter den Icons füllt den iPhone-Spalt */
-  padding-top: 10px;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom)); 
   
+  /* Optik: Nur oben abgerundet */
   border-top: 1px solid rgba(0,0,0,0.1);
-  border-radius: 20px 20px 0 0; /* Schöne Rundung oben */
+  border-radius: 20px 20px 0 0;
   
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   z-index: 100;
+
+  /* JETZT DER TRICK FÜR DEN ABSTAND: */
+  padding-top: 12px;
+  /* Wir nutzen ein padding-bottom, das die Icons hochschiebt, 
+     aber der weiße Hintergrund bleibt bis ganz unten stehen */
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
 }
 
 #settings-btn {
