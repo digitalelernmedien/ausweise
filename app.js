@@ -34,6 +34,27 @@ settingsMenu.querySelectorAll("button").forEach(btn => {
   document.getElementById("backdrop").style.display = "none";
 });
 
+const infoBtn = document.getElementById("info-btn");
+const infoModal = document.getElementById("info-modal");
+const infoCloseBtn = document.getElementById("info-close-btn");
+
+// Info Modal öffnen
+infoBtn.addEventListener("click", () => {
+  infoModal.style.display = "flex";
+});
+
+// Modal schließen
+infoCloseBtn.addEventListener("click", () => {
+  infoModal.style.display = "none";
+});
+
+// Auch schließen, wenn man auf den Hintergrund klickt
+infoModal.addEventListener("click", (e) => {
+  if (e.target === infoModal) {
+    infoModal.style.display = "none";
+  }
+});
+  
 
   // Render-Funktion
   function render() {
