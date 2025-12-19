@@ -4,6 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const textEl = document.getElementById("text");
   const settingsBtn = document.getElementById("settings-btn");
   const settingsMenu = document.getElementById("settings-menu");
+  const backdrop = document.getElementById("backdrop");
+
+  // Info Modal Elemente
+  const infoBtn = document.getElementById("info-btn");
+  const infoModal = document.getElementById("info-modal");
+  const infoCloseBtn = document.getElementById("info-close-btn");
 
   let lang = navigator.language.startsWith("fr") ? "fr" : "de";
 
@@ -13,53 +19,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let dataGlobal = null;
 
-  // Footer-Button klick
- settingsBtn.addEventListener("click", () => {
-  settingsMenu.style.display = "flex";
-  document.getElementById("backdrop").style.display = "block";
-});
+  // --- MODAL LOGIK ---
+  if (infoBtn && infoModal && infoCloseBtn) {
+    infoBtn.addEventListener("click", () => {
+      infoModal.style.display = "flex";
+    });
 
-  // Sprachumschaltung
-settingsMenu.querySelectorAll("button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    lang = btn.dataset.lang;
-    render();
-    settingsMenu.style.display = "none";
-    document.getElementById("backdrop").style.display = "none";
-  });
-});
+    infoCloseBtn.addEventListener("click", () => {
+      infoModal.style.display = "none";
+    });
 
-  document.getElementById("backdrop").addEventListener("click", () => {
-  settingsMenu.style.display = "none";
-  document.getElementById("backdrop").style.display = "none";
-});
-
-const infoBtn = document.getElementById("info-btn");
-const infoModal = document.getElementById("info-modal");
-const infoCloseBtn = document.getElementById("info-close-btn");
-
-// Info Modal öffnen
-infoBtn.addEventListener("click", () => {
-  infoModal.style.display = "flex";
-});
-
-// Modal schließen
-infoCloseBtn.addEventListener("click", () => {
-  infoModal.style.display = "none";
-});
-
-// Auch schließen, wenn man auf den Hintergrund klickt
-infoModal.addEventListener("click", (e) => {
-  if (e.target === infoModal) {
-    infoModal.style.display = "none";
+    infoModal.addEventListener("click", (e) => {
+      if (e.target === infoModal) {
+        infoModal.style.display = "none";
+      }
+    });
   }
-});
-  
 
-  // Render-Funktion
+  // --- SETTINGS LOGIK ---
+  settingsBtn.addEventListener("click", () => {
+    settingsMenu.style.display = "flex";
+    backdrop.style.display = "block";
+  });
+
+  settingsMenu.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      lang = btn.dataset.lang;
+      render();
+      settingsMenu.style.display = "none";
+      backdrop.style.display = "none";
+    });
+  });
+
+  backdrop.addEventListener("click", () => {
+    settingsMenu.style.display = "none";
+    backdrop.style.display = "none";
+  });
+
+  // --- RENDER FUNKTION ---
   function render() {
     if (!dataGlobal) return;
-
     const steckbriefId = dataGlobal.zuordnung[karte];
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
@@ -69,7 +68,6 @@ infoModal.addEventListener("click", (e) => {
       return;
     }
 
-    // sections absichern
     const sections = steckbrief[lang];
     if (!sections) {
       titleEl.innerText = "Fehler";
@@ -77,19 +75,18 @@ infoModal.addEventListener("click", (e) => {
       return;
     }
 
-    // Name des Steckbriefes
     titleEl.innerText = steckbrief.name[lang];
     textEl.innerHTML = "";
 
     Object.keys(sections).forEach(key => {
       const items = sections[key];
-
       const header = document.createElement("h3");
       const arrow = document.createElement("span");
       arrow.classList.add("arrow");
       arrow.innerText = "▶";
       arrow.style.color = items.length > 0 ? "#000" : "#999";
       arrow.style.marginRight = "5px";
+      
       header.appendChild(arrow);
       header.appendChild(document.createTextNode(`${key} (${items.length})`));
 
@@ -106,7 +103,6 @@ infoModal.addEventListener("click", (e) => {
         });
         contentDiv.appendChild(ul);
 
-        // Klick-Event nur bei Inhalten
         header.addEventListener("click", () => {
           const isVisible = contentDiv.style.display === "block";
           contentDiv.style.display = isVisible ? "none" : "block";
@@ -115,6 +111,7 @@ infoModal.addEventListener("click", (e) => {
       } else {
         contentDiv.innerText = "(keine Einträge)";
         contentDiv.style.fontStyle = "italic";
+        contentDiv.style.paddingLeft = "25px";
       }
 
       textEl.appendChild(header);
@@ -122,19 +119,18 @@ infoModal.addEventListener("click", (e) => {
     });
   }
 
-  // Daten laden
+  // --- DATEN LADEN ---
   fetch("data.json")
     .then(res => {
       if (!res.ok) throw new Error("HTTP-Fehler " + res.status);
       return res.json();
     })
     .then(data => {
-      console.log("Daten geladen:", data);
       dataGlobal = data;
       render();
     })
     .catch(err => {
-      console.error("Fehler beim Laden der Daten:", err);
+      console.error("Fehler:", err);
       titleEl.innerText = "Fehler";
       textEl.innerText = "Daten konnten nicht geladen werden";
     });
