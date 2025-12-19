@@ -145,3 +145,49 @@ li {
   z-index: 90;
 }
 
+/* Hintergrund Overlay */
+#info-modal {
+  position: fixed;
+  inset: 0;
+  display: none; /* unsichtbar, bis Button geklickt wird */
+  background: rgba(0,0,0,0.35);
+  justify-content: center;
+  align-items: center;
+  z-index: 200; /* über Footer und Settings */
+}
+
+/* Info Box */
+#info-content {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  width: 80%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  animation: slideUp 0.25s ease-out;
+}
+
+/* OK-Button */
+#info-close-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Button Hover */
+#info-close-btn:hover {
+  opacity: 0.8;
+}
+
+/* Slide-Up Animation */
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
