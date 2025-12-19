@@ -5,22 +5,28 @@
   "steckbriefe": {
     "S001": {
       "name": {
-        "de": "Herr Muster Peter",
-        "fr": "Monsieur Pierre Exemple"
+        "de": "Abfrageergebnis",
+        "fr": "Résultat de la requête"
       },
       "de": {
         "Vorgangsbearbeitung": ["2025 Geschädigt EBD", "2024 Geschädigt Sachbeschädigung"],
-        "ISA": ["+ / Herr Muster Peter, m , 10.10.1950, von Bern BE"],
-        "FABER": ["Kat. B"],
+        "GERES": ["Muster Peter, m , 10.10.1950, von Bern BE, wft. 3000 Bern, Kramgasse 1, verheiratet mit Muster Rösi"],
+        "ISA": ["Muster Peter, m , 10.10.1950, von Bern BE"],
+        "FABER": ["Kat. B seit 22.11.1970"],
         "MOFIS": ["PW, Audi, A3, BE555666", "MR, Aprilia, RSV4, BE4585 "],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
-        "Expérience professionnelle": ["Développeur chez X", "Chef de projet chez Y"],
-        "Loisirs": ["Tennis", "Cuisine"],
-        "Famille": []
+        "Traitement des processus": ["2025 lésé VPE", "2024 lésé dommages à la propriété"],
+        "GERES": ["Muster Peter, m , 10.10.1950, de Berne BE, domiciliée 3000 Berne, Kramgasse 1, mariée à Muster Rösi"],
+        "ISA": ["Muster Peter, m, 10 octobre 1950, de Berne BE"],
+        "FABER" : ["Cat. B depuis le 22 novembre 1970"],
+        "MOFIS": ["Voiture de tourisme, Audi, A3, BE555666", "Moto, Aprilia, RSV4, BE4585 "],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
       }
     }
   }
