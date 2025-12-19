@@ -61,34 +61,34 @@
     },
     "S003": {
       "name": {
-        "de": "Dritte Abfrage",
-        "fr": "Troisième résultat"
+        "de": "Abfrageergebnis",
+        "fr": "Résultat de la requête"
       },
       "de": {
-        "Vorgangsbearbeitung": ["2021 Geschädigt Vandalismus"],
-        "GERES": ["Muster Karl, m , 20.03.1980, von Bern BE, wft. 3010 Bern, Bahnhofstrasse 10, ledig"],
-        "ISA": ["Muster Karl, m , 20.03.1980, von Bern BE"],
-        "FABER": ["Kat. B seit 15.08.2000"],
-        "MOFIS": ["PW, Mercedes, C200, BE23456", "MR, KTM, Duke, BE34567"],
-        "ZEMIS": [],
+        "Vorgangsbearbeitung": ["2021 prévenu de vol à l'étalage"],
+        "GERES": [],
+        "ISA": [],
+        "FABER": [],
+        "MOFIS": [],
+        "ZEMIS": [Aufenthaltstitel F],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
         "Traitement des processus": ["2021 lésé vandalisme"],
-        "GERES": ["Muster Karl, m , 20.03.1980, de Berne BE, domiciliée 3010 Bern, Bahnhofstrasse 10, célibataire"],
-        "ISA": ["Muster Karl, m, 20 mars 1980, de Berne BE"],
-        "FABER": ["Cat. B depuis le 15 août 2000"],
-        "MOFIS": ["Voiture de tourisme, Mercedes, C200, BE23456", "Moto, KTM, Duke, BE34567"],
-        "ZEMIS": [],
+        "GERES": [],
+        "ISA": [],
+        "FABER": [],
+        "MOFIS": [],
+        "ZEMIS": [Livret F (pour étrangers admis provisoirement)],
         "Hoogan": [],
         "RIPOL": []
       }
     },
     "S004": {
       "name": {
-        "de": "Vierte Abfrage",
-        "fr": "Quatrième résultat"
+        "de": "Abfrageergebnis",
+        "fr": "Résultat de la requête"
       },
       "de": {
         "Vorgangsbearbeitung": ["2020 Geschädigt Sachbeschädigung"],
@@ -113,8 +113,8 @@
     },
     "S005": {
       "name": {
-        "de": "Fünfte Abfrage",
-        "fr": "Cinquième résultat"
+        "de": "Abfrageergebnis",
+        "fr": "Résultat de la requête"
       },
       "de": {
         "Vorgangsbearbeitung": ["2019 Geschädigt Diebstahl"],
