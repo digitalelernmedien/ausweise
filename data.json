@@ -9,7 +9,7 @@
         "Darstellung von Trefferszenarien (Fahndungen, Einreisesperren, Sachfahndung)."
       ],
       "warning": "<strong>Wichtig:</strong> Alle in dieser App angezeigten Daten und Personenprofile sind frei erfunden.",
-      "body": "A+W Ausbildung, Digitale Lernmedien, edvausbildung@police.be.ch"
+      "credits": "A+W Ausbildung, Digitale Lernmedien, edvausbildung@police.be.ch"
     },
     "fr": {
       "title": "À propos de cette application",
@@ -19,7 +19,8 @@
         "Simulation de consultations de bases de données.",
         "Représentation de scénarios de recherche (recherches, interdictions d'entrée, recherche d'objets)."
       ],
-      "warning": "<strong>Important :</strong> Toutes les données et profils de personnes affichés dans cette application sont fictifs."
+      "warning": "<strong>Important :</strong> Toutes les données et profils de personnes affichés dans cette application sont fictifs.",
+      "credits": "Formation et perfectionnement, edvausbildung@police.be.ch"
     }
   },
   "zuordnung": {
