@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // HTML-Elemente
   const titleEl = document.getElementById("title");
   const textEl = document.getElementById("text");
-  const settingsBtn = document.getElementById("settings-btn");
+  //const settingsBtn = document.getElementById("settings-btn");
+  const speechBtn = document.getElementById("speech-btn");
   const settingsMenu = document.getElementById("settings-menu");
   const backdrop = document.getElementById("backdrop");
 
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- SETTINGS LOGIK ---
-  settingsBtn.addEventListener("click", () => {
+  speechBtn.addEventListener("click", () => {
     settingsMenu.style.display = "flex";
     backdrop.style.display = "block";
   });
