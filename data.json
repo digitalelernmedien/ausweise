@@ -1,7 +1,10 @@
 {
   "zuordnung": {
     "K001": "S001",
-    "K002": "S002"
+    "K002": "S002",
+    "K003": "S003",
+    "K004": "S004",
+    "K005": "S005"
   },
   "steckbriefe": {
     "S001": {
@@ -23,7 +26,7 @@
         "Traitement des processus": ["2025 lésé VPE", "2024 lésé dommages à la propriété"],
         "GERES": ["Muster Peter, m , 10.10.1950, de Berne BE, domiciliée 3000 Berne, Kramgasse 1, mariée à Muster Rösi"],
         "ISA": ["Muster Peter, m, 10 octobre 1950, de Berne BE"],
-        "FABER" : ["Cat. B depuis le 22 novembre 1970"],
+        "FABER": ["Cat. B depuis le 22 novembre 1970"],
         "MOFIS": ["Voiture de tourisme, Audi, A3, BE555666", "Moto, Aprilia, RSV4, BE4585 "],
         "ZEMIS": [],
         "Hoogan": [],
@@ -37,20 +40,98 @@
       },
       "de": {
         "Vorgangsbearbeitung": ["2023 Geschädigt Unfall", "2022 Geschädigt Diebstahl"],
-        "GERES": ["Muster Anna, w , 15.05.1975, von Zürich ZH, wft. 8000 Zürich, Lindenstrasse 5, verheiratet mit Muster Max"],
-        "ISA": ["Muster Anna, w , 15.05.1975, von Zürich ZH"],
+        "GERES": ["Muster Anna, w , 15.05.1975, von Bern BE, wft. 3000 Bern, Lindenstrasse 5, verheiratet mit Muster Max"],
+        "ISA": ["Muster Anna, w , 15.05.1975, von Bern BE"],
         "FABER": ["Kat. B seit 10.06.1995"],
-        "MOFIS": ["PW, BMW, X3, ZH12345", "MR, Yamaha, R1, ZH6789"],
+        "MOFIS": ["PW, BMW, X3, BE12345", "MR, Yamaha, R1, BE6789"],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
         "Traitement des processus": ["2023 lésé accident", "2022 lésé vol"],
-        "GERES": ["Muster Anna, w , 15.05.1975, de Zurich ZH, domiciliée 8000 Zurich, Lindenstrasse 5, mariée à Muster Max"],
-        "ISA": ["Muster Anna, w, 15 mai 1975, de Zurich ZH"],
-        "FABER" : ["Cat. B depuis le 10 juin 1995"],
-        "MOFIS": ["Voiture de tourisme, BMW, X3, ZH12345", "Moto, Yamaha, R1, ZH6789"],
+        "GERES": ["Muster Anna, w , 15.05.1975, de Berne BE, domiciliée 3000 Berne, Lindenstrasse 5, mariée à Muster Max"],
+        "ISA": ["Muster Anna, w, 15 mai 1975, de Berne BE"],
+        "FABER": ["Cat. B depuis le 10 juin 1995"],
+        "MOFIS": ["Voiture de tourisme, BMW, X3, BE12345", "Moto, Yamaha, R1, BE6789"],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      }
+    },
+    "S003": {
+      "name": {
+        "de": "Dritte Abfrage",
+        "fr": "Troisième résultat"
+      },
+      "de": {
+        "Vorgangsbearbeitung": ["2021 Geschädigt Vandalismus"],
+        "GERES": ["Muster Karl, m , 20.03.1980, von Bern BE, wft. 3010 Bern, Bahnhofstrasse 10, ledig"],
+        "ISA": ["Muster Karl, m , 20.03.1980, von Bern BE"],
+        "FABER": ["Kat. B seit 15.08.2000"],
+        "MOFIS": ["PW, Mercedes, C200, BE23456", "MR, KTM, Duke, BE34567"],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      },
+      "fr": {
+        "Traitement des processus": ["2021 lésé vandalisme"],
+        "GERES": ["Muster Karl, m , 20.03.1980, de Berne BE, domiciliée 3010 Bern, Bahnhofstrasse 10, célibataire"],
+        "ISA": ["Muster Karl, m, 20 mars 1980, de Berne BE"],
+        "FABER": ["Cat. B depuis le 15 août 2000"],
+        "MOFIS": ["Voiture de tourisme, Mercedes, C200, BE23456", "Moto, KTM, Duke, BE34567"],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      }
+    },
+    "S004": {
+      "name": {
+        "de": "Vierte Abfrage",
+        "fr": "Quatrième résultat"
+      },
+      "de": {
+        "Vorgangsbearbeitung": ["2020 Geschädigt Sachbeschädigung"],
+        "GERES": ["Muster Lisa, w , 12.12.1990, von Bern BE, wft. 3020 Bern, Gartenweg 3, verheiratet mit Muster Tom"],
+        "ISA": ["Muster Lisa, w , 12.12.1990, von Bern BE"],
+        "FABER": ["Kat. B seit 20.05.2010"],
+        "MOFIS": ["PW, VW, Golf, BE45678", "MR, Suzuki, GSX-R, BE56789"],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      },
+      "fr": {
+        "Traitement des processus": ["2020 lésé dommages à la propriété"],
+        "GERES": ["Muster Lisa, w , 12.12.1990, de Berne BE, domiciliée 3020 Bern, Gartenweg 3, mariée à Muster Tom"],
+        "ISA": ["Muster Lisa, w, 12 décembre 1990, de Berne BE"],
+        "FABER": ["Cat. B depuis le 20 mai 2010"],
+        "MOFIS": ["Voiture de tourisme, VW, Golf, BE45678", "Moto, Suzuki, GSX-R, BE56789"],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      }
+    },
+    "S005": {
+      "name": {
+        "de": "Fünfte Abfrage",
+        "fr": "Cinquième résultat"
+      },
+      "de": {
+        "Vorgangsbearbeitung": ["2019 Geschädigt Diebstahl"],
+        "GERES": ["Muster Hans, m , 05.07.1985, von Bern BE, wft. 3030 Bern, Blumenstrasse 7, ledig"],
+        "ISA": ["Muster Hans, m , 05.07.1985, von Bern BE"],
+        "FABER": ["Kat. B seit 10.09.2005"],
+        "MOFIS": ["PW, Audi, A4, BE67890", "MR, Honda, CBR600, BE78901"],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      },
+      "fr": {
+        "Traitement des processus": ["2019 lésé vol"],
+        "GERES": ["Muster Hans, m , 05.07.1985, de Berne BE, domiciliée 3030 Bern, Blumenstrasse 7, célibataire"],
+        "ISA": ["Muster Hans, m, 5 juillet 1985, de Berne BE"],
+        "FABER": ["Cat. B depuis le 10 septembre 2005"],
+        "MOFIS": ["Voiture de tourisme, Audi, A4, BE67890", "Moto, Honda, CBR600, BE78901"],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
