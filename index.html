@@ -12,15 +12,15 @@
     <div id="text"></div>
   </main>
 
+<script src="https://unpkg.com/feather-icons"></script>
 <footer id="footer">
-  <button id="info-btn" class="icon-btn" aria-label="Information">
-    <span class="icon info-icon"></span>
-  </button>
-
-  <button id="settings-btn" class="icon-btn" aria-label="Einstellungen">
-    <span class="icon gear-icon"></span>
-  </button>
+  <button id="info-btn" class="icon-btn" aria-label="Information" data-feather="info"></button>
+  <button id="settings-btn" class="icon-btn" aria-label="Einstellungen" data-feather="settings"></button>
 </footer>
+
+<script>
+  feather.replace(); // Icons rendern
+</script>
 
   <div id="settings-menu">
   <button data-lang="de">Deutsch</button>
