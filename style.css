@@ -76,25 +76,26 @@ li {
 
 #footer {
   position: fixed;
-  bottom: 15px; /* Schiebt die ganze Box ein Stück höher */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 380px; 
+  bottom: 0; 
+  left: 0;
+  width: 100%;
+  max-width: none;
+  transform: none;
   
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   
-  /* Padding: oben 10px, links/rechts 0, unten 10px */
-  padding: 10px 0; 
   
-  border-radius: 18px;
+  padding-top: 10px;
+  padding-bottom: env(safe-area-inset-bottom); 
+  
+  border-top: 1px solid rgba(0,0,0,0.08);
   display: flex;
-  justify-content: space-evenly; 
+  justify-content: space-evenly;
   align-items: center;
   z-index: 100;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.05); 
+  box-shadow: none;
 }
 
 #settings-btn {
