@@ -192,3 +192,80 @@ li {
   to { transform: translateY(0); opacity: 1; }
 }
 
+#info-modal {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Die Inhalts-Box */
+#info-content {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    text-align: left; /* Garantiert Linksbündigkeit */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Überschriften & Text */
+.info-header {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #000;
+    text-align: left;
+}
+
+.info-text, .info-subheader {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #3a3a3c;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+/* Liste korrigiert */
+.info-list {
+    margin: 0 0 20px 0;
+    padding-left: 1.2rem;
+    text-align: left;
+}
+
+.info-list li {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #3a3a3c;
+}
+
+/* Warn-Bereich */
+.info-warning {
+    background-color: #fef9e7;
+    border-left: 4px solid #ffcc00;
+    padding: 12px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Der OK-Button im iOS-Style */
+#info-close-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#info-close-btn:active {
+    background-color: #0056b3;
+}
