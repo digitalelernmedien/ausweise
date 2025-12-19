@@ -75,32 +75,33 @@ li {
 
 
 #footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  max-width: none;
-  transform: none;
-  
-  /* Hintergrund weiß, damit er den grauen Spalt überdeckt */
-  background: #ffffff;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  
-  /* Optik: Nur oben abgerundet */
-  border-top: 1px solid rgba(0,0,0,0.1);
-  border-radius: 20px 20px 0 0;
-  
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  z-index: 100;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Muss 100% sein, um den Spalt zu schliessen */
+    background: #ffffff; /* Feste Farbe deckt das Grau ab */
+    
+    /* WICHTIG: Hier füllen wir den Bereich hinter der URL-Leiste */
+    padding-bottom: env(safe-area-inset-bottom); 
+    
+    display: flex;
+    justify-content: center; /* Zentriert die Icons */
+    align-items: center;
+    gap: 40px; /* Abstand zwischen den Icons */
+    
+    height: 60px; /* Feste Höhe für einheitliche Optik */
+    z-index: 100;
+    border-top: 1px solid #e5e5e5;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
 
-  /* JETZT DER TRICK FÜR DEN ABSTAND: */
-  padding-top: 12px;
-  /* Wir nutzen ein padding-bottom, das die Icons hochschiebt, 
-     aber der weiße Hintergrund bleibt bis ganz unten stehen */
-  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+/* Falls du willst, dass es trotzdem "schwebend" aussieht, 
+   machen wir einen Trick mit dem inneren Bereich */
+.icon-btn {
+    padding: 10px;
+    color: #007AFF;
+    background: none;
+    border: none;
 }
 
 #settings-btn {
