@@ -1,6 +1,7 @@
 {
   "zuordnung": {
-    "K001": "S001"
+    "K001": "S001",
+    "K002": "S002"
   },
   "steckbriefe": {
     "S001": {
@@ -24,6 +25,32 @@
         "ISA": ["Muster Peter, m, 10 octobre 1950, de Berne BE"],
         "FABER" : ["Cat. B depuis le 22 novembre 1970"],
         "MOFIS": ["Voiture de tourisme, Audi, A3, BE555666", "Moto, Aprilia, RSV4, BE4585 "],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      }
+    },
+    "S002": {
+      "name": {
+        "de": "Abfrageergebnis",
+        "fr": "Résultat de la requête"
+      },
+      "de": {
+        "Vorgangsbearbeitung": ["2023 Geschädigt Unfall", "2022 Geschädigt Diebstahl"],
+        "GERES": ["Muster Anna, w , 15.05.1975, von Zürich ZH, wft. 8000 Zürich, Lindenstrasse 5, verheiratet mit Muster Max"],
+        "ISA": ["Muster Anna, w , 15.05.1975, von Zürich ZH"],
+        "FABER": ["Kat. B seit 10.06.1995"],
+        "MOFIS": ["PW, BMW, X3, ZH12345", "MR, Yamaha, R1, ZH6789"],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": []
+      },
+      "fr": {
+        "Traitement des processus": ["2023 lésé accident", "2022 lésé vol"],
+        "GERES": ["Muster Anna, w , 15.05.1975, de Zurich ZH, domiciliée 8000 Zurich, Lindenstrasse 5, mariée à Muster Max"],
+        "ISA": ["Muster Anna, w, 15 mai 1975, de Zurich ZH"],
+        "FABER" : ["Cat. B depuis le 10 juin 1995"],
+        "MOFIS": ["Voiture de tourisme, BMW, X3, ZH12345", "Moto, Yamaha, R1, ZH6789"],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
