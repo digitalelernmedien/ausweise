@@ -14,18 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
   let dataGlobal = null;
 
   // Footer-Button klick
-  settingsBtn.addEventListener("click", () => {
-    settingsMenu.style.display = settingsMenu.style.display === "flex" ? "none" : "flex";
-  });
+ settingsBtn.addEventListener("click", () => {
+  settingsMenu.style.display = "flex";
+  document.getElementById("backdrop").style.display = "block";
+});
 
   // Sprachumschaltung
-  settingsMenu.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      lang = btn.dataset.lang;
-      render();
-      settingsMenu.style.display = "none";
-    });
+settingsMenu.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    lang = btn.dataset.lang;
+    render();
+    settingsMenu.style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
   });
+});
+
+  document.getElementById("backdrop").addEventListener("click", () => {
+  settingsMenu.style.display = "none";
+  document.getElementById("backdrop").style.display = "none";
+});
+
 
   // Render-Funktion
   function render() {
