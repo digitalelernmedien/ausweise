@@ -57,8 +57,32 @@
 </div>
   
 <div id="backdrop"></div>
-  
+<script>
+  // Elemente auswählen
+  const infoBtn = document.getElementById("info-btn");
+  const infoModal = document.getElementById("info-modal");
+  const closeBtn = document.getElementById("info-close-btn");
+
+  // Öffnen bei Klick auf den Info-Button
+  infoBtn.addEventListener("click", () => {
+    infoModal.style.display = "flex";
+  });
+
+  // Schließen bei Klick auf den OK-Button
+  closeBtn.addEventListener("click", () => {
+    infoModal.style.display = "none";
+  });
+
+  // Schließen, wenn man irgendwo außerhalb der Box hinklickt
+  window.addEventListener("click", (event) => {
+    if (event.target === infoModal) {
+      infoModal.style.display = "none";
+    }
+  });
+</script>  
 <script src="app.js"></script>
+
+  
   
 </body>
 </html>
