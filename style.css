@@ -22,7 +22,8 @@ main {
 h1 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  text-align: center;
+  text-align: left;
+  padding-left: 0.4rem;
 }
 
 h3 {
