@@ -28,8 +28,11 @@
     "K002": "S002",
     "K003": "S003",
     "K004": "S004",
-    "K005": "S005"
+    "K005": "S005",
+    "K006": "S006",
+    "K007": "S007"
   },
+  
   "steckbriefe": {
     "S001": {
       "de": {
@@ -44,7 +47,7 @@
       },
       "fr": {
         "Traitement des processus": ["2025 lésé VPE", "2024 lésé dommages à la propriété"],
-        "GERES": ["Meier Thomas, m, 12.03.1980, de Berne BE"],
+        "GERES": ["Meier Thomas, m, 12.03.1980, de Berne BE, domicilié 3000 Berne, Rue principale 10"],
         "ISA": ["Meier Thomas, m, 12.03.1980"],
         "FABER": ["Cat. B depuis le 15.05.2000"],
         "MOFIS": ["Voiture, Audi, A3, BE555666"],
@@ -104,17 +107,17 @@
         "ISA": [],
         "FABER": ["Kat. B seit 20.05.2010"],
         "MOFIS": ["PW, VW, Golf, BE45678"],
-        "ZEMIS": ["Amina Diallo, w, 30.06.1990, von Dakar, Senegal, Aufenthaltstitel C"],
+        "ZEMIS": ["Amina Diallo, w, 30.06.1990, von Dakar, Senegal, Niederlassungsbewilligung (Ausweis C)"],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
         "Traitement des processus": ["2020 lésé dommages à la propriété"],
         "GERES": ["Amina Diallo, w, 30.06.1990, de Dakar, Sénégal, domiciliée 3600 Thun, Allmendstrasse 18"],
-        "ISA": ["Muster Lisa, w, 12 décembre 1990"],
-        "FABER": ["Cat. B depuis le 20 mai 2010"],
-        "MOFIS": ["Voiture, VW, Golf, BE45678", "Moto, Suzuki, GSX-R, BE56789"],
-        "ZEMIS": [],
+        "ISA": [],
+        "FABER": ["Cat. B depuis le 20.05.2010"],
+        "MOFIS": ["Voiture, VW, Golf, BE45678"],
+        "ZEMIS": ["Amina Diallo, w, 30.06.1990, de Dakar, Sénégal, Autorisation d’établissement (permis C)"],
         "Hoogan": [],
         "RIPOL": []
       }
@@ -122,23 +125,67 @@
     "S005": {
       "de": {
         "Vorgangsbearbeitung": ["2019 Geschädigt Diebstahl"],
-        "GERES": ["Muster Hans, m, 05.07.1985, von Bern BE, ledig"],
-        "ISA": ["Muster Hans, m, 05.07.1985"],
-        "FABER": ["Kat. B seit 10.09.2005"],
-        "MOFIS": ["PW, Audi, A4, BE67890", "MR, Honda, CBR600, BE78901"],
+        "GERES": ["Jenni Ramon, m, 01.08.2000, von Bern BE, ledig, wft. 4900 Langenthal, Murgenthalstrasse 41"],
+        "ISA": ["Jenni Ramon, m, 01.08.2000"],
+        "FABER": ["Kat. B seit 10.09.2019"],
+        "MOFIS": ["PW, Audi, A4, BE67890"],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
         "Traitement des processus": ["2019 lésé vol"],
-        "GERES": ["Muster Hans, m, 05.07.1985, de Berne BE, célibataire"],
-        "ISA": ["Muster Hans, m, 5 juillet 1985"],
-        "FABER": ["Cat. B depuis le 10 septembre 2005"],
-        "MOFIS": ["Voiture, Audi, A4, BE67890", "Moto, Honda, CBR600, BE78901"],
+        "GERES": ["Jenni Ramon, m, 01.08.2000, de Berne BE, célibataire, domicilié 4900 Langenthal, Murgenthalstrasse 41"],
+        "ISA": ["Jenni Ramon, m, 01.08.2000"],
+        "FABER": ["Cat. B depuis le 10.09.2019"],
+        "MOFIS": ["Voiture, Audi, A4, BE67890"],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
+      }
+    },
+    "S006": {
+      "de": {
+        "Vorgangsbearbeitung": ["2024 Beschuldigt Konsum BM", "2025 Beschuldigt Konsum BM"],
+        "GERES": ["Ramseier Joel, m, 05.07.1985, von Bern BE, ledig, ohne festen Wohnsitz"],
+        "ISA": ["Ramseier Joel, m, 05.07.1985"],
+        "FABER": ["Entzug auf unbestimmte Zeit, seit 10.09.2021"],
+        "MOFIS": [],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": ["2025 Aufenthaltsnachforschung"]
+      },
+      "fr": {
+        "Traitement des processus": ["2024 consommation de stupéfiants", "2025 consommation de stupéfiants"],
+        "GERES": ["Ramseier Joel, m, 05.07.1985, de Berne BE, célibataire, sans adresse permanente"],
+        "ISA": ["Ramseier Joel, m, 05.07.1985"],
+        "FABER": ["Retrait de durée indéterminée, depuis le 10.09.2021"],
+        "MOFIS": [],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": ["2025 Recherche du lieu de séjour"]
+      }
+    },
+    "S007": {
+      "de": {
+        "Vorgangsbearbeitung": [],
+        "GERES": ["Ivan Petrov, m, 14.02.1978, von Moskau, Russland, ledig, wft. 2520 La Neuveville, Place du Marché 3"],
+        "ISA": [],
+        "FABER": [],
+        "MOFIS": [],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": ["2025 zur Verhaftung ausgeschrieben"]
+      },
+      "fr": {
+        "Traitement des processus": [],
+        "GERES": ["Ivan Petrov, m, 14.02.1978, de Moscou, Russie, célibataire, domicilié 2520 La Neuveville, Place du Marché 3"],
+        "ISA": [],
+        "FABER": [],
+        "MOFIS": [],
+        "ZEMIS": [],
+        "Hoogan": [],
+        "RIPOL": ["2025 Recherché pour arrestation"]
       }
     }
   }
