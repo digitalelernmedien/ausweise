@@ -41,7 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
       card.style.marginBottom = "1rem";
 
       const h3 = document.createElement("h3");
-      h3.innerText = id;
+
+      const ausweisText = document.createElement("span");
+      ausweisText.innerText = `Ausweis ${id}`;
+
+      h3.appendChild(ausweisText);
       card.appendChild(h3);
 
       const sections = steckbrief[lang];
