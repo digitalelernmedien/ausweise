@@ -278,16 +278,19 @@ li {
     margin: 0.5rem 0;
     width: 100%;
     box-sizing: border-box;
+    page-break-inside: avoid;
   }
 
   /* Obere Trennlinie für die erste Karte */
   #content > div:first-child {
     border-top: 1px solid #ccc;
+    margin-top: 0.3rem;
   }
 
   /* Überschriften nicht umbrechen */
   h1, h3 {
     page-break-inside: avoid;
+    margin-top: 0.2rem;
   }
 
   /* Absätze und Listen kompakt */
