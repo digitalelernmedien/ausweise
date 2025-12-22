@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Datenübersicht</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main id="main-content">
+    <h1 id="title">Datenübersicht</h1>
+    <div id="content"></div>
+  </main>
+
+  <footer id="footer">
+    <button id="speech-btn" class="icon-btn" aria-label="Sprache" data-feather="globe"></button>
+  </footer>
+
+  <div id="settings-menu">
+    <button data-lang="de">Deutsch</button>
+    <button data-lang="fr">Französisch</button>
+  </div>
+
+  <div id="backdrop"></div>
+
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="readonly.js"></script>
+  <script>feather.replace();</script>
+</body>
+</html>
