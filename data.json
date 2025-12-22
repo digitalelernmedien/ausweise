@@ -85,7 +85,7 @@
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": ["Omar El-Sayed, m, 12.12.1987, von Kairo, Ägypten, Aufenthaltstitel F"],
+        "ZEMIS": ["El-Sayed Omar, m, 12.12.1987, von Kairo, Ägypten, Aufenthaltstitel F"],
         "Hoogan": [],
         "RIPOL": []
       },
@@ -95,7 +95,7 @@
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": ["Omar El-Sayed, m, 12.12.1987, de Le Caire, Égypte, Livret F"],
+        "ZEMIS": ["El-Sayed Omar, m, 12.12.1987, de Le Caire, Égypte, Livret F"],
         "Hoogan": [],
         "RIPOL": []
       }
@@ -103,21 +103,21 @@
     "S004": {
       "de": {
         "Vorgangsbearbeitung": ["2020 Geschädigt Sachbeschädigung"],
-        "GERES": ["Amina Diallo, w, 30.06.1990, von Dakar, Senegal, wft. 3600 Thun, Allmendstrasse 18"],
+        "GERES": ["Diallo Amina, w, 30.06.1990, von Dakar, Senegal, wft. 3600 Thun, Allmendstrasse 18"],
         "ISA": [],
         "FABER": ["Kat. B seit 20.05.2010"],
         "MOFIS": ["PW, VW, Golf, BE45678"],
-        "ZEMIS": ["Amina Diallo, w, 30.06.1990, von Dakar, Senegal, Niederlassungsbewilligung (Ausweis C)"],
+        "ZEMIS": ["Diallo Amina, w, 30.06.1990, von Dakar, Senegal, Niederlassungsbewilligung (Ausweis C)"],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
         "Traitement des processus": ["2020 lésé dommages à la propriété"],
-        "GERES": ["Amina Diallo, w, 30.06.1990, de Dakar, Sénégal, domiciliée 3600 Thun, Allmendstrasse 18"],
+        "GERES": ["Diallo Amina, w, 30.06.1990, de Dakar, Sénégal, domiciliée 3600 Thun, Allmendstrasse 18"],
         "ISA": [],
         "FABER": ["Cat. B depuis le 20.05.2010"],
         "MOFIS": ["Voiture, VW, Golf, BE45678"],
-        "ZEMIS": ["Amina Diallo, w, 30.06.1990, de Dakar, Sénégal, Autorisation d’établissement (permis C)"],
+        "ZEMIS": ["Diallo Amina, w, 30.06.1990, de Dakar, Sénégal, Autorisation d’établissement (permis C)"],
         "Hoogan": [],
         "RIPOL": []
       }
@@ -169,7 +169,7 @@
     "S007": {
       "de": {
         "Vorgangsbearbeitung": [],
-        "GERES": ["Ivan Petrov, m, 14.02.1978, von Moskau, Russland, ledig, wft. 2520 La Neuveville, Place du Marché 3"],
+        "GERES": ["Petrov Ivan, m, 14.02.1978, von Moskau, Russland, ledig, wft. 2520 La Neuveville, Place du Marché 3"],
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
@@ -179,7 +179,7 @@
       },
       "fr": {
         "Traitement des processus": [],
-        "GERES": ["Ivan Petrov, m, 14.02.1978, de Moscou, Russie, célibataire, domicilié 2520 La Neuveville, Place du Marché 3"],
+        "GERES": ["Petrov Ivan, m, 14.02.1978, de Moscou, Russie, célibataire, domicilié 2520 La Neuveville, Place du Marché 3"],
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
