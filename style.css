@@ -247,3 +247,35 @@ li {
 #info-close-btn:hover {
   opacity: 0.8;
 }
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  header, #footer, #settings-menu, #backdrop, #info-modal {
+    display: none; /* Alles ausblenden, was nicht gedruckt werden soll */
+  }
+
+  main, #content {
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  h1, h3 {
+    page-break-inside: avoid; /* Überschriften nicht umbrechen */
+  }
+
+  p {
+    margin: 0 0 0.5rem 0;
+  }
+
+  ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
