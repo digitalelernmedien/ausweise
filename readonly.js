@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.style.marginBottom = "1rem";
 
       const h3 = document.createElement("h3");
-      h3.innerText = `${id} — ${steckbrief.name ? steckbrief.name[lang] : ""}`;
+      h3.innerText = id;
       card.appendChild(h3);
 
       const sections = steckbrief[lang];
