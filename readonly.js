@@ -41,15 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
       card.style.marginBottom = "1rem";
 
       const h3 = document.createElement("h3");
-      h3.innerText = `${id}`;
+      h3.innerText = `${id} — ${steckbrief.name ? steckbrief.name[lang] : ""}`;
       card.appendChild(h3);
 
       const sections = steckbrief[lang];
       Object.entries(sections).forEach(([key, items]) => {
-        const p = document.createElement("p");
-        p.style.margin = "0.2rem 0 0.2rem 1rem";
-        p.innerHTML = `<strong>${key}:</strong> ${items.length}`;
-        card.appendChild(p);
+        if (items.length > 0) { // nur anzeigen, wenn mindestens ein Eintrag
+          const p = document.createElement("p");
+          p.style.margin = "0.2rem 0 0.2rem 1rem";
+          p.innerHTML = `<strong>${key}:</strong> ${items.join(", ")}`;
+          card.appendChild(p);
+        }
       });
 
       contentEl.appendChild(card);
