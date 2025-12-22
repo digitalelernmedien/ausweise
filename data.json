@@ -34,9 +34,9 @@
     "S001": {
       "de": {
         "Vorgangsbearbeitung": ["2025 Geschädigt EBD", "2024 Geschädigt Sachbeschädigung"],
-        "GERES": ["Muster Peter, m, 10.10.1950, von Bern BE"],
-        "ISA": ["Muster Peter, m, 10.10.1950"],
-        "FABER": ["Kat. B seit 22.11.1970"],
+        "GERES": ["Meier Thomas, m, 12.03.1980, von Bern BE, wft. 3000 Bern, Hauptstrasse 10"],
+        "ISA": ["Meier Thomas, m, 12.03.1980"],
+        "FABER": ["Kat. B seit 15.05.2000"],
         "MOFIS": ["PW, Audi, A3, BE555666"],
         "ZEMIS": [],
         "Hoogan": [],
@@ -44,9 +44,9 @@
       },
       "fr": {
         "Traitement des processus": ["2025 lésé VPE", "2024 lésé dommages à la propriété"],
-        "GERES": ["Muster Peter, m, 10.10.1950, de Berne BE"],
-        "ISA": ["Muster Peter, m, 10 octobre 1950"],
-        "FABER": ["Cat. B depuis le 22 novembre 1970"],
+        "GERES": ["Meier Thomas, m, 12.03.1980, de Berne BE"],
+        "ISA": ["Meier Thomas, m, 12.03.1980"],
+        "FABER": ["Cat. B depuis le 15.05.2000"],
         "MOFIS": ["Voiture, Audi, A3, BE555666"],
         "ZEMIS": [],
         "Hoogan": [],
@@ -56,9 +56,9 @@
     "S002": {
       "de": {
         "Vorgangsbearbeitung": ["2023 Geschädigt Unfall", "2022 Geschädigt Diebstahl"],
-        "GERES": ["Muster Anna, w, 15.05.1975, von Bern BE, wft. 3000 Bern, Lindenstrasse 5, verheiratet mit Muster Max"],
-        "ISA": ["Muster Anna, w, 15.05.1975, von Bern BE"],
-        "FABER": ["Kat. B seit 10.06.1995"],
+        "GERES": ["Schmid Anna, w, 23.08.1992, von Bern BE, wft. 3000 Bern, Lindenstrasse 5, verheiratet mit Schmid Lukas"],
+        "ISA": ["Schmid Anna, w, 23.08.1992, von Bern BE"],
+        "FABER": ["Kat. B seit 10.09.2012"],
         "MOFIS": ["PW, BMW, X3, BE12345", "MR, Yamaha, R1, BE6789"],
         "ZEMIS": [],
         "Hoogan": [],
@@ -66,9 +66,9 @@
       },
       "fr": {
         "Traitement des processus": ["2023 lésé accident", "2022 lésé vol"],
-        "GERES": ["Muster Anna, w, 15.05.1975, de Berne BE, domiciliée 3000 Berne, Lindenstrasse 5, mariée à Muster Max"],
-        "ISA": ["Muster Anna, w, 15 mai 1975, de Berne BE"],
-        "FABER": ["Cat. B depuis le 10 juin 1995"],
+        "GERES": ["Schmid Anna, w, 23.08.1992, de Berne BE, domiciliée 3000 Berne, Lindenstrasse 5, mariée à Schmid Lukas"],
+        "ISA": ["Schmid Anna, w, 23.08.1992, de Berne BE"],
+        "FABER": ["Cat. B depuis le 10.09.2012"],
         "MOFIS": ["Voiture de tourisme, BMW, X3, BE12345", "Moto, Yamaha, R1, BE6789"],
         "ZEMIS": [],
         "Hoogan": [],
@@ -82,7 +82,7 @@
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": ["Ali Mubarak, m, 01.01.2000, von Tunesien, Aufenthaltstitel F"],
+        "ZEMIS": ["Omar El-Sayed, m, 12.12.1987, von Kairo, Ägypten, Aufenthaltstitel F"],
         "Hoogan": [],
         "RIPOL": []
       },
@@ -92,7 +92,7 @@
         "ISA": [],
         "FABER": [],
         "MOFIS": [],
-        "ZEMIS": ["Ali Mubarak, m, 01.01.2000, de Tunisie, Livret F"],
+        "ZEMIS": ["Omar El-Sayed, m, 12.12.1987, de Le Caire, Égypte, Livret F"],
         "Hoogan": [],
         "RIPOL": []
       }
@@ -100,17 +100,17 @@
     "S004": {
       "de": {
         "Vorgangsbearbeitung": ["2020 Geschädigt Sachbeschädigung"],
-        "GERES": ["Muster Lisa, w, 12.12.1990, von Bern BE, wft. 3020 Bern"],
-        "ISA": ["Muster Lisa, w, 12.12.1990"],
+        "GERES": ["Amina Diallo, w, 30.06.1990, von Dakar, Senegal, wft. 3600 Thun, Allmendstrasse 18"],
+        "ISA": [],
         "FABER": ["Kat. B seit 20.05.2010"],
-        "MOFIS": ["PW, VW, Golf, BE45678", "MR, Suzuki, GSX-R, BE56789"],
-        "ZEMIS": [],
+        "MOFIS": ["PW, VW, Golf, BE45678"],
+        "ZEMIS": ["Amina Diallo, w, 30.06.1990, von Dakar, Senegal, Aufenthaltstitel C"],
         "Hoogan": [],
         "RIPOL": []
       },
       "fr": {
         "Traitement des processus": ["2020 lésé dommages à la propriété"],
-        "GERES": ["Muster Lisa, w, 12.12.1990, de Berne BE"],
+        "GERES": ["Amina Diallo, w, 30.06.1990, de Dakar, Sénégal, domiciliée 3600 Thun, Allmendstrasse 18"],
         "ISA": ["Muster Lisa, w, 12 décembre 1990"],
         "FABER": ["Cat. B depuis le 20 mai 2010"],
         "MOFIS": ["Voiture, VW, Golf, BE45678", "Moto, Suzuki, GSX-R, BE56789"],
