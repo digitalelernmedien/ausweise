@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const speechBtn = document.getElementById("speech-btn");
   const settingsMenu = document.getElementById("settings-menu");
   const backdrop = document.getElementById("backdrop");
+  const printBtn = document.getElementById("print-btn");
 
   let lang = "de";
   let dataGlobal = null;
@@ -14,6 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     backdrop.style.display = "block";
   });
 
+  // Drucken
+  printBtn.addEventListener("click", () => {
+  window.print(); // Öffnet den Druckdialog
+  });
+  
   settingsMenu.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
       lang = btn.dataset.lang;
