@@ -278,19 +278,27 @@ li {
     margin: 0.5rem 0;
     width: 100%;
     box-sizing: border-box;
-    page-break-inside: avoid;
+    page-break-inside: avoid; /* verhindert Umbruch innerhalb einer Karte */
+  }
+
+  /* Letzte Karte explizit überschreiben */
+  #content > div:last-child {
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 
   /* Obere Trennlinie für die erste Karte */
   #content > div:first-child {
     border-top: 1px solid #ccc;
     margin-top: 0.3rem;
+    padding-top: 0.3rem;
   }
 
-  /* Überschriften nicht umbrechen */
+  /* Überschriften nicht umbrechen, Abstand verkleinern */
   h1, h3 {
     page-break-inside: avoid;
     margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
   }
 
   /* Absätze und Listen kompakt */
