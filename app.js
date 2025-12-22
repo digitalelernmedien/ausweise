@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lang = navigator.language.startsWith("fr") ? "fr" : "de";
 
+  const pageTitles = {
+  de: "Abfrageergebnis",
+  fr: "Résultat de la requête"
+  };
+
   // Karte aus URL-Parameter
   const params = new URLSearchParams(window.location.search);
   const karte = params.get("karte") || "K001";
@@ -60,6 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- RENDER FUNKTION ---
   function render() {
     if (!dataGlobal) return;
+
+    titleEl.innerText = pageTitles[lang];
+
 
     // --- 1. MODAL-TEXTE AKTUALISIEREN ---
     const infoData = dataGlobal.info_text ? dataGlobal.info_text[lang] : null;
@@ -114,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    titleEl.innerText = steckbrief.name[lang];
+    //titleEl.innerText = steckbrief.name[lang];
     textEl.innerHTML = "";
 
     Object.keys(sections).forEach(key => {
