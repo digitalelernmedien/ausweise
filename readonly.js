@@ -41,12 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
       card.style.marginBottom = "1rem";
 
       const h3 = document.createElement("h3");
+      h3.style.cursor = "pointer";
 
       const ausweisText = document.createElement("span");
       ausweisText.innerText = `Ausweis ${id}`;
 
       h3.appendChild(ausweisText);
       card.appendChild(h3);
+
+      // Alle Sektionen für diese Karte sammeln
+      const sectionsDivs = [];
 
       const sections = steckbrief[lang];
       Object.entries(sections).forEach(([key, items]) => {
@@ -55,7 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
           p.style.margin = "0.2rem 0 0.2rem 1rem";
           p.innerHTML = `<strong>${key}:</strong> ${items.join(", ")}`;
           card.appendChild(p);
+          sectionsDivs.push(p);
         }
+      });
+
+      // Klick auf die Überschrift klappt die Karte ein/aus
+      h3.addEventListener("click", () => {
+        sectionsDivs.forEach(p => {
+          p.style.display = p.style.display === "none" ? "block" : "none";
+        });
       });
 
       contentEl.appendChild(card);
