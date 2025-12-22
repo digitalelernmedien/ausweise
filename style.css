@@ -252,30 +252,28 @@ li {
   body {
     background: white;
     color: black;
+    font-size: 12pt;
   }
 
   header, #footer, #settings-menu, #backdrop, #info-modal {
     display: none; /* Alles ausblenden, was nicht gedruckt werden soll */
   }
 
-  main, #content {
-    max-width: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
+    #content div {
+    page-break-inside: avoid; /* Kein Seitenumbruch mitten im Ausweis */
+    border: 1px solid #000;   /* Trennlinie */
+    padding: 1rem;            /* Abstand innerhalb der Karte */
+    margin-bottom: 1.5rem;    /* Abstand zwischen den Ausweisen */
+    border-radius: 8px;       /* optional für optische Abrundung */
   }
 
-  h1, h3 {
-    page-break-inside: avoid; /* Überschriften nicht umbrechen */
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
   }
 
   p {
-    margin: 0 0 0.5rem 0;
-  }
-
-  ul {
-    padding-left: 1.2rem;
-    margin-bottom: 0.5rem;
+    margin: 0.2rem 0;
   }
 }
-
