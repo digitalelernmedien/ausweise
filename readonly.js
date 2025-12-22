@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       h3.style.cursor = "pointer";
 
       const ausweisText = document.createElement("span");
-      ausweisText.innerText = `Ausweis ${id}`;
+      ausweisText.innerText = lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
 
       h3.appendChild(ausweisText);
       card.appendChild(h3);
