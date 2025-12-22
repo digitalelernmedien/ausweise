@@ -249,43 +249,48 @@ li {
 }
 
 @media print {
+  /* Grundlegende Druck-Einstellungen */
   body {
     background: white;
     color: black;
+    font-size: 12pt;
   }
 
+  /* Alles ausblenden, was nicht gedruckt werden soll */
   header, #footer, #settings-menu, #backdrop, #info-modal {
-    display: none; /* Alles ausblenden, was nicht gedruckt werden soll */
+    display: none !important;
   }
 
+  /* Main- und Content-Bereich auf volle Breite */
   main, #content {
-    max-width: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-
-  #content div {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
+  /* Alle Karten */
+  #content > div {
     border-radius: 0 !important;
     box-shadow: none !important;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  #content div:first-child {
+  /* Obere Trennlinie für die erste Karte */
+  #content > div:first-child {
     border-top: 1px solid #ccc;
-    padding-top: 0.5rem;
-    margin-top: 0.5rem;
   }
 
+  /* Überschriften nicht umbrechen */
   h1, h3 {
-    page-break-inside: avoid; /* Überschriften nicht umbrechen */
+    page-break-inside: avoid;
   }
 
+  /* Absätze und Listen kompakt */
   p {
     margin: 0 0 0.5rem 0;
   }
