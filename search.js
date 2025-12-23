@@ -1,4 +1,5 @@
 let dataGlobal = null;
+let currentLang = "de"; // Standard-Sprache
 
 /* ---------------------------
    Geburtsdatum normalisieren
@@ -28,7 +29,10 @@ function normalizeDob(input) {
 ---------------------------- */
 fetch("data.json")
   .then(res => res.json())
-  .then(data => dataGlobal = data);
+  .then(data => {
+    dataGlobal = data;
+    updateLanguage(currentLang); // Initial Labels setzen
+  });
 
 /* ---------------------------
    Suche
@@ -44,18 +48,22 @@ document.getElementById("search-form").addEventListener("submit", e => {
   errorEl.innerText = "";
 
   if (!dataGlobal) {
-    errorEl.innerText = "Daten nicht geladen";
+    errorEl.innerText = currentLang === "de" ? "Daten nicht geladen" : "Données non chargées";
     return;
   }
 
   if (!lastname || !dobInput) {
-    errorEl.innerText = "Nachname und Geburtsdatum sind erforderlich";
+    errorEl.innerText = currentLang === "de" 
+      ? "Nachname und Geburtsdatum sind erforderlich" 
+      : "Nom de famille et date de naissance requis";
     return;
   }
 
   const normalizedDob = normalizeDob(dobInput);
   if (!normalizedDob) {
-    errorEl.innerText = "Ungültiges Geburtsdatum (z.B. 12.03.1980 oder 12031980)";
+    errorEl.innerText = currentLang === "de"
+      ? "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)"
+      : "Date de naissance invalide (ex: 12.03.1980 ou 12031980)";
     return;
   }
 
@@ -77,7 +85,6 @@ document.getElementById("search-form").addEventListener("submit", e => {
           const hasDob = entry.includes(normalizedDob);
 
           if (hasLastname && hasDob && hasFirstname) {
-            // Treffer → weiterleiten
             window.location.href = `index.html?karte=${karteId}`;
             return;
           }
@@ -86,7 +93,7 @@ document.getElementById("search-form").addEventListener("submit", e => {
     }
   }
 
-  errorEl.innerText = "Kein Treffer gefunden";
+  errorEl.innerText = currentLang === "de" ? "Kein Treffer gefunden" : "Aucun résultat trouvé";
 });
 
 /* ---------------------------
@@ -103,7 +110,22 @@ document.addEventListener("DOMContentLoaded", () => {
   if (infoBtn) {
     infoBtn.addEventListener("click", () => {
       const infoModal = document.getElementById("info-modal");
-      if (infoModal) infoModal.style.display = "flex";
+      if (infoModal && dataGlobal) {
+        const infoText = dataGlobal.info_text[currentLang];
+        document.getElementById("modal-title").innerHTML = infoText.title;
+        document.getElementById("modal-body").innerHTML = infoText.body;
+        document.getElementById("modal-functions-title").innerHTML = infoText.functions_title;
+        const ul = document.getElementById("modal-functions-list");
+        ul.innerHTML = "";
+        infoText.functions.forEach(fn => {
+          const li = document.createElement("li");
+          li.innerHTML = fn;
+          ul.appendChild(li);
+        });
+        document.getElementById("modal-warning").innerHTML = infoText.warning;
+        document.getElementById("modal-credits").innerHTML = infoText.credits;
+        infoModal.style.display = "flex";
+      }
     });
   }
 
@@ -135,8 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
   settingsMenu.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
       const lang = btn.dataset.lang;
-      // Hier nur als Beispiel: du kannst Sprache speichern oder UI anpassen
-      console.log("Sprache gewählt:", lang);
+      currentLang = lang;
+      updateLanguage(lang);
       settingsMenu.style.display = "none";
       backdrop.style.display = "none";
     });
@@ -152,3 +174,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* ---------------------------
+   Labels / Platzhalter aktualisieren
+---------------------------- */
+function updateLanguage(lang) {
+  const labels = {
+    de: {
+      lastname: "Nachname",
+      firstname: "Vorname (optional)",
+      dob: "Geburtsdatum (DD.MM.YYYY)",
+      dobPlaceholder: "DD.MM.YYYY",
+      submit: "Suchen",
+      errorRequired: "Nachname und Geburtsdatum sind erforderlich",
+      errorInvalidDob: "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)",
+      errorNotFound: "Kein Treffer gefunden"
+    },
+    fr: {
+      lastname: "Nom de famille",
+      firstname: "Prénom (optionnel)",
+      dob: "Date de naissance (JJ.MM.AAAA)",
+      dobPlaceholder: "JJ.MM.AAAA",
+      submit: "Rechercher",
+      errorRequired: "Nom de famille et date de naissance requis",
+      errorInvalidDob: "Date de naissance invalide (ex: 12.03.1980 ou 12031980)",
+      errorNotFound: "Aucun résultat trouvé"
+    }
+  };
+
+  document.querySelector("label[for='lastname']")?.childNodes[0].textContent = labels[lang].lastname;
+  document.querySelector("label[for='firstname']")?.childNodes[0].textContent = labels[lang].firstname;
+  document.querySelector("label[for='dob']")?.childNodes[0].textContent = labels[lang].dob;
+  document.getElementById("dob").placeholder = labels[lang].dobPlaceholder;
+  document.querySelector("#search-form button[type='submit']").textContent = labels[lang].submit;
+}
