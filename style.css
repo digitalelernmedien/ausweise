@@ -255,6 +255,53 @@ li {
   opacity: 0.8;
 }
 
+/* search.html */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+label {
+  font-size: 0.85rem;
+  color: #3a3a3c;
+}
+
+input {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #d1d1d6;
+}
+
+input:focus {
+  outline: none;
+  border-color: #007AFF;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  background: #007AFF;
+  color: white;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #d70015;
+  font-size: 0.9rem;
+}
+
+
 @media print {
   /* Grundlegende Druck-Einstellungen */
   body {
