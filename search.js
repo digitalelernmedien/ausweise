@@ -1,5 +1,4 @@
 let dataGlobal = null;
-let lang = navigator.language.startsWith("fr") ? "fr" : "de";
 
 /* ---------------------------
    Geburtsdatum normalisieren
@@ -49,19 +48,15 @@ document.getElementById("search-form").addEventListener("submit", e => {
     return;
   }
 
-  // Pflichtfelder (Vorname optional)
+  // Pflichtfelder prüfen (Vorname optional)
   if (!lastname || !dobInput) {
-    errorEl.innerText = lang === "fr"
-      ? "Nom et date de naissance requis"
-      : "Nachname und Geburtsdatum sind erforderlich";
+    errorEl.innerText = "Nachname und Geburtsdatum sind erforderlich";
     return;
   }
 
   const normalizedDob = normalizeDob(dobInput);
   if (!normalizedDob) {
-    errorEl.innerText = lang === "fr"
-      ? "Date invalide (ex. 12.03.1980 ou 12031980)"
-      : "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)";
+    errorEl.innerText = "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)";
     return;
   }
 
@@ -69,8 +64,8 @@ document.getElementById("search-form").addEventListener("submit", e => {
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
-    for (const l of ["de", "fr"]) {
-      const sections = steckbrief[l];
+    for (const lang of ["de", "fr"]) {
+      const sections = steckbrief[lang];
       if (!sections) continue;
 
       for (const key of ["GERES", "ISA", "ZEMIS"]) {
@@ -84,6 +79,7 @@ document.getElementById("search-form").addEventListener("submit", e => {
           const hasDob = entry.includes(normalizedDob);
 
           if (hasLastname && hasDob && hasFirstname) {
+            // Treffer → weiterleiten
             window.location.href = `index.html?karte=${karteId}`;
             return;
           }
@@ -92,71 +88,72 @@ document.getElementById("search-form").addEventListener("submit", e => {
     }
   }
 
-  errorEl.innerText = lang === "fr"
-    ? "Aucun résultat trouvé"
-    : "Kein Treffer gefunden";
+  errorEl.innerText = "Kein Treffer gefunden";
 });
 
 /* ---------------------------
-   FOOTER: Reset-Button
+   Footer-Funktionen
    --------------------------- */
-const resetBtn = document.getElementById("reset-btn");
-if (resetBtn) {
-  resetBtn.addEventListener("click", () => {
-    document.getElementById("lastname").value = "";
-    document.getElementById("firstname").value = "";
-    document.getElementById("dob").value = "";
-    document.getElementById("error").innerText = "";
-    document.getElementById("lastname").focus();
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const infoBtn = document.getElementById("info-btn");
+  const speechBtn = document.getElementById("speech-btn");
+  const resetBtn = document.getElementById("reset-btn");
+  const infoModal = document.getElementById("info-modal");
+  const infoCloseBtn = document.getElementById("info-close-btn");
+  const settingsMenu = document.getElementById("settings-menu");
+  const backdrop = document.getElementById("backdrop");
 
-/* ---------------------------
-   FOOTER: Info Modal
-   --------------------------- */
-const infoBtn = document.getElementById("info-btn");
-const infoModal = document.getElementById("info-modal");
-const infoCloseBtn = document.getElementById("info-close-btn");
+  let lang = navigator.language.startsWith("fr") ? "fr" : "de";
 
-if (infoBtn && infoModal && infoCloseBtn) {
-  infoBtn.addEventListener("click", () => {
-    infoModal.style.display = "flex";
-  });
+  // --- Info-Modal öffnen ---
+  if (infoBtn && infoModal && infoCloseBtn) {
+    infoBtn.addEventListener("click", () => {
+      infoModal.style.display = "flex";
+    });
 
-  infoCloseBtn.addEventListener("click", () => {
-    infoModal.style.display = "none";
-  });
-
-  infoModal.addEventListener("click", e => {
-    if (e.target === infoModal) {
+    infoCloseBtn.addEventListener("click", () => {
       infoModal.style.display = "none";
-    }
-  });
-}
+    });
 
-/* ---------------------------
-   FOOTER: Sprache wechseln
-   --------------------------- */
-const speechBtn = document.getElementById("speech-btn");
-const settingsMenu = document.getElementById("settings-menu");
-const backdrop = document.getElementById("backdrop");
+    infoModal.addEventListener("click", (e) => {
+      if (e.target === infoModal) {
+        infoModal.style.display = "none";
+      }
+    });
+  }
 
-if (speechBtn && settingsMenu && backdrop) {
-  speechBtn.addEventListener("click", () => {
-    settingsMenu.style.display = "flex";
-    backdrop.style.display = "block";
-  });
+  // --- Sprache-Menü ---
+  if (speechBtn && settingsMenu && backdrop) {
+    speechBtn.addEventListener("click", () => {
+      settingsMenu.style.display = "flex";
+      backdrop.style.display = "block";
+    });
 
-  settingsMenu.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      lang = btn.dataset.lang;
+    settingsMenu.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        lang = btn.dataset.lang;
+
+        // Optionale Funktion: Anzeige im Modal aktualisieren
+        alert(lang === "fr" ? "Langue changée en français" : "Sprache auf Deutsch geändert");
+
+        settingsMenu.style.display = "none";
+        backdrop.style.display = "none";
+      });
+    });
+
+    backdrop.addEventListener("click", () => {
       settingsMenu.style.display = "none";
       backdrop.style.display = "none";
     });
-  });
+  }
 
-  backdrop.addEventListener("click", () => {
-    settingsMenu.style.display = "none";
-    backdrop.style.display = "none";
-  });
-}
+  // --- Reset-Suche ---
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      document.getElementById("lastname").value = "";
+      document.getElementById("firstname").value = "";
+      document.getElementById("dob").value = "";
+      document.getElementById("error").innerText = "";
+    });
+  }
+});
