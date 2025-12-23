@@ -29,6 +29,7 @@ const uiText = {
     dob: "Geburtsdatum (DD.MM.YYYY)",
     searchBtn: "Suchen",
     subtitle: "Name und Geburtsdatum eingeben",
+     pageTitle: "Suchanfrage",
     errorNoData: "Daten nicht geladen",
     errorRequired: "Nachname und Geburtsdatum sind erforderlich",
     errorInvalidDob: "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)",
@@ -40,6 +41,7 @@ const uiText = {
     dob: "Date de naissance (JJ.MM.AAAA)",
     searchBtn: "Rechercher",
     subtitle: "Entrez le nom et la date de naissance",
+     pageTitle: "Requête de recherche",
     errorNoData: "Données non chargées",
     errorRequired: "Nom et date de naissance requis",
     errorInvalidDob: "Date de naissance invalide (ex. 12.03.1980 ou 12031980)",
@@ -58,6 +60,8 @@ function updateUIText() {
   document.getElementById("label-dob").textContent = t.dob;
   document.getElementById("search-btn").textContent = t.searchBtn;
   document.getElementById("page-subtitle").textContent = t.subtitle;
+   document.getElementById("page-title").textContent = t.pageTitle;
+
 
   return t; // Für Fehlermeldungen
 }
