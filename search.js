@@ -40,7 +40,7 @@ document.getElementById("search-form").addEventListener("submit", e => {
             entry.includes(dob)
           ) {
             // Treffer → weiterleiten
-            window.location.href = `detail.html?karte=${karteId}`;
+            window.location.href = `?karte=${karteId}`;
             return;
           }
         }
