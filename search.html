@@ -60,7 +60,7 @@
 <script src="app.js"></script>
 <script src="search.js"></script>
 <script>
-  feather.replace(); // Icons anzeigen
+  feather.replace(); // Icons initial anzeigen
 
   // --------------------------
   // Texte für Deutsch/Französisch
@@ -116,6 +116,7 @@
       document.getElementById("settings-menu").style.display = "none";
       document.getElementById("backdrop").style.display = "none";
       updateUIText(currentLang);
+      feather.replace(); // Icons neu rendern, falls nötig
     });
   });
 
