@@ -63,109 +63,115 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- RENDER FUNKTION ---
-  function render() {
-    if (!dataGlobal) return;
+ function render() {
+  if (!dataGlobal) return;
 
-    titleEl.innerText = pageTitles[lang];
+  titleEl.innerText = pageTitles[lang];
 
+  const subtitleEl = document.getElementById("subtitle");
 
-    // --- 1. MODAL-TEXTE AKTUALISIEREN ---
-    const infoData = dataGlobal.info_text ? dataGlobal.info_text[lang] : null;
-    
-    if (infoData) {
-      const modalTitle = document.getElementById("modal-title");
-      const modalBody = document.getElementById("modal-body");
-      const modalFunctionsTitle = document.getElementById("modal-functions-title");
-      const modalFunctionsList = document.getElementById("modal-functions-list");
-      const modalWarning = document.getElementById("modal-warning");
-      const modalCredits = document.getElementById("modal-credits"); // Diese Zeile hat gefehlt!
-      const infoCloseBtn = document.getElementById("info-close-btn");
+  // 🔹 Karte & Steckbrief EINMAL ermitteln
+  const steckbriefId = dataGlobal.zuordnung[karte];
+  const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
-      if (modalTitle) modalTitle.innerText = infoData.title;
-      if (modalBody) modalBody.innerHTML = infoData.body;
-      if (modalFunctionsTitle) modalFunctionsTitle.innerText = infoData.functions_title;
-      
-      if (modalFunctionsList) {
-        modalFunctionsList.innerHTML = ""; 
-        modalFunctionsList.classList.add("info-list");
-        infoData.functions.forEach(item => {
-          const li = document.createElement("li");
-          li.innerText = item;
-          modalFunctionsList.appendChild(li);
-        });
-      }
-
-      if (modalWarning) modalWarning.innerHTML = infoData.warning;
-
-      // Jetzt funktioniert dieser Zugriff:
-      if (modalCredits && infoData.credits) {
-        modalCredits.innerHTML = infoData.credits;
-      }      
-      
-      if (infoCloseBtn) infoCloseBtn.innerText = lang === "fr" ? "Fermer" : "OK";
-    }
-
-    // --- 2. STECKBRIEF RENDERN (bestehende Logik) ---
-    const steckbriefId = dataGlobal.zuordnung[karte];
-    const steckbrief = dataGlobal.steckbriefe[steckbriefId];
-
-    if (!steckbrief) {
-      titleEl.innerText = "Fehler";
-      textEl.innerText = "Keine Daten für diese Karte gefunden";
-      return;
-    }
-
-    const sections = steckbrief[lang];
-    if (!sections) {
-      titleEl.innerText = "Fehler";
-      textEl.innerText = `Keine Inhalte für Sprache "${lang}" gefunden`;
-      return;
-    }
-
-    //titleEl.innerText = steckbrief.name[lang];
-    textEl.innerHTML = "";
-
-    Object.keys(sections).forEach(key => {
-      const items = sections[key];
-      const header = document.createElement("h3");
-      const arrow = document.createElement("span");
-      arrow.classList.add("arrow");
-      arrow.innerText = "▶";
-      arrow.style.color = items.length > 0 ? "#000" : "#999";
-      arrow.style.marginRight = "5px";
-      
-      header.appendChild(arrow);
-      header.appendChild(document.createTextNode(`${key} (${items.length})`));
-
-      const contentDiv = document.createElement("div");
-      contentDiv.style.display = "none";
-      contentDiv.style.marginBottom = "10px";
-
-      if (items.length > 0) {
-        const ul = document.createElement("ul");
-        ul.style.paddingLeft = "1.8rem";
-        items.forEach(i => {
-          const li = document.createElement("li");
-          li.innerText = i;
-          ul.appendChild(li);
-        });
-        contentDiv.appendChild(ul);
-
-        header.addEventListener("click", () => {
-          const isVisible = contentDiv.style.display === "block";
-          contentDiv.style.display = isVisible ? "none" : "block";
-          arrow.style.transform = isVisible ? "rotate(0deg)" : "rotate(90deg)";
-        });
-      } else {
-        contentDiv.innerText = lang === "fr" ? "(aucune entrée)" : "(keine Einträge)";
-        contentDiv.style.fontStyle = "italic";
-        contentDiv.style.paddingLeft = "25px";
-      }
-
-      textEl.appendChild(header);
-      textEl.appendChild(contentDiv);
-    });
+  // 🔹 Untertitel setzen (optional)
+  if (subtitleEl && steckbrief && steckbrief.subtitle && steckbrief.subtitle[lang]) {
+    subtitleEl.innerText = steckbrief.subtitle[lang];
+    subtitleEl.style.display = "block";
+  } else if (subtitleEl) {
+    subtitleEl.style.display = "none";
   }
+
+  // --- 1. MODAL-TEXTE ---
+  const infoData = dataGlobal.info_text ? dataGlobal.info_text[lang] : null;
+
+  if (infoData) {
+    const modalTitle = document.getElementById("modal-title");
+    const modalBody = document.getElementById("modal-body");
+    const modalFunctionsTitle = document.getElementById("modal-functions-title");
+    const modalFunctionsList = document.getElementById("modal-functions-list");
+    const modalWarning = document.getElementById("modal-warning");
+    const modalCredits = document.getElementById("modal-credits");
+    const infoCloseBtn = document.getElementById("info-close-btn");
+
+    if (modalTitle) modalTitle.innerText = infoData.title;
+    if (modalBody) modalBody.innerHTML = infoData.body;
+    if (modalFunctionsTitle) modalFunctionsTitle.innerText = infoData.functions_title;
+
+    if (modalFunctionsList) {
+      modalFunctionsList.innerHTML = "";
+      infoData.functions.forEach(item => {
+        const li = document.createElement("li");
+        li.innerText = item;
+        modalFunctionsList.appendChild(li);
+      });
+    }
+
+    if (modalWarning) modalWarning.innerHTML = infoData.warning;
+    if (modalCredits && infoData.credits) modalCredits.innerHTML = infoData.credits;
+    if (infoCloseBtn) infoCloseBtn.innerText = lang === "fr" ? "Fermer" : "OK";
+  }
+
+  // --- 2. STECKBRIEF-INHALT ---
+  if (!steckbrief) {
+    titleEl.innerText = "Fehler";
+    textEl.innerText = "Keine Daten für diese Karte gefunden";
+    return;
+  }
+
+  const sections = steckbrief[lang];
+  if (!sections) {
+    titleEl.innerText = "Fehler";
+    textEl.innerText = `Keine Inhalte für Sprache "${lang}" gefunden`;
+    return;
+  }
+
+  textEl.innerHTML = "";
+
+  Object.keys(sections).forEach(key => {
+    const items = sections[key];
+
+    const header = document.createElement("h3");
+    const arrow = document.createElement("span");
+    arrow.classList.add("arrow");
+    arrow.innerText = "▶";
+    arrow.style.marginRight = "5px";
+
+    header.appendChild(arrow);
+    header.appendChild(document.createTextNode(`${key} (${items.length})`));
+
+    const contentDiv = document.createElement("div");
+    contentDiv.style.display = "none";
+    contentDiv.style.marginBottom = "10px";
+
+    if (items.length > 0) {
+      const ul = document.createElement("ul");
+      ul.style.paddingLeft = "1.8rem";
+
+      items.forEach(i => {
+        const li = document.createElement("li");
+        li.innerText = i;
+        ul.appendChild(li);
+      });
+
+      contentDiv.appendChild(ul);
+
+      header.addEventListener("click", () => {
+        const open = contentDiv.style.display === "block";
+        contentDiv.style.display = open ? "none" : "block";
+        arrow.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
+      });
+    } else {
+      contentDiv.innerText = lang === "fr" ? "(aucune entrée)" : "(keine Einträge)";
+      contentDiv.style.fontStyle = "italic";
+      contentDiv.style.paddingLeft = "25px";
+    }
+
+    textEl.appendChild(header);
+    textEl.appendChild(contentDiv);
+  });
+}
+
   
   // --- DATEN LADEN ---
   fetch("data.json")
