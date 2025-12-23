@@ -140,6 +140,7 @@ li {
 
 #settings-menu button {
   color: #007AFF;
+  font-weight: 400;
   padding: 1rem;
   min-height: 52px;
   font-size: 1.1rem;
