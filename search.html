@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Identitätsabfrage</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<main>
+<main id="main-content">
   <h1>Identitätsabfrage</h1>
   <p class="subtitle">Name und Geburtsdatum eingeben</p>
 
   <form id="search-form">
     <label>
-      Name
+      Nachname
       <input type="text" id="lastname" required />
     </label>
 
     <label>
-      Vorname
+      Vorname (optional)
       <input type="text" id="firstname"/>
     </label>
 
@@ -34,36 +34,39 @@
   <p id="error" class="error"></p>
 </main>
 
-  <footer id="footer">
-  <!-- Info -->
-  <button
-    id="info-btn"
-    class="icon-btn"
-    aria-label="Information"
-    data-feather="info">
-  </button>
-
-  <!-- Sprache -->
-  <button
-    id="speech-btn"
-    class="icon-btn"
-    aria-label="Sprache"
-    data-feather="globe">
-  </button>
-
-  <!-- Reset Suche -->
-  <button
-    id="reset-btn"
-    class="icon-btn"
-    aria-label="Suche zurücksetzen"
-    data-feather="rotate-ccw">
-  </button>
+<!-- Footer -->
+<footer id="footer">
+  <button id="info-btn" class="icon-btn" aria-label="Information" data-feather="info"></button>
+  <button id="speech-btn" class="icon-btn" aria-label="Sprache" data-feather="globe"></button>
+  <button id="reset-btn" class="icon-btn" aria-label="Suche zurücksetzen" data-feather="rotate-ccw"></button>
 </footer>
-  
-<script src="search.js"></script>
+
+<!-- Info Modal -->
+<div id="info-modal">
+  <div id="info-content">
+    <h2 id="modal-title" class="info-header"></h2>
+    <p id="modal-body" class="info-text"></p>
+    <p id="modal-functions-title" class="info-subheader"></p>
+    <ul id="modal-functions-list" class="info-list"></ul>
+    <div id="modal-warning" class="info-warning"></div>
+    <div id="modal-credits" class="info-text" style="margin-top: 15px; font-size: 0.8rem; color: #8e8e93;"></div>
+    <button id="info-close-btn">OK</button>
+  </div>
+</div>
+
+<!-- Settings Menu -->
+<div id="settings-menu">
+  <button data-lang="de">Deutsch</button>
+  <button data-lang="fr">Französisch</button>
+</div>
+
+<div id="backdrop"></div>
+
 <script src="https://unpkg.com/feather-icons"></script>
+<script src="app.js"></script> <!-- Detail-Logik wiederverwenden -->
+<script src="search.js"></script>
 <script>
-  feather.replace();
+  feather.replace(); // Icons anzeigen
 </script>
 </body>
 </html>
