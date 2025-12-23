@@ -1,42 +1,43 @@
 let dataGlobal = null;
-let currentLang = "de"; // Standard-Sprache
+let currentLang = navigator.language.startsWith("fr") ? "fr" : "de";
 
 /* ---------------------------
    Geburtsdatum normalisieren
----------------------------- */
+--------------------------- */
 function normalizeDob(input) {
   if (!input) return null;
 
   // Format: D.M.YYYY oder DD.MM.YYYY
   if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(input)) {
     const [d, m, y] = input.split(".");
-    return `${d.padStart(2,"0")}.${m.padStart(2,"0")}.${y}`;
+    return `${d.padStart(2, "0")}.${m.padStart(2, "0")}.${y}`;
   }
 
   // Format: DDMMYYYY
   if (/^\d{8}$/.test(input)) {
-    const d = input.slice(0,2);
-    const m = input.slice(2,4);
+    const d = input.slice(0, 2);
+    const m = input.slice(2, 4);
     const y = input.slice(4);
     return `${d}.${m}.${y}`;
   }
 
-  return null;
+  return null; // ungültiges / uneindeutiges Format
 }
 
 /* ---------------------------
    Daten laden
----------------------------- */
+--------------------------- */
 fetch("data.json")
   .then(res => res.json())
   .then(data => {
     dataGlobal = data;
-    updateLanguage(currentLang); // Initial Labels setzen
-  });
+    setupFooter(); // Footer-Funktionen erst nachdem die Daten geladen sind
+  })
+  .catch(err => console.error("Fehler beim Laden der Daten:", err));
 
 /* ---------------------------
    Suche
----------------------------- */
+--------------------------- */
 document.getElementById("search-form").addEventListener("submit", e => {
   e.preventDefault();
 
@@ -48,22 +49,19 @@ document.getElementById("search-form").addEventListener("submit", e => {
   errorEl.innerText = "";
 
   if (!dataGlobal) {
-    errorEl.innerText = currentLang === "de" ? "Daten nicht geladen" : "Données non chargées";
+    errorEl.innerText = "Daten nicht geladen";
     return;
   }
 
+  // Pflichtfelder prüfen (Vorname optional)
   if (!lastname || !dobInput) {
-    errorEl.innerText = currentLang === "de" 
-      ? "Nachname und Geburtsdatum sind erforderlich" 
-      : "Nom de famille et date de naissance requis";
+    errorEl.innerText = "Nachname und Geburtsdatum sind erforderlich";
     return;
   }
 
   const normalizedDob = normalizeDob(dobInput);
   if (!normalizedDob) {
-    errorEl.innerText = currentLang === "de"
-      ? "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)"
-      : "Date de naissance invalide (ex: 12.03.1980 ou 12031980)";
+    errorEl.innerText = "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)";
     return;
   }
 
@@ -71,20 +69,22 @@ document.getElementById("search-form").addEventListener("submit", e => {
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
-    for (const lang of ["de","fr"]) {
+    for (const lang of ["de", "fr"]) {
       const sections = steckbrief[lang];
       if (!sections) continue;
 
-      for (const key of ["GERES","ISA","ZEMIS"]) {
+      for (const key of ["GERES", "ISA", "ZEMIS"]) {
         const entries = sections[key] || [];
 
         for (const entry of entries) {
           const eLower = entry.toLowerCase();
+
           const hasLastname = eLower.includes(lastname);
           const hasFirstname = firstname === "" || eLower.includes(firstname);
           const hasDob = entry.includes(normalizedDob);
 
           if (hasLastname && hasDob && hasFirstname) {
+            // Treffer → weiterleiten
             window.location.href = `index.html?karte=${karteId}`;
             return;
           }
@@ -93,118 +93,75 @@ document.getElementById("search-form").addEventListener("submit", e => {
     }
   }
 
-  errorEl.innerText = currentLang === "de" ? "Kein Treffer gefunden" : "Aucun résultat trouvé";
+  errorEl.innerText = "Kein Treffer gefunden";
 });
 
 /* ---------------------------
    Footer-Funktionen
----------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
+--------------------------- */
+function setupFooter() {
   const infoBtn = document.getElementById("info-btn");
   const speechBtn = document.getElementById("speech-btn");
   const resetBtn = document.getElementById("reset-btn");
   const settingsMenu = document.getElementById("settings-menu");
   const backdrop = document.getElementById("backdrop");
-
-  // Info-Modal öffnen
-  if (infoBtn) {
-    infoBtn.addEventListener("click", () => {
-      const infoModal = document.getElementById("info-modal");
-      if (infoModal && dataGlobal) {
-        const infoText = dataGlobal.info_text[currentLang];
-        document.getElementById("modal-title").innerHTML = infoText.title;
-        document.getElementById("modal-body").innerHTML = infoText.body;
-        document.getElementById("modal-functions-title").innerHTML = infoText.functions_title;
-        const ul = document.getElementById("modal-functions-list");
-        ul.innerHTML = "";
-        infoText.functions.forEach(fn => {
-          const li = document.createElement("li");
-          li.innerHTML = fn;
-          ul.appendChild(li);
-        });
-        document.getElementById("modal-warning").innerHTML = infoText.warning;
-        document.getElementById("modal-credits").innerHTML = infoText.credits;
-        infoModal.style.display = "flex";
-      }
-    });
-  }
-
+  const infoModal = document.getElementById("info-modal");
   const infoCloseBtn = document.getElementById("info-close-btn");
-  if (infoCloseBtn) {
-    infoCloseBtn.addEventListener("click", () => {
-      const infoModal = document.getElementById("info-modal");
-      if (infoModal) infoModal.style.display = "none";
-    });
-  }
 
-  if (backdrop) {
-    backdrop.addEventListener("click", () => {
-      settingsMenu.style.display = "none";
-      backdrop.style.display = "none";
-      const infoModal = document.getElementById("info-modal");
-      if (infoModal) infoModal.style.display = "none";
-    });
-  }
+  /* --- Info-Modal öffnen --- */
+  infoBtn?.addEventListener("click", () => {
+    if (!dataGlobal) return;
+    const infoData = dataGlobal.info_text[currentLang];
+    document.getElementById("modal-title").innerHTML = infoData.title;
+    document.getElementById("modal-body").innerHTML = infoData.body;
+    document.getElementById("modal-functions-title").innerHTML = infoData.functions_title;
 
-  // Sprache / Settings
-  if (speechBtn) {
-    speechBtn.addEventListener("click", () => {
-      settingsMenu.style.display = "flex";
-      backdrop.style.display = "block";
+    const ul = document.getElementById("modal-functions-list");
+    ul.innerHTML = "";
+    infoData.functions.forEach(fn => {
+      const li = document.createElement("li");
+      li.innerHTML = fn;
+      ul.appendChild(li);
     });
-  }
 
-  settingsMenu.querySelectorAll("button").forEach(btn => {
+    document.getElementById("modal-warning").innerHTML = infoData.warning;
+    document.getElementById("modal-credits").innerHTML = infoData.credits;
+
+    infoModal.style.display = "flex";
+  });
+
+  /* --- Info-Modal schließen --- */
+  infoCloseBtn?.addEventListener("click", () => {
+    infoModal.style.display = "none";
+  });
+  infoModal?.addEventListener("click", e => {
+    if (e.target === infoModal) infoModal.style.display = "none";
+  });
+
+  /* --- Sprachwechsel --- */
+  speechBtn?.addEventListener("click", () => {
+    settingsMenu.style.display = "flex";
+    backdrop.style.display = "block";
+  });
+
+  settingsMenu?.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
-      const lang = btn.dataset.lang;
-      currentLang = lang;
-      updateLanguage(lang);
+      currentLang = btn.dataset.lang;
       settingsMenu.style.display = "none";
       backdrop.style.display = "none";
     });
   });
 
-  // Reset-Button
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      document.getElementById("lastname").value = "";
-      document.getElementById("firstname").value = "";
-      document.getElementById("dob").value = "";
-      document.getElementById("error").innerText = "";
-    });
-  }
-});
+  backdrop?.addEventListener("click", () => {
+    settingsMenu.style.display = "none";
+    backdrop.style.display = "none";
+  });
 
-/* ---------------------------
-   Labels / Platzhalter aktualisieren
----------------------------- */
-function updateLanguage(lang) {
-  const labels = {
-    de: {
-      lastname: "Nachname",
-      firstname: "Vorname (optional)",
-      dob: "Geburtsdatum (DD.MM.YYYY)",
-      dobPlaceholder: "DD.MM.YYYY",
-      submit: "Suchen",
-      errorRequired: "Nachname und Geburtsdatum sind erforderlich",
-      errorInvalidDob: "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)",
-      errorNotFound: "Kein Treffer gefunden"
-    },
-    fr: {
-      lastname: "Nom de famille",
-      firstname: "Prénom (optionnel)",
-      dob: "Date de naissance (JJ.MM.AAAA)",
-      dobPlaceholder: "JJ.MM.AAAA",
-      submit: "Rechercher",
-      errorRequired: "Nom de famille et date de naissance requis",
-      errorInvalidDob: "Date de naissance invalide (ex: 12.03.1980 ou 12031980)",
-      errorNotFound: "Aucun résultat trouvé"
-    }
-  };
-
-  document.querySelector("label[for='lastname']")?.childNodes[0].textContent = labels[lang].lastname;
-  document.querySelector("label[for='firstname']")?.childNodes[0].textContent = labels[lang].firstname;
-  document.querySelector("label[for='dob']")?.childNodes[0].textContent = labels[lang].dob;
-  document.getElementById("dob").placeholder = labels[lang].dobPlaceholder;
-  document.querySelector("#search-form button[type='submit']").textContent = labels[lang].submit;
+  /* --- Reset Button --- */
+  resetBtn?.addEventListener("click", () => {
+    document.getElementById("lastname").value = "";
+    document.getElementById("firstname").value = "";
+    document.getElementById("dob").value = "";
+    document.getElementById("error").innerText = "";
+  });
 }
