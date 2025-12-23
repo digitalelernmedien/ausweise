@@ -35,6 +35,10 @@
   
   "steckbriefe": {
     "S001": {
+      "subtitle": {
+      "de": "Personenabfrage – Meier Thomas, 12.03.1980",
+      "fr": "Consultation de personne – Meier Thomas, 12.03.1980"
+      },
       "de": {
         "Vorgangsbearbeitung": ["2025 Geschädigt EBD", "2024 Geschädigt Sachbeschädigung"],
         "GERES": ["Meier Thomas, m, 12.03.1980, von Bern BE, wft. 3000 Bern, Hauptstrasse 10"],
