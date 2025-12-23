@@ -39,7 +39,7 @@ const uiText = {
     firstname: "Prénom (facultatif)",
     dob: "Date de naissance (JJ.MM.AAAA)",
     searchBtn: "Rechercher",
-    subtitle: "Saisir le nom et la date de naissance",
+    subtitle: "Entrez le nom et la date de naissance",
     errorNoData: "Données non chargées",
     errorRequired: "Nom et date de naissance requis",
     errorInvalidDob: "Date de naissance invalide (ex. 12.03.1980 ou 12031980)",
@@ -47,22 +47,19 @@ const uiText = {
   }
 };
 
+/* ---------------------------
+   UI Texte aktualisieren
+--------------------------- */
 function updateUIText() {
   const t = uiText[currentLang];
 
-  // Labels über Textnodes ersetzen
-  document.querySelector('label[for="lastname"]').firstChild.textContent = t.lastname;
-  document.querySelector('label[for="firstname"]').firstChild.textContent = t.firstname;
-  document.querySelector('label[for="dob"]').firstChild.textContent = t.dob;
+  document.getElementById("label-lastname").textContent = t.lastname;
+  document.getElementById("label-firstname").textContent = t.firstname;
+  document.getElementById("label-dob").textContent = t.dob;
+  document.getElementById("search-btn").textContent = t.searchBtn;
+  document.getElementById("page-subtitle").textContent = t.subtitle;
 
-  // Suchbutton
-  document.querySelector('#search-form button[type="submit"]').textContent = t.searchBtn;
-
-  // Untertitel
-  document.querySelector('.subtitle').textContent = t.subtitle;
-
-  // Fehlertexte zurückgeben
-  return t;
+  return t; // Für Fehlermeldungen
 }
 
 /* ---------------------------
@@ -72,8 +69,8 @@ fetch("data.json")
   .then(res => res.json())
   .then(data => {
     dataGlobal = data;
-    setupFooter();
-    updateUIText();
+    setupFooter();       // Footer-Funktionen aktivieren
+    updateUIText();      // Texte direkt beim Laden setzen
   })
   .catch(err => console.error("Fehler beim Laden der Daten:", err));
 
@@ -82,7 +79,7 @@ fetch("data.json")
 --------------------------- */
 document.getElementById("search-form").addEventListener("submit", e => {
   e.preventDefault();
-  const t = updateUIText();
+  const t = updateUIText(); // aktuelle Sprache für Fehlermeldungen
 
   const lastname = document.getElementById("lastname").value.trim().toLowerCase();
   const firstname = document.getElementById("firstname").value.trim().toLowerCase();
@@ -135,6 +132,7 @@ function setupFooter() {
   const infoModal = document.getElementById("info-modal");
   const infoCloseBtn = document.getElementById("info-close-btn");
 
+  /* Info-Modal öffnen */
   infoBtn?.addEventListener("click", () => {
     if (!dataGlobal) return;
     const infoData = dataGlobal.info_text[currentLang];
@@ -159,7 +157,7 @@ function setupFooter() {
   infoCloseBtn?.addEventListener("click", () => infoModal.style.display = "none");
   infoModal?.addEventListener("click", e => { if(e.target === infoModal) infoModal.style.display = "none"; });
 
-  // Sprachwechsel
+  /* Sprachwechsel */
   speechBtn?.addEventListener("click", () => {
     settingsMenu.style.display = "flex";
     backdrop.style.display = "block";
@@ -170,8 +168,8 @@ function setupFooter() {
       currentLang = btn.dataset.lang;
       settingsMenu.style.display = "none";
       backdrop.style.display = "none";
-      updateUIText(); // Texte sofort aktualisieren
-      feather.replace(); // Icons neu rendern
+      updateUIText();    // UI sofort aktualisieren
+      feather.replace();  // Icons neu rendern
     });
   });
 
@@ -180,6 +178,7 @@ function setupFooter() {
     backdrop.style.display = "none";
   });
 
+  /* Reset Button */
   resetBtn?.addEventListener("click", () => {
     document.getElementById("lastname").value = "";
     document.getElementById("firstname").value = "";
