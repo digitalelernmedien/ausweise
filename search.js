@@ -19,7 +19,11 @@ document.getElementById("search-form").addEventListener("submit", e => {
     return;
   }
 
-  const fullName = `${lastname} ${firstname}`;
+  // Pflichtfelder prüfen (Vorname ist optional)
+  if (!lastname || !dob) {
+    errorEl.innerText = "Nachname und Geburtsdatum sind erforderlich";
+    return;
+  }
 
   // Alle Karten durchsuchen
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
@@ -35,13 +39,13 @@ document.getElementById("search-form").addEventListener("submit", e => {
         for (const entry of entries) {
           const eLower = entry.toLowerCase();
 
-          if (
-            eLower.includes(fullName) &&
-            entry.includes(dob)
-          ) {
+          const hasLastname = eLower.includes(lastname);
+          const hasDob = entry.includes(dob);
+          const hasFirstname = firstname === "" || eLower.includes(firstname);
+
+          if (hasLastname && hasDob && hasFirstname) {
             // Treffer → weiterleiten
             window.location.href = `index.html?karte=${karteId}`;
-
             return;
           }
         }
