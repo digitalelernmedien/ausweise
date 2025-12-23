@@ -1,4 +1,5 @@
 let dataGlobal = null;
+let lang = navigator.language.startsWith("fr") ? "fr" : "de";
 
 /* ---------------------------
    Geburtsdatum normalisieren
@@ -20,7 +21,7 @@ function normalizeDob(input) {
     return `${d}.${m}.${y}`;
   }
 
-  return null; // ungültiges / uneindeutiges Format
+  return null;
 }
 
 /* ---------------------------
@@ -48,15 +49,19 @@ document.getElementById("search-form").addEventListener("submit", e => {
     return;
   }
 
-  // Pflichtfelder prüfen (Vorname optional)
+  // Pflichtfelder (Vorname optional)
   if (!lastname || !dobInput) {
-    errorEl.innerText = "Nachname und Geburtsdatum sind erforderlich";
+    errorEl.innerText = lang === "fr"
+      ? "Nom et date de naissance requis"
+      : "Nachname und Geburtsdatum sind erforderlich";
     return;
   }
 
   const normalizedDob = normalizeDob(dobInput);
   if (!normalizedDob) {
-    errorEl.innerText = "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)";
+    errorEl.innerText = lang === "fr"
+      ? "Date invalide (ex. 12.03.1980 ou 12031980)"
+      : "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)";
     return;
   }
 
@@ -64,8 +69,8 @@ document.getElementById("search-form").addEventListener("submit", e => {
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
-    for (const lang of ["de", "fr"]) {
-      const sections = steckbrief[lang];
+    for (const l of ["de", "fr"]) {
+      const sections = steckbrief[l];
       if (!sections) continue;
 
       for (const key of ["GERES", "ISA", "ZEMIS"]) {
@@ -79,7 +84,6 @@ document.getElementById("search-form").addEventListener("submit", e => {
           const hasDob = entry.includes(normalizedDob);
 
           if (hasLastname && hasDob && hasFirstname) {
-            // Treffer → weiterleiten
             window.location.href = `index.html?karte=${karteId}`;
             return;
           }
@@ -88,5 +92,71 @@ document.getElementById("search-form").addEventListener("submit", e => {
     }
   }
 
-  errorEl.innerText = "Kein Treffer gefunden";
+  errorEl.innerText = lang === "fr"
+    ? "Aucun résultat trouvé"
+    : "Kein Treffer gefunden";
 });
+
+/* ---------------------------
+   FOOTER: Reset-Button
+   --------------------------- */
+const resetBtn = document.getElementById("reset-btn");
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    document.getElementById("lastname").value = "";
+    document.getElementById("firstname").value = "";
+    document.getElementById("dob").value = "";
+    document.getElementById("error").innerText = "";
+    document.getElementById("lastname").focus();
+  });
+}
+
+/* ---------------------------
+   FOOTER: Info Modal
+   --------------------------- */
+const infoBtn = document.getElementById("info-btn");
+const infoModal = document.getElementById("info-modal");
+const infoCloseBtn = document.getElementById("info-close-btn");
+
+if (infoBtn && infoModal && infoCloseBtn) {
+  infoBtn.addEventListener("click", () => {
+    infoModal.style.display = "flex";
+  });
+
+  infoCloseBtn.addEventListener("click", () => {
+    infoModal.style.display = "none";
+  });
+
+  infoModal.addEventListener("click", e => {
+    if (e.target === infoModal) {
+      infoModal.style.display = "none";
+    }
+  });
+}
+
+/* ---------------------------
+   FOOTER: Sprache wechseln
+   --------------------------- */
+const speechBtn = document.getElementById("speech-btn");
+const settingsMenu = document.getElementById("settings-menu");
+const backdrop = document.getElementById("backdrop");
+
+if (speechBtn && settingsMenu && backdrop) {
+  speechBtn.addEventListener("click", () => {
+    settingsMenu.style.display = "flex";
+    backdrop.style.display = "block";
+  });
+
+  settingsMenu.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      lang = btn.dataset.lang;
+      settingsMenu.style.display = "none";
+      backdrop.style.display = "none";
+    });
+  });
+
+  backdrop.addEventListener("click", () => {
+    settingsMenu.style.display = "none";
+    backdrop.style.display = "none";
+  });
+}
