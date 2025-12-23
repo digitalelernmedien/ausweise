@@ -61,6 +61,10 @@
       }
     },
     "S002": {
+      "subtitle": {
+      "de": "Personenabfrage – Schmid Anna, 23.08.1992",
+      "fr": "Consultation de personne – Schmid Anna, 23.08.1992"
+      },
       "de": {
         "Vorgangsbearbeitung": ["2023 Geschädigt Unfall", "2022 Geschädigt Diebstahl"],
         "GERES": ["Schmid Anna, w, 23.08.1992, von Bern BE, wft. 3000 Bern, Lindenstrasse 5, verheiratet mit Schmid Lukas"],
@@ -83,6 +87,10 @@
       }
     },
     "S003": {
+      "subtitle": {
+      "de": "Personenabfrage – El-Sayed Omar, 12.12.1987",
+      "fr": "Consultation de personne – El-Sayed Omar, 12.12.1987"
+      },
       "de": {
         "Vorgangsbearbeitung": ["2021 Beschuldigt Ladendiebstahl"],
         "GERES": [],
@@ -105,6 +113,10 @@
       }
     },
     "S004": {
+      "subtitle": {
+      "de": "Personenabfrage – Diallo Amina, 30.06.1990",
+      "fr": "Consultation de personne – Diallo Amina, 30.06.1990"
+      },
       "de": {
         "Vorgangsbearbeitung": ["2020 Geschädigt Sachbeschädigung"],
         "GERES": ["Diallo Amina, w, 30.06.1990, von Dakar, Senegal, wft. 3600 Thun, Allmendstrasse 18"],
@@ -127,6 +139,10 @@
       }
     },
     "S005": {
+      "subtitle": {
+      "de": "Personenabfrage – Jenni Ramon, 01.08.2000",
+      "fr": "Consultation de personne – Jenni Ramon, 01.08.2000"
+      },
       "de": {
         "Vorgangsbearbeitung": ["2019 Geschädigt Diebstahl"],
         "GERES": ["Jenni Ramon, m, 01.08.2000, von Bern BE, ledig, wft. 4900 Langenthal, Murgenthalstrasse 41"],
@@ -149,6 +165,10 @@
       }
     },
     "S006": {
+      "subtitle": {
+      "de": "Personenabfrage – Ramseier Joel, 05.07.1985",
+      "fr": "Consultation de personne – Ramseier Joel, 05.07.1985"
+      },
       "de": {
         "Vorgangsbearbeitung": ["2024 Beschuldigt Konsum BM", "2025 Beschuldigt Konsum BM"],
         "GERES": ["Ramseier Joel, m, 05.07.1985, von Bern BE, ledig, ohne festen Wohnsitz"],
@@ -171,6 +191,10 @@
       }
     },
     "S007": {
+      "subtitle": {
+      "de": "Personenabfrage – Petrov Ivan, 14.02.1978",
+      "fr": "Consultation de personne – Petrov Ivan, 14.02.1978"
+      },
       "de": {
         "Vorgangsbearbeitung": [],
         "GERES": ["Petrov Ivan, m, 14.02.1978, von Moskau, Russland, ledig, wft. 2520 La Neuveville, Place du Marché 3"],
