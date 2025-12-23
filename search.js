@@ -2,15 +2,17 @@ let dataGlobal = null;
 
 /* ---------------------------
    Geburtsdatum normalisieren
---------------------------- */
+---------------------------- */
 function normalizeDob(input) {
   if (!input) return null;
 
+  // Format: D.M.YYYY oder DD.MM.YYYY
   if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(input)) {
     const [d, m, y] = input.split(".");
     return `${d.padStart(2,"0")}.${m.padStart(2,"0")}.${y}`;
   }
 
+  // Format: DDMMYYYY
   if (/^\d{8}$/.test(input)) {
     const d = input.slice(0,2);
     const m = input.slice(2,4);
@@ -23,22 +25,21 @@ function normalizeDob(input) {
 
 /* ---------------------------
    Daten laden
---------------------------- */
+---------------------------- */
 fetch("data.json")
   .then(res => res.json())
-  .then(data => {
-    dataGlobal = data;
-  });
+  .then(data => dataGlobal = data);
 
 /* ---------------------------
    Suche
---------------------------- */
+---------------------------- */
 document.getElementById("search-form").addEventListener("submit", e => {
   e.preventDefault();
 
   const lastname = document.getElementById("lastname").value.trim().toLowerCase();
   const firstname = document.getElementById("firstname").value.trim().toLowerCase();
   const dobInput = document.getElementById("dob").value.trim();
+
   const errorEl = document.getElementById("error");
   errorEl.innerText = "";
 
@@ -54,10 +55,11 @@ document.getElementById("search-form").addEventListener("submit", e => {
 
   const normalizedDob = normalizeDob(dobInput);
   if (!normalizedDob) {
-    errorEl.innerText = "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)";
+    errorEl.innerText = "Ungültiges Geburtsdatum (z.B. 12.03.1980 oder 12031980)";
     return;
   }
 
+  // Alle Karten durchsuchen
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
@@ -75,6 +77,7 @@ document.getElementById("search-form").addEventListener("submit", e => {
           const hasDob = entry.includes(normalizedDob);
 
           if (hasLastname && hasDob && hasFirstname) {
+            // Treffer → weiterleiten
             window.location.href = `index.html?karte=${karteId}`;
             return;
           }
@@ -87,89 +90,57 @@ document.getElementById("search-form").addEventListener("submit", e => {
 });
 
 /* ---------------------------
-   Footer / Info / Sprache / Reset
---------------------------- */
+   Footer-Funktionen
+---------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
   const infoBtn = document.getElementById("info-btn");
   const speechBtn = document.getElementById("speech-btn");
   const resetBtn = document.getElementById("reset-btn");
-  const infoModal = document.getElementById("info-modal");
-  const infoCloseBtn = document.getElementById("info-close-btn");
   const settingsMenu = document.getElementById("settings-menu");
   const backdrop = document.getElementById("backdrop");
 
-  let lang = navigator.language.startsWith("fr") ? "fr" : "de";
-
   // Info-Modal öffnen
-  if (infoBtn && infoModal && infoCloseBtn && dataGlobal) {
+  if (infoBtn) {
     infoBtn.addEventListener("click", () => {
-      const infoData = dataGlobal.info_text[lang];
-      if (infoData) {
-        document.getElementById("modal-title").innerText = infoData.title;
-        document.getElementById("modal-body").innerHTML = infoData.body;
-        document.getElementById("modal-functions-title").innerText = infoData.functions_title;
-        const list = document.getElementById("modal-functions-list");
-        list.innerHTML = "";
-        infoData.functions.forEach(item => {
-          const li = document.createElement("li");
-          li.innerText = item;
-          list.appendChild(li);
-        });
-        document.getElementById("modal-warning").innerHTML = infoData.warning;
-        document.getElementById("modal-credits").innerHTML = infoData.credits || "";
-      }
-      infoModal.style.display = "flex";
-    });
-
-    infoCloseBtn.addEventListener("click", () => {
-      infoModal.style.display = "none";
-    });
-
-    infoModal.addEventListener("click", e => {
-      if (e.target === infoModal) infoModal.style.display = "none";
+      const infoModal = document.getElementById("info-modal");
+      if (infoModal) infoModal.style.display = "flex";
     });
   }
 
-  // Sprache-Menü
-  if (speechBtn && settingsMenu && backdrop) {
+  const infoCloseBtn = document.getElementById("info-close-btn");
+  if (infoCloseBtn) {
+    infoCloseBtn.addEventListener("click", () => {
+      const infoModal = document.getElementById("info-modal");
+      if (infoModal) infoModal.style.display = "none";
+    });
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener("click", () => {
+      settingsMenu.style.display = "none";
+      backdrop.style.display = "none";
+      const infoModal = document.getElementById("info-modal");
+      if (infoModal) infoModal.style.display = "none";
+    });
+  }
+
+  // Sprache / Settings
+  if (speechBtn) {
     speechBtn.addEventListener("click", () => {
       settingsMenu.style.display = "flex";
       backdrop.style.display = "block";
     });
+  }
 
-    settingsMenu.querySelectorAll("button").forEach(btn => {
-      btn.addEventListener("click", () => {
-        lang = btn.dataset.lang;
-
-        // Info-Modal ggf. aktualisieren
-        if (dataGlobal) {
-          const infoData = dataGlobal.info_text[lang];
-          if (infoData) {
-            document.getElementById("modal-title").innerText = infoData.title;
-            document.getElementById("modal-body").innerHTML = infoData.body;
-            document.getElementById("modal-functions-title").innerText = infoData.functions_title;
-            const list = document.getElementById("modal-functions-list");
-            list.innerHTML = "";
-            infoData.functions.forEach(item => {
-              const li = document.createElement("li");
-              li.innerText = item;
-              list.appendChild(li);
-            });
-            document.getElementById("modal-warning").innerHTML = infoData.warning;
-            document.getElementById("modal-credits").innerHTML = infoData.credits || "";
-          }
-        }
-
-        settingsMenu.style.display = "none";
-        backdrop.style.display = "none";
-      });
-    });
-
-    backdrop.addEventListener("click", () => {
+  settingsMenu.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const lang = btn.dataset.lang;
+      // Hier nur als Beispiel: du kannst Sprache speichern oder UI anpassen
+      console.log("Sprache gewählt:", lang);
       settingsMenu.style.display = "none";
       backdrop.style.display = "none";
     });
-  }
+  });
 
   // Reset-Button
   if (resetBtn) {
