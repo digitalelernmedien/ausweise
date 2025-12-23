@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Identitätsabfrage</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main>
+  <h1>Identitätsabfrage</h1>
+  <p class="subtitle">Name und Geburtsdatum eingeben</p>
+
+  <form id="search-form">
+    <label>
+      Name
+      <input type="text" id="lastname" required />
+    </label>
+
+    <label>
+      Vorname
+      <input type="text" id="firstname" required />
+    </label>
+
+    <label>
+      Geburtsdatum (DD.MM.YYYY)
+      <input type="text" id="dob" placeholder="12.03.1980" required />
+    </label>
+
+    <button type="submit">Suchen</button>
+  </form>
+
+  <p id="error" class="error"></p>
+</main>
+
+<script src="search.js"></script>
+</body>
+</html>
