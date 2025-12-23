@@ -9,26 +9,20 @@
 <body>
 
 <main id="main-content">
-  <h1>Identitätsabfrage</h1>
-  <p class="subtitle">Name und Geburtsdatum eingeben</p>
+  <h1 id="page-title">Identitätsabfrage</h1>
+  <p class="subtitle" id="page-subtitle">Name und Geburtsdatum eingeben</p>
 
   <form id="search-form">
-    <label>
-      Nachname
-      <input type="text" id="lastname" required />
-    </label>
+    <label for="lastname" id="label-lastname">Nachname</label>
+    <input type="text" id="lastname" required />
 
-    <label>
-      Vorname (optional)
-      <input type="text" id="firstname"/>
-    </label>
+    <label for="firstname" id="label-firstname">Vorname (optional)</label>
+    <input type="text" id="firstname"/>
 
-    <label>
-      Geburtsdatum (DD.MM.YYYY)
-      <input type="text" id="dob" placeholder="DD.MM.YYYY" autocomplete="off" inputmode="numeric"/>
-    </label>
+    <label for="dob" id="label-dob">Geburtsdatum (DD.MM.YYYY)</label>
+    <input type="text" id="dob" placeholder="DD.MM.YYYY" autocomplete="off" inputmode="numeric"/>
 
-    <button type="submit">Suchen</button>
+    <button type="submit" id="search-btn">Suchen</button>
   </form>
 
   <p id="error" class="error"></p>
@@ -63,10 +57,72 @@
 <div id="backdrop"></div>
 
 <script src="https://unpkg.com/feather-icons"></script>
-<script src="app.js"></script> <!-- Detail-Logik wiederverwenden -->
+<script src="app.js"></script>
 <script src="search.js"></script>
 <script>
   feather.replace(); // Icons anzeigen
+
+  // --------------------------
+  // Texte für Deutsch/Französisch
+  // --------------------------
+  const uiText = {
+    de: {
+      pageTitle: "Identitätsabfrage",
+      subtitle: "Name und Geburtsdatum eingeben",
+      labels: {
+        lastname: "Nachname",
+        firstname: "Vorname (optional)",
+        dob: "Geburtsdatum (DD.MM.YYYY)"
+      },
+      searchBtn: "Suchen"
+    },
+    fr: {
+      pageTitle: "Consultation d'identité",
+      subtitle: "Entrez le nom et la date de naissance",
+      labels: {
+        lastname: "Nom",
+        firstname: "Prénom (facultatif)",
+        dob: "Date de naissance (JJ.MM.AAAA)"
+      },
+      searchBtn: "Rechercher"
+    }
+  };
+
+  function updateUIText(lang) {
+    const t = uiText[lang];
+    document.getElementById("page-title").textContent = t.pageTitle;
+    document.getElementById("page-subtitle").textContent = t.subtitle;
+    document.getElementById("label-lastname").textContent = t.labels.lastname;
+    document.getElementById("label-firstname").textContent = t.labels.firstname;
+    document.getElementById("label-dob").textContent = t.labels.dob;
+    document.getElementById("search-btn").textContent = t.searchBtn;
+  }
+
+  // Initiale Sprache setzen
+  let currentLang = navigator.language.startsWith("fr") ? "fr" : "de";
+  updateUIText(currentLang);
+
+  // Sprachwechsel im Footer
+  document.getElementById("speech-btn").addEventListener("click", () => {
+    const menu = document.getElementById("settings-menu");
+    const backdrop = document.getElementById("backdrop");
+    menu.style.display = "flex";
+    backdrop.style.display = "block";
+  });
+
+  document.querySelectorAll("#settings-menu button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentLang = btn.dataset.lang;
+      document.getElementById("settings-menu").style.display = "none";
+      document.getElementById("backdrop").style.display = "none";
+      updateUIText(currentLang);
+    });
+  });
+
+  document.getElementById("backdrop").addEventListener("click", () => {
+    document.getElementById("settings-menu").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
+  });
 </script>
 </body>
 </html>
