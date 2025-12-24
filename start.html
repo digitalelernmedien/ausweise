@@ -31,92 +31,51 @@
   </main>
 
   <!-- Footer -->
-  <footer id="footer"></footer>
+  <footer id="footer">
+    <!-- Wird durch footer.js dynamisch befüllt -->
+  </footer>
 
-  <!-- Info Modal -->
+  <!-- Infomodal -->
   <div id="info-modal">
     <div id="info-content">
-      <h2 id="modal-title" class="info-header">Info</h2>
-      <p id="modal-body" class="info-text">Hier können Informationen zur App angezeigt werden.</p>
+      <h2 id="modal-title" class="info-header">Information</h2>
+      <p id="modal-body" class="info-text">
+        Hier können Sie auswählen, ob Sie nach Personen, Fahrzeugen oder Sachen suchen möchten.
+      </p>
       <button id="info-close-btn">OK</button>
     </div>
   </div>
 
-  <!-- Settings -->
+  <!-- Settings-Menü -->
   <div id="settings-menu">
     <button data-lang="de">Deutsch</button>
     <button data-lang="fr">Französisch</button>
   </div>
   <div id="backdrop"></div>
 
-  <!-- Feather Icons & Script -->
+  <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- Kachel-Events -->
   <script>
-    // Kachel-Events
     document.getElementById('tile-personen').addEventListener('click', () => {
       window.location.href = 'search.html';
     });
+
     document.getElementById('tile-fahrzeuge').addEventListener('click', () => {
       window.location.href = 'search-vehicles.html';
     });
+
     document.getElementById('tile-sachen').addEventListener('click', () => {
       window.location.href = 'search-items.html';
     });
-
-    // Footer dynamisch erstellen
-    const footerButtons = ['info', 'speech']; // Startseite nur Info + Sprache
-    const footer = document.getElementById('footer');
-    footer.innerHTML = '';
-
-    footerButtons.forEach(btn => {
-      const button = document.createElement('button');
-      button.classList.add('icon-btn');
-      button.setAttribute('aria-label', btn === 'info' ? 'Information' : 'Sprache');
-
-      // Icon per <i> Tag einfügen
-      const icon = document.createElement('i');
-      icon.setAttribute('data-feather', btn === 'info' ? 'info' : 'globe');
-      button.appendChild(icon);
-
-      // Eventlistener setzen
-      if(btn === 'info') {
-        button.addEventListener('click', () => {
-          document.getElementById('info-modal').style.display = 'flex';
-        });
-      } else if(btn === 'speech') {
-        button.addEventListener('click', () => {
-          document.getElementById('settings-menu').style.display = 'flex';
-          document.getElementById('backdrop').style.display = 'block';
-        });
-      }
-
-      footer.appendChild(button);
-    });
-
-    // Feather Icons rendern
-    feather.replace();
-
-    // Info Modal schließen
-    document.getElementById('info-close-btn').addEventListener('click', () => {
-      document.getElementById('info-modal').style.display = 'none';
-    });
-
-    // Settings Menu schließen
-    document.getElementById('backdrop').addEventListener('click', () => {
-      document.getElementById('settings-menu').style.display = 'none';
-      document.getElementById('backdrop').style.display = 'none';
-    });
-
-    // Sprachauswahl Buttons
-    document.querySelectorAll('#settings-menu button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang;
-        console.log('Sprache gewählt:', lang);
-        // Hier könntest du die Sprache in localStorage speichern
-        document.getElementById('settings-menu').style.display = 'none';
-        document.getElementById('backdrop').style.display = 'none';
-      });
-    });
   </script>
+
+  <!-- Footer: Buttons definieren und Footer.js einbinden -->
+  <script>
+    // Auf der Startseite nur Info + Sprache
+    window.footerButtons = ['info','speech'];
+  </script>
+  <script src="footer.js"></script>
 </body>
 </html>
