@@ -36,27 +36,32 @@
   <!-- Info Modal -->
   <div id="info-modal">
     <div id="info-content">
-      <h2 id="modal-title" class="info-header">Information</h2>
-      <p id="modal-body" class="info-text">Hier können Sie auswählen, nach welchen Kategorien Sie suchen möchten.</p>
-      <p id="modal-functions-title" class="info-subheader"></p>
-      <ul id="modal-functions-list" class="info-list"></ul>
-      <div id="modal-warning" class="info-warning"></div>
-      <div id="modal-credits" class="info-text" style="margin-top: 15px; font-size: 0.8rem; color: #8e8e93;"></div>
+      <h2 id="modal-title" class="info-header">Info</h2>
+      <p id="modal-body" class="info-text">Hier können Informationen zur App angezeigt werden.</p>
       <button id="info-close-btn">OK</button>
     </div>
   </div>
 
-  <!-- Sprachauswahl -->
+  <!-- Settings -->
   <div id="settings-menu">
     <button data-lang="de">Deutsch</button>
     <button data-lang="fr">Französisch</button>
   </div>
   <div id="backdrop"></div>
 
-  <!-- Feather Icons & JS -->
+  <!-- Feather Icons & Script -->
   <script src="https://unpkg.com/feather-icons"></script>
   <script>
-    feather.replace();
+    // Kachel-Events
+    document.getElementById('tile-personen').addEventListener('click', () => {
+      window.location.href = 'search.html';
+    });
+    document.getElementById('tile-fahrzeuge').addEventListener('click', () => {
+      window.location.href = 'search-vehicles.html';
+    });
+    document.getElementById('tile-sachen').addEventListener('click', () => {
+      window.location.href = 'search-items.html';
+    });
 
     // Footer dynamisch erstellen
     const footerButtons = ['info', 'speech']; // Startseite nur Info + Sprache
@@ -67,8 +72,13 @@
       const button = document.createElement('button');
       button.classList.add('icon-btn');
       button.setAttribute('aria-label', btn === 'info' ? 'Information' : 'Sprache');
-      button.setAttribute('data-feather', btn === 'info' ? 'info' : 'globe');
 
+      // Icon per <i> Tag einfügen
+      const icon = document.createElement('i');
+      icon.setAttribute('data-feather', btn === 'info' ? 'info' : 'globe');
+      button.appendChild(icon);
+
+      // Eventlistener setzen
       if(btn === 'info') {
         button.addEventListener('click', () => {
           document.getElementById('info-modal').style.display = 'flex';
@@ -83,52 +93,30 @@
       footer.appendChild(button);
     });
 
+    // Feather Icons rendern
     feather.replace();
 
-    // Kachel-Events
-    document.getElementById('tile-personen').addEventListener('click', () => {
-      window.location.href = 'search.html';
-    });
-    document.getElementById('tile-fahrzeuge').addEventListener('click', () => {
-      window.location.href = 'search-vehicles.html';
-    });
-    document.getElementById('tile-sachen').addEventListener('click', () => {
-      window.location.href = 'search-items.html';
+    // Info Modal schließen
+    document.getElementById('info-close-btn').addEventListener('click', () => {
+      document.getElementById('info-modal').style.display = 'none';
     });
 
-    // Info Modal
-    const infoCloseBtn = document.getElementById('info-close-btn');
-    if(infoCloseBtn) {
-      infoCloseBtn.addEventListener('click', () => {
-        document.getElementById('info-modal').style.display = 'none';
-      });
-    }
+    // Settings Menu schließen
+    document.getElementById('backdrop').addEventListener('click', () => {
+      document.getElementById('settings-menu').style.display = 'none';
+      document.getElementById('backdrop').style.display = 'none';
+    });
 
-    // Backdrop
-    const backdrop = document.getElementById('backdrop');
-    const settingsMenu = document.getElementById('settings-menu');
-    if(backdrop) {
-      backdrop.addEventListener('click', () => {
-        settingsMenu.style.display = 'none';
-        backdrop.style.display = 'none';
-      });
-    }
-
-    // Sprachauswahl
-    settingsMenu.querySelectorAll('button').forEach(btn => {
+    // Sprachauswahl Buttons
+    document.querySelectorAll('#settings-menu button').forEach(btn => {
       btn.addEventListener('click', () => {
         const lang = btn.dataset.lang;
-        localStorage.setItem('userLang', lang);
-        settingsMenu.style.display = 'none';
-        backdrop.style.display = 'none';
-        location.reload(); // optional, um Texte sofort anzupassen
+        console.log('Sprache gewählt:', lang);
+        // Hier könntest du die Sprache in localStorage speichern
+        document.getElementById('settings-menu').style.display = 'none';
+        document.getElementById('backdrop').style.display = 'none';
       });
     });
-
-    // Sprache initial anhand Systemsprache oder gespeicherter Sprache setzen
-    const savedLang = localStorage.getItem('userLang');
-    const userLang = savedLang || (navigator.language.startsWith('fr') ? 'fr' : 'de');
-    console.log('Aktuelle Sprache:', userLang);
   </script>
 </body>
 </html>
