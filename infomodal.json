@@ -1,0 +1,25 @@
+{
+  "info_text": {
+    "de": {
+      "title": "Über diese Schulungs-App",
+      "body": "Diese Anwendung dient ausschliesslich <strong>Ausbildungszwecken</strong>. Sie wurde speziell dafür entwickelt, theoretisches Wissen in die praktische Anwendung zu überführen. Insbesondere soll sie im <strong>Szenarientraining</strong> und bei <strong>Rollenspielen</strong> eingesetzt werden.",
+      "functions_title": "Funktionen:",
+      "functions": [
+        "Simulation von Datenbankabfragen.",
+        "Darstellung von Trefferszenarien (Fahndungen, Einreisesperren, Sachfahndung)."
+      ],
+      "warning": "<strong>Wichtig:</strong> Alle in dieser App angezeigten Daten und Personenprofile sind frei erfunden.",
+      "credits": "A+W Ausbildung, Digitale Lernmedien, edvausbildung@police.be.ch"
+    },
+    "fr": {
+      "title": "À propos de cette application",
+      "body": "Cette application est destinée exclusivement à des <strong>fins de formation</strong>. Elle a été spécialement conçue pour transférer les connaissances théoriques vers la pratique. Elle est notamment utilisée pour l'entraînement à des scénarios et des jeux de rôle.",
+      "functions_title": "Fonctions :",
+      "functions": [
+        "Simulation de consultations de bases de données.",
+        "Représentation de scénarios de recherche (recherches, interdictions d'entrée, recherche d'objets)."
+      ],
+      "warning": "<strong>Important :</strong> Toutes les données et profils de personnes affichés dans cette application sont fictifs.",
+      "credits": "Formation et perfectionnement, edvausbildung@police.be.ch"
+    }
+  }
