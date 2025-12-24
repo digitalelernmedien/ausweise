@@ -328,8 +328,8 @@ button:active {
 
 /* Logo fix rechts */
 .app-logo {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   flex-shrink: 0;
 }
