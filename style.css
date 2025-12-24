@@ -311,25 +311,29 @@ button:active {
   gap: 12px;
 }
 
-/* Titelbereich */
-.title-text {
-  flex: 1;
+.title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-/* Logo rechts */
+/* 🔑 Text darf NICHT 100% breit sein */
+.title-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Logo fix rechts */
 .app-logo {
   width: 48px;
   height: 48px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
-/* Größer auf Tablets / Desktop */
-@media (min-width: 768px) {
-  .app-logo {
-    width: 120px;
-    height: 120px;
-  }
-}
 
 
 
