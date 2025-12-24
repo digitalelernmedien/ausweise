@@ -36,13 +36,21 @@
   </footer>
 
   <!-- Infomodal -->
-  <div id="info-modal">
-    <div id="info-content">
-      <h2 id="modal-title" class="info-header"></h2>
-      <p id="modal-body" class="info-text"></p>
-      <button id="info-close-btn">OK</button>
-    </div>
+<div id="info-modal">
+  <div id="info-content">
+    <h2 id="modal-title" class="info-header"></h2>
+    <p id="modal-body" class="info-text"></p>
+
+    <p id="modal-functions-title" class="info-subheader"></p>
+    <ul id="modal-functions-list" class="info-list"></ul>
+
+    <div id="modal-warning" class="info-warning"></div>
+    <div id="modal-credits" class="info-text" style="margin-top: 15px; font-size: 0.8rem; color: #8e8e93;"></div>
+
+    <button id="info-close-btn">OK</button>
   </div>
+</div>
+
 
   <!-- Settings-Menü -->
   <div id="settings-menu">
@@ -77,44 +85,57 @@
   <!-- Footer.js einbinden -->
   <script src="footer.js"></script>
 
-  <!-- Infomodal dynamisch laden -->
-  <script>
-    // Sprache: lokal gespeichert oder Gerätesprache
-    let lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
+// Sprache: lokal gespeichert oder Gerätesprache
+let lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
 
-    // Infomodal Elemente
-    const infoBtn = document.getElementById("info-btn");
-    const infoModal = document.getElementById("info-modal");
-    const infoCloseBtn = document.getElementById("info-close-btn");
-    const modalTitle = document.getElementById("modal-title");
-    const modalBody = document.getElementById("modal-body");
+// Infomodal Elemente
+const infoBtn = document.getElementById("info-btn");
+const infoModal = document.getElementById("info-modal");
+const infoCloseBtn = document.getElementById("info-close-btn");
+const modalTitle = document.getElementById("modal-title");
+const modalBody = document.getElementById("modal-body");
 
-    // Infomodal JSON laden
-    fetch('infomodal.json')
-      .then(res => res.json())
-      .then(data => {
-        const infoData = data.info_text[lang];
-        if(infoData) {
-          modalTitle.innerHTML = infoData.title;
-          modalBody.innerHTML = infoData.body;
+// Infomodal JSON laden
+fetch('infomodal.json')
+  .then(res => res.json())
+  .then(data => {
+    const infoData = data.info_text[lang];
+    if(infoData) {
+      modalTitle.innerHTML = infoData.title;
+      modalBody.innerHTML = infoData.body;
 
-          // Info Button Event
-          infoBtn.addEventListener('click', () => {
-            infoModal.style.display = 'flex';
-          });
+      // Funktionen
+      document.getElementById("modal-functions-title").innerHTML = infoData.functions_title;
+      const funcList = document.getElementById("modal-functions-list");
+      funcList.innerHTML = "";
+      infoData.functions.forEach(f => {
+        const li = document.createElement("li");
+        li.innerHTML = f;
+        funcList.appendChild(li);
+      });
 
-          // Close Button Event
-          infoCloseBtn.addEventListener('click', () => {
-            infoModal.style.display = 'none';
-          });
+      // Warning & Credits
+      document.getElementById("modal-warning").innerHTML = infoData.warning;
+      document.getElementById("modal-credits").innerHTML = infoData.credits;
 
-          // Klick außerhalb schließen
-          infoModal.addEventListener('click', (e) => {
-            if(e.target === infoModal) infoModal.style.display = 'none';
-          });
-        }
-      })
-      .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
+      // Info Button Event
+      infoBtn.addEventListener('click', () => {
+        infoModal.style.display = 'flex';
+      });
+
+      // Close Button Event
+      infoCloseBtn.addEventListener('click', () => {
+        infoModal.style.display = 'none';
+      });
+
+      // Klick außerhalb schließen
+      infoModal.addEventListener('click', (e) => {
+        if(e.target === infoModal) infoModal.style.display = 'none';
+      });
+    }
+  })
+  .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
+
 
     // Sprachauswahl
     const settingsMenu = document.getElementById("settings-menu");
