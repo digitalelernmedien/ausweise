@@ -354,11 +354,13 @@ button:active {
 }
 
 .tile-icon {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   margin-bottom: 0.5rem;
-  object-fit: contain;
+  stroke: #007AFF;
 }
+
+
 
 
 /* Druckversion */
