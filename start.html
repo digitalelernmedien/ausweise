@@ -32,16 +32,14 @@
 
   <!-- Footer -->
   <footer id="footer">
-    <!-- Wird durch footer.js dynamisch befüllt -->
+    <!-- Buttons werden durch footer.js dynamisch eingefügt -->
   </footer>
 
   <!-- Infomodal -->
   <div id="info-modal">
     <div id="info-content">
-      <h2 id="modal-title" class="info-header">Information</h2>
-      <p id="modal-body" class="info-text">
-        Hier können Sie auswählen, ob Sie nach Personen, Fahrzeugen oder Sachen suchen möchten.
-      </p>
+      <h2 id="modal-title" class="info-header"></h2>
+      <p id="modal-body" class="info-text"></p>
       <button id="info-close-btn">OK</button>
     </div>
   </div>
@@ -71,11 +69,80 @@
     });
   </script>
 
-  <!-- Footer: Buttons definieren und Footer.js einbinden -->
+  <!-- Footer-Buttons für Startseite definieren -->
   <script>
-    // Auf der Startseite nur Info + Sprache
-    window.footerButtons = ['info','speech'];
+    window.footerButtons = ['info', 'speech'];
   </script>
+
+  <!-- Footer.js einbinden -->
   <script src="footer.js"></script>
+
+  <!-- Infomodal dynamisch laden -->
+  <script>
+    // Sprache: lokal gespeichert oder Gerätesprache
+    let lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
+
+    // Infomodal Elemente
+    const infoBtn = document.getElementById("info-btn");
+    const infoModal = document.getElementById("info-modal");
+    const infoCloseBtn = document.getElementById("info-close-btn");
+    const modalTitle = document.getElementById("modal-title");
+    const modalBody = document.getElementById("modal-body");
+
+    // Infomodal JSON laden
+    fetch('infomodal.json')
+      .then(res => res.json())
+      .then(data => {
+        const infoData = data.info_text[lang];
+        if(infoData) {
+          modalTitle.innerHTML = infoData.title;
+          modalBody.innerHTML = infoData.body;
+
+          // Info Button Event
+          infoBtn.addEventListener('click', () => {
+            infoModal.style.display = 'flex';
+          });
+
+          // Close Button Event
+          infoCloseBtn.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+          });
+
+          // Klick außerhalb schließen
+          infoModal.addEventListener('click', (e) => {
+            if(e.target === infoModal) infoModal.style.display = 'none';
+          });
+        }
+      })
+      .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
+
+    // Sprachauswahl
+    const settingsMenu = document.getElementById("settings-menu");
+    const backdrop = document.getElementById("backdrop");
+    const speechBtn = document.getElementById("speech-btn");
+
+    speechBtn.addEventListener("click", () => {
+      settingsMenu.style.display = "flex";
+      backdrop.style.display = "block";
+    });
+
+    settingsMenu.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        lang = btn.dataset.lang;
+        localStorage.setItem("appLang", lang);
+        settingsMenu.style.display = "none";
+        backdrop.style.display = "none";
+        location.reload(); // Seite neu laden, um Texte in neuer Sprache anzuzeigen
+      });
+    });
+
+    backdrop.addEventListener("click", () => {
+      settingsMenu.style.display = "none";
+      backdrop.style.display = "none";
+    });
+
+    // Feather Icons rendern
+    feather.replace();
+  </script>
 </body>
 </html>
