@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Startseite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="main-content">
+    <h1 id="title">Was möchten Sie suchen?</h1>
+    <p id="subtitle" class="subtitle">Bitte wählen Sie eine Kategorie aus.</p>
+
+    <!-- Kacheln -->
+    <div class="tile-container">
+      <div class="tile" id="tile-personen">
+        <img src="images/person-icon.png" alt="Personen" class="tile-icon">
+        <span>Personen</span>
+      </div>
+
+      <div class="tile" id="tile-fahrzeuge">
+        <img src="images/car-icon.png" alt="Fahrzeuge" class="tile-icon">
+        <span>Fahrzeuge</span>
+      </div>
+
+      <div class="tile" id="tile-sachen">
+        <img src="images/item-icon.png" alt="Sachen" class="tile-icon">
+        <span>Sachen</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer wie bisher -->
+  <footer id="footer">
+    <button id="info-btn" class="icon-btn" aria-label="Information" data-feather="info"></button>
+    <button id="speech-btn" class="icon-btn" aria-label="Sprache" data-feather="globe"></button>
+  </footer>
+
+  <!-- Modals & Settings -->
+  <div id="info-modal">
+    <div id="info-content">
+      <h2 id="modal-title" class="info-header"></h2>
+      <p id="modal-body" class="info-text"></p>
+      <p id="modal-functions-title" class="info-subheader"></p>
+      <ul id="modal-functions-list" class="info-list"></ul>
+      <div id="modal-warning" class="info-warning"></div>
+      <div id="modal-credits" class="info-text" style="margin-top: 15px; font-size: 0.8rem; color: #8e8e93;"></div>
+      <button id="info-close-btn">OK</button>
+    </div>
+  </div>
+
+  <div id="settings-menu">
+    <button data-lang="de">Deutsch</button>
+    <button data-lang="fr">Französisch</button>
+  </div>
+  <div id="backdrop"></div>
+
+  <!-- Icons & JS -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script>
+    feather.replace();
+
+    // Kachel-Events
+    document.getElementById('tile-personen').addEventListener('click', () => {
+      window.location.href = 'search.html';
+    });
+
+    document.getElementById('tile-fahrzeuge').addEventListener('click', () => {
+      window.location.href = 'search-vehicles.html';
+    });
+
+    document.getElementById('tile-sachen').addEventListener('click', () => {
+      window.location.href = 'search-items.html';
+    });
+  </script>
+</body>
+</html>
