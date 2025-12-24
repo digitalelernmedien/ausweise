@@ -80,35 +80,30 @@ li {
   opacity: 0.7;
 }
 
-
 .icon-btn.disabled {
-    color: #c7c7cc; 
-    opacity: 0.4;
-    filter: grayscale(100%);
-    cursor: not-allowed;
-    pointer-events: none;
-    -webkit-tap-highlight-color: transparent;
+  color: #c7c7cc; 
+  opacity: 0.4;
+  filter: grayscale(100%);
+  cursor: not-allowed;
+  pointer-events: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%; /* Muss 100% sein, um den Spalt zu schliessen */
-    background: #ffffff; /* Feste Farbe deckt das Grau ab */
-    
-    /* WICHTIG: Hier füllen wir den Bereich hinter der URL-Leiste */
-    padding-bottom: env(safe-area-inset-bottom); 
-    
-    display: flex;
-    justify-content: center; /* Zentriert die Icons */
-    align-items: center;
-    gap: 40px; /* Abstand zwischen den Icons */
-    
-    height: 60px; /* Feste Höhe für einheitliche Optik */
-    z-index: 100;
-    border-top: 1px solid #e5e5e5;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Muss 100% sein, um den Spalt zu schließen */
+  background: #ffffff; /* Feste Farbe deckt das Grau ab */
+  padding-bottom: env(safe-area-inset-bottom); 
+  display: flex;
+  justify-content: center; /* Zentriert die Icons */
+  align-items: center;
+  gap: 40px; /* Abstand zwischen den Icons */
+  height: 60px; /* Feste Höhe für einheitliche Optik */
+  z-index: 100;
+  border-top: 1px solid #e5e5e5;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
 }
 
 #settings-btn {
@@ -136,7 +131,6 @@ li {
   z-index: 200;
   padding-bottom: env(safe-area-inset-bottom);
 }
-
 
 #settings-menu button {
   color: #007AFF;
@@ -172,26 +166,26 @@ li {
 }
 
 #info-modal {
-    display: none; 
-    position: fixed;
-    z-index: 1000;
-    inset: 0;
-    background-color: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 #info-content {
-    background-color: #ffffff;
-    border-radius: 14px;
-    padding: 20px;
-    width: 90%;            
-    max-width: 360px;
-    box-sizing: border-box;   
-    text-align: left;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    animation: slideUp 0.3s ease-out;
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  width: 90%;            
+  max-width: 360px;
+  box-sizing: border-box;   
+  text-align: left;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  animation: slideUp 0.3s ease-out;
 }
 
 /* Slide-Up Animation */
@@ -202,55 +196,55 @@ li {
 
 /* Überschriften & Text */
 .info-header {
-    margin-top: 0;
-    font-size: 1.25rem;
-    color: #000;
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: #000;
 }
 
 .info-text, .info-subheader {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: #3a3a3c;
-    margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #3a3a3c;
+  margin-bottom: 12px;
 }
 
 .info-list {
-    margin: 0 0 20px 0;
-    padding-left: 1.7rem;
+  margin: 0 0 20px 0;
+  padding-left: 1.7rem;
 }
 
 .info-list li {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    color: #3a3a3c;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #3a3a3c;
 }
 
 .info-warning {
-    background-color: #fef9e7;
-    border-left: 4px solid #ffcc00;
-    padding: 12px;
-    font-size: 0.85rem;
-    border-radius: 4px;
-    margin-bottom: 20px;
+  background-color: #fef9e7;
+  border-left: 4px solid #ffcc00;
+  padding: 12px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 /* Der OK-Button im iOS-Style */
 #info-close-btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: #007aff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, opacity 0.2s;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #007aff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
 }
 
 #info-close-btn:active {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 #info-close-btn:hover {
@@ -269,8 +263,14 @@ label {
   color: #3a3a3c;
 }
 
-input {
+/* Einheitliche Breite für Inputs und Button, Abstand wie Button */
+form input,
+form button {
   width: 100%;
+  box-sizing: border-box;
+}
+
+input {
   padding: 0.6rem;
   font-size: 1rem;
   border-radius: 8px;
@@ -306,13 +306,6 @@ button:active {
 /* Titel + Logo in einer Zeile */
 .title-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.title-row {
-  display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
@@ -334,32 +327,22 @@ button:active {
   flex-shrink: 0;
 }
 
-
-
-
-
+/* Druckversion */
 @media print {
-  /* Grundlegende Druck-Einstellungen */
   body {
     background: white;
     color: black;
     font-size: 12pt;
   }
-
-  /* Alles ausblenden, was nicht gedruckt werden soll */
   header, #footer, #settings-menu, #backdrop, #info-modal {
     display: none !important;
   }
-
-  /* Main- und Content-Bereich auf volle Breite */
   main, #content {
     max-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }
-
-  /* Alle Karten */
   #content > div {
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -368,34 +351,25 @@ button:active {
     margin: 0.2rem 0;
     width: 100%;
     box-sizing: border-box;
-    page-break-inside: avoid; /* verhindert Umbruch innerhalb einer Karte */
+    page-break-inside: avoid;
   }
-
-  /* Letzte Karte explizit überschreiben */
   #content > div:last-child {
     border-radius: 0 !important;
     box-shadow: none !important;
   }
-
-  /* Obere Trennlinie für die erste Karte */
   #content > div:first-child {
     border-top: 1px solid #ccc;
     margin-top: 0.2rem;
     padding-top: 0.2rem;
   }
-
-  /* Überschriften nicht umbrechen, Abstand verkleinern */
   h1, h3 {
     page-break-inside: avoid;
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
   }
-
-  /* Absätze und Listen kompakt */
   p {
     margin: 0 0 0.5rem 0;
   }
-
   ul {
     padding-left: 1.2rem;
     margin-bottom: 0.5rem;
