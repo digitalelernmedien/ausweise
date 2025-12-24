@@ -8,8 +8,8 @@
 </head>
 <body>
   <main id="main-content">
-    <h1 id="title">Was möchtest du suchen?</h1>
-    <p id="subtitle" class="subtitle">Bitte wählen eine Kategorie aus.</p>
+    <h1 id="title">Was möchten Sie suchen?</h1>
+    <p id="subtitle" class="subtitle">Bitte wählen Sie eine Kategorie aus.</p>
 
     <!-- Kacheln -->
     <div class="tile-container">
@@ -30,10 +30,8 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer id="footer">
-    <!-- Buttons werden durch footer.js dynamisch eingefügt -->
-  </footer>
+  <!-- Footer: dynamisch durch footer.js -->
+  <footer id="footer"></footer>
 
   <!-- Infomodal -->
   <div id="info-modal">
@@ -58,53 +56,51 @@
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
 
-  <!-- Footer: Buttons definieren -->
-  <script>
-    // Auf der Startseite nur Info + Sprache
-    window.footerButtons = ['info','speech'];
-  </script>
-  <script src="footer.js"></script>
-
   <!-- Kachel-Events -->
   <script>
     document.getElementById('tile-personen').addEventListener('click', () => {
       window.location.href = 'search.html';
     });
+
     document.getElementById('tile-fahrzeuge').addEventListener('click', () => {
       window.location.href = 'search-vehicles.html';
     });
+
     document.getElementById('tile-sachen').addEventListener('click', () => {
       window.location.href = 'search-items.html';
     });
   </script>
 
-  <!-- Infomodal dynamisch laden -->
+  <!-- Footer-Buttons für Startseite definieren -->
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Sprache aus LocalStorage oder Gerätesprache
-    let lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
+    // Auf Startseite nur Info + Sprache
+    window.footerButtons = ['info', 'speech'];
+  </script>
+  <script src="footer.js"></script>
 
-    // Infomodal Elemente
-    const infoBtn = document.getElementById("info-btn");
-    const infoModal = document.getElementById("info-modal");
-    const infoCloseBtn = document.getElementById("info-close-btn");
-    const modalTitle = document.getElementById("modal-title");
-    const modalBody = document.getElementById("modal-body");
+  <!-- Infomodal aus JSON laden -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Sprache: lokal gespeichert oder Gerätesprache
+      let lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
 
-    const modalFunctionsTitle = document.getElementById("modal-functions-title");
-    const modalFunctionsList = document.getElementById("modal-functions-list");
-    const modalWarning = document.getElementById("modal-warning");
-    const modalCredits = document.getElementById("modal-credits");
+      fetch('infomodal.json')
+        .then(res => res.json())
+        .then(data => {
+          const infoData = data.info_text[lang];
+          if (!infoData) return;
 
-    // JSON laden
-    fetch('infomodal.json')
-      .then(res => res.json())
-      .then(data => {
-        const infoData = data.info_text[lang];
-        if(infoData){
+          const infoModal = document.getElementById("info-modal");
+          const modalTitle = document.getElementById("modal-title");
+          const modalBody = document.getElementById("modal-body");
+          const modalFunctionsTitle = document.getElementById("modal-functions-title");
+          const modalFunctionsList = document.getElementById("modal-functions-list");
+          const modalWarning = document.getElementById("modal-warning");
+          const modalCredits = document.getElementById("modal-credits");
+          const infoCloseBtn = document.getElementById("info-close-btn");
+
           modalTitle.innerHTML = infoData.title;
           modalBody.innerHTML = infoData.body;
-
           modalFunctionsTitle.innerHTML = infoData.functions_title;
 
           modalFunctionsList.innerHTML = "";
@@ -117,27 +113,22 @@
           modalWarning.innerHTML = infoData.warning;
           modalCredits.innerHTML = infoData.credits;
 
-          // Info Button
-          if(infoBtn) infoBtn.addEventListener('click', () => {
-            infoModal.style.display = 'flex';
-          });
+          // Eventlistener erst setzen, wenn Footer gebaut ist
+          const waitForInfoBtn = setInterval(() => {
+            const infoBtn = document.getElementById("info-btn");
+            if(infoBtn){
+              infoBtn.addEventListener('click', () => infoModal.style.display = 'flex');
+              infoCloseBtn.addEventListener('click', () => infoModal.style.display = 'none');
+              infoModal.addEventListener('click', (e) => { if(e.target === infoModal) infoModal.style.display = 'none'; });
+              clearInterval(waitForInfoBtn);
+            }
+          }, 50);
+        })
+        .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
 
-          // Close Button
-          if(infoCloseBtn) infoCloseBtn.addEventListener('click', () => {
-            infoModal.style.display = 'none';
-          });
-
-          // Klick außerhalb schließen
-          infoModal.addEventListener('click', (e) => {
-            if(e.target === infoModal) infoModal.style.display = 'none';
-          });
-        }
-      })
-      .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
-
-    // Feather Icons rendern
-    feather.replace();
-  });
+      // Feather Icons rendern
+      feather.replace();
+    });
   </script>
 </body>
 </html>
