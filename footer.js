@@ -5,6 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const buttons = window.footerButtons || [];
   footer.innerHTML = "";
 
+  // JSON-Inhalt vorbereiten
+  let infoDataCache = null;
+  const lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
+  fetch('infomodal.json')
+    .then(res => res.json())
+    .then(data => {
+      infoDataCache = data.info_text[lang];
+    })
+    .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
+
   buttons.forEach(btn => {
     const button = document.createElement("button");
     button.classList.add("icon-btn");
@@ -30,34 +40,24 @@ document.addEventListener("DOMContentLoaded", () => {
       case "info":
         button.addEventListener("click", () => {
           const modal = document.getElementById("info-modal");
-          if(!modal) return;
+          if(!modal || !infoDataCache) return;
 
-          let lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
+          document.getElementById("modal-title").innerHTML = infoDataCache.title;
+          document.getElementById("modal-body").innerHTML = infoDataCache.body;
+          document.getElementById("modal-functions-title").innerHTML = infoDataCache.functions_title;
 
-          fetch('infomodal.json')
-            .then(res => res.json())
-            .then(data => {
-              const infoData = data.info_text[lang];
-              if(!infoData) return;
+          const list = document.getElementById("modal-functions-list");
+          list.innerHTML = "";
+          infoDataCache.functions.forEach(f => {
+            const li = document.createElement("li");
+            li.innerHTML = f;
+            list.appendChild(li);
+          });
 
-              document.getElementById("modal-title").innerHTML = infoData.title;
-              document.getElementById("modal-body").innerHTML = infoData.body;
-              document.getElementById("modal-functions-title").innerHTML = infoData.functions_title;
+          document.getElementById("modal-warning").innerHTML = infoDataCache.warning;
+          document.getElementById("modal-credits").innerHTML = infoDataCache.credits;
 
-              const list = document.getElementById("modal-functions-list");
-              list.innerHTML = "";
-              infoData.functions.forEach(f => {
-                const li = document.createElement("li");
-                li.innerHTML = f;
-                list.appendChild(li);
-              });
-
-              document.getElementById("modal-warning").innerHTML = infoData.warning;
-              document.getElementById("modal-credits").innerHTML = infoData.credits;
-
-              modal.style.display = "flex";
-            })
-            .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
+          modal.style.display = "flex";
         });
         break;
 
