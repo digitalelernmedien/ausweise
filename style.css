@@ -303,6 +303,25 @@ button:active {
   font-size: 0.9rem;
 }
 
+/* App Logo */
+#app-logo {
+  position: fixed;
+  top: env(safe-area-inset-top, 10px);
+  right: env(safe-area-inset-right, 10px);
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  z-index: 1000;
+}
+
+/* Größer auf größeren Screens */
+@media (min-width: 768px) {
+  #app-logo {
+    width: 120px;
+    height: 120px;
+  }
+}
+
 
 @media print {
   /* Grundlegende Druck-Einstellungen */
