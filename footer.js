@@ -1,13 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const footer = document.getElementById("footer");
+  if(!footer) return;
 
-  if (!footer) return;
-
-  // Welche Buttons auf dieser Seite angezeigt werden sollen
-  // Definiere in jeder Seite vor dem Einbinden von footer.js:
-  // window.footerButtons = ['info','speech','back','reset','home'];
   const buttons = window.footerButtons || [];
-
   footer.innerHTML = "";
 
   buttons.forEach(btn => {
@@ -23,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case "back": iconName = "arrow-left"; break;
       case "reset": iconName = "refresh-cw"; break;
       case "home": iconName = "home"; break;
-      default: iconName = "circle"; 
+      default: iconName = "circle";
     }
 
     const icon = document.createElement("i");
@@ -35,9 +30,37 @@ document.addEventListener("DOMContentLoaded", () => {
       case "info":
         button.addEventListener("click", () => {
           const modal = document.getElementById("info-modal");
-          if(modal) modal.style.display = "flex";
+          if(!modal) return;
+
+          let lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
+
+          fetch('infomodal.json')
+            .then(res => res.json())
+            .then(data => {
+              const infoData = data.info_text[lang];
+              if(!infoData) return;
+
+              document.getElementById("modal-title").innerHTML = infoData.title;
+              document.getElementById("modal-body").innerHTML = infoData.body;
+              document.getElementById("modal-functions-title").innerHTML = infoData.functions_title;
+
+              const list = document.getElementById("modal-functions-list");
+              list.innerHTML = "";
+              infoData.functions.forEach(f => {
+                const li = document.createElement("li");
+                li.innerHTML = f;
+                list.appendChild(li);
+              });
+
+              document.getElementById("modal-warning").innerHTML = infoData.warning;
+              document.getElementById("modal-credits").innerHTML = infoData.credits;
+
+              modal.style.display = "flex";
+            })
+            .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
         });
         break;
+
       case "speech":
         button.addEventListener("click", () => {
           const menu = document.getElementById("settings-menu");
@@ -48,12 +71,15 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
         break;
+
       case "back":
         button.addEventListener("click", () => window.history.back());
         break;
+
       case "reset":
         button.addEventListener("click", () => location.reload());
         break;
+
       case "home":
         button.addEventListener("click", () => window.location.href = "start.html");
         break;
@@ -83,17 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('#settings-menu button').forEach(btn => {
     btn.addEventListener('click', () => {
       const lang = btn.dataset.lang;
-      console.log('Sprache gewählt:', lang);
+      localStorage.setItem("appLang", lang);
       const menu = document.getElementById("settings-menu");
       if(menu) menu.style.display = "none";
       if(backdrop) backdrop.style.display = "none";
-      // Optional: in localStorage speichern
-      localStorage.setItem("appLang", lang);
+      location.reload();
     });
   });
-
-  // Initiale Sprache aus Gerätesprache oder localStorage
-  const savedLang = localStorage.getItem("appLang");
-  const lang = savedLang || (navigator.language.startsWith("fr") ? "fr" : "de");
-  console.log("Aktuelle Sprache:", lang);
 });
