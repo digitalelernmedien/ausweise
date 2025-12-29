@@ -31,7 +31,7 @@ const uiText = {
     subtitle: "Name und Geburtsdatum eingeben",
     pageTitle: "Identitätsabfrage",
     errorNoData: "Daten nicht geladen",
-    errorRequired: "Nachname und Geburtsdatum sind erforderlich",
+    errorRequired: "Nachname und Geburtsdatum erforderlich",
     errorInvalidDob: "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)",
     errorNoMatch: "Kein Treffer gefunden"
   },
@@ -72,7 +72,7 @@ function updateUIText() {
    Daten laden
 --------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  updateUIText();
+  updateUIText(); // setzt alle Texte direkt beim Laden
 
   fetch("data.json")
     .then(res => res.json())
@@ -112,8 +112,10 @@ document.getElementById("search-form").addEventListener("submit", e => {
     return;
   }
 
-  // Alle passenden Karten sammeln
-  const matchedKarten = [];
+  // ---------------------------
+  // Suche über GERES, ISA, ZEMIS (Objekte)
+  // ---------------------------
+  const matchingKarten = [];
 
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
@@ -123,29 +125,26 @@ document.getElementById("search-form").addEventListener("submit", e => {
     for (const key of ["GERES","ISA","ZEMIS"]) {
       const entries = sections[key] || [];
       for (const entry of entries) {
-        if (!entry || typeof entry !== "object") continue;
-
+        // Prüfen, ob Felder existieren
         const hasLastname = entry.lastname?.toLowerCase().includes(lastname);
         const hasFirstname = !firstname || entry.firstname?.toLowerCase().includes(firstname);
-        const hasDob = normalizeDob(entry.dob) === normalizedDob;
+        const hasDob = entry.dob === normalizedDob;
 
         if (hasLastname && hasDob && hasFirstname) {
-          matchedKarten.push(karteId);
-          break; // 1 Treffer pro Steckbrief reicht
+          if (!matchingKarten.includes(karteId)) matchingKarten.push(karteId);
         }
       }
-      if (matchedKarten.includes(karteId)) break;
     }
   }
 
-  if (matchedKarten.length === 1) {
-    // Ein Treffer → direkt weiterleiten
-    window.location.href = `index.html?karte=${matchedKarten[0]}`;
-  } else if (matchedKarten.length > 1) {
-    // Mehrere Treffer → Liste anzeigen (optional: Modal oder neue Seite)
-    errorEl.innerHTML = `Mehrere Treffer gefunden: ${matchedKarten.join(", ")}`;
-  } else {
+  if (matchingKarten.length === 0) {
     errorEl.innerText = t.errorNoMatch;
+  } else if (matchingKarten.length === 1) {
+    window.location.href = `index.html?karte=${matchingKarten[0]}`;
+  } else {
+    // Mehrfachtreffer: Liste zur Auswahl anzeigen
+    const selection = matchingKarten.map(k => `<li><a href="index.html?karte=${k}">${k}</a></li>`).join("");
+    errorEl.innerHTML = `<strong>Mehrere Treffer:</strong><ul>${selection}</ul>`;
   }
 });
 
