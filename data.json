@@ -22,8 +22,8 @@
   "FABER": [{ "category": "Kat. B", "since": "seit 15.05.2000" }],
   "MOFIS": [{ "plate": "BE839402", "vin": "WAUZZZ8V1JA123456", "type": "PW", "brand": "Audi", "model": "A3"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
-  "Hoogan": [],
-  "RIPOL": []
+  "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
+  "RIPOL": [{"year": "", "description": "", "itemnumber": ""}, {"year": "", "description": "", "itemnumber": ""}]
 },
 "fr": {
   "Traitement des processus": [{ "year": 2025, "description": "lésé VPE"}, { "year": 2024, "description": "lésé dommages à la propriété" }],
@@ -32,8 +32,8 @@
   "FABER": [{ "category": "Cat. B", "since": "depuis 15.05.2000" }],
   "MOFIS": [{ "plate": "BE839402", "vin": "WAUZZZ8V1JA123456", "type": "Voiture de tourisme", "brand": "Audi", "model": "A3"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
-  "Hoogan": [],
-  "RIPOL": []
+  "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
+  "RIPOL": [{"year": "", "description": "", "itemnumber": ""}, {"year": "", "description": "", "itemnumber": ""}]
 }
     },
     "S002": {
