@@ -67,14 +67,18 @@ function updateUIText() {
 /* ---------------------------
    Daten laden
 --------------------------- */
-fetch("data.json")
-  .then(res => res.json())
-  .then(data => {
-    dataGlobal = data;
-    setupFooter();      // Footer-Funktionen aktivieren
-    updateUIText();     // Texte direkt beim Laden in der aktuellen Sprache setzen
-  })
-  .catch(err => console.error("Fehler beim Laden der Daten:", err));
+document.addEventListener("DOMContentLoaded", () => {
+  // currentLang bereits gesetzt
+  updateUIText(); // setzt alle Texte direkt beim Laden
+
+  fetch("data.json")
+    .then(res => res.json())
+    .then(data => {
+      dataGlobal = data;
+      setupFooter(); // Footer-Funktionen aktivieren
+    })
+    .catch(err => console.error("Fehler beim Laden der Daten:", err));
+});
 
 
 /* ---------------------------
