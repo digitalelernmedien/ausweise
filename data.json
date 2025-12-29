@@ -21,7 +21,7 @@
   "ISA": [{"firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980"}],
   "FABER": [{ "category": "Kat. B", "since": "seit 15.05.2000" }],
   "MOFIS": [{ "plate": "BE839402", "vin": "WAUZZZ8V1JA123456", "type": "PW", "brand": "Audi", "model": "A3"}],
-  "ZEMIS": [],
+  "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [],
   "RIPOL": []
 },
@@ -31,7 +31,7 @@
   "ISA": [{ "firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980"}],
   "FABER": [{ "category": "Cat. B", "since": "depuis 15.05.2000" }],
   "MOFIS": [{ "plate": "BE839402", "vin": "WAUZZZ8V1JA123456", "type": "Voiture de tourisme", "brand": "Audi", "model": "A3"}],
-  "ZEMIS": [],
+  "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [],
   "RIPOL": []
 }
