@@ -28,14 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
      Generischer Objekt-Renderer
      z.B. GERES, ISA, FABER
   --------------------------- */
-  function formatObjectEntry(obj) {
-    if (!obj || typeof obj !== "object") return "";
+function formatObjectEntryValues(obj) {
+  if (!obj || typeof obj !== "object") return "";
 
-    // Alle Schlüssel des Objekts in "Feld: Wert" darstellen
-    return Object.entries(obj)
-      .map(([key, value]) => `${key}: ${value}`)
-      .join(", ");
-  }
+  const { firstname, lastname, ...rest } = obj; // Vorname und Nachname abtrennen
+  const firstPart = [firstname, lastname].filter(Boolean).join(" "); // nur Leerzeichen
+  const otherParts = Object.values(rest).filter(Boolean).join(", ");  // restliche Felder mit Komma
+
+  return [firstPart, otherParts].filter(Boolean).join(", "); // alles zusammen
+}
 
   function render() {
     if (!dataGlobal) return;
@@ -97,7 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
           } else if (key === "MOFIS") {
             li.innerText = formatMofisEntry(item, lang);
           } else {
-            li.innerText = formatObjectEntry(item);
+            li.innerText = formatObjectEntryValues(item);
+
           }
 
           ul.appendChild(li);
