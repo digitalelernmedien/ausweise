@@ -30,14 +30,8 @@
   <p id="error" class="error"></p>
 </main>
 
-<!-- Footer -->
-<footer id="footer">
-  <button id="info-btn" class="icon-btn" aria-label="Information" data-feather="info"></button>
-  <button id="speech-btn" class="icon-btn" aria-label="Sprache" data-feather="globe"></button>
-  <button id="reset-btn" class="icon-btn" aria-label="Suche zurücksetzen" data-feather="delete"></button>
-</footer>
+<footer id="footer"></footer>
 
-<!-- Info Modal -->
 <div id="info-modal">
   <div id="info-content">
     <h2 id="modal-title" class="info-header"></h2>
@@ -45,26 +39,24 @@
     <p id="modal-functions-title" class="info-subheader"></p>
     <ul id="modal-functions-list" class="info-list"></ul>
     <div id="modal-warning" class="info-warning"></div>
-    <div id="modal-credits" class="info-text" style="margin-top: 15px; font-size: 0.8rem; color: #8e8e93;"></div>
+    <div id="modal-credits" class="info-text"></div>
     <button id="info-close-btn">OK</button>
   </div>
 </div>
 
-<!-- Settings Menu -->
 <div id="settings-menu">
   <button data-lang="de">Deutsch</button>
   <button data-lang="fr">Französisch</button>
 </div>
-
 <div id="backdrop"></div>
+
+<script> window.footerButtons = ['info', 'speech', 'back', 'reset'];</script>
 
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="app.js"></script>
 <script src="search.js"></script>
-<script>
-  // Icons initial rendern
-  feather.replace();
-</script>
+<script src="footer.js"></script>
+<script> feather.replace();</script>
 
 </body>
 </html>
