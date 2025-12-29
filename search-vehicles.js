@@ -82,7 +82,8 @@ document.getElementById("search-form").addEventListener("submit", e => {
     return;
   }
 
-  let foundKarte = null;
+  // Array für mehrere Treffer
+  const foundKarten = [];
 
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
@@ -100,22 +101,28 @@ document.getElementById("search-form").addEventListener("submit", e => {
       const vinMatch =
         !vinInput || vehicle.vin?.toLowerCase().includes(vinInput);
 
-      // 🔑 Logik:
-      // - nur plate → plateMatch
-      // - nur vin → vinMatch
-      // - beide → beide true
       if (plateMatch && vinMatch) {
-        foundKarte = karteId;
-        break;
+        // Treffer speichern, falls noch nicht im Array
+        if (!foundKarten.includes(karteId)) {
+          foundKarten.push(karteId);
+        }
+        break; // MOFIS-Liste des Steckbriefs durchsucht, weiter zum nächsten Steckbrief
       }
     }
-
-    if (foundKarte) break;
   }
 
-  if (foundKarte) {
-    window.location.href = `index.html?karte=${foundKarte}`;
+  // Auswertung
+  if (foundKarten.length === 1) {
+    // genau ein Treffer → weiterleiten
+    window.location.href = `index.html?karte=${foundKarten[0]}`;
+  } else if (foundKarten.length > 1) {
+    // mehrere Treffer → Hinweis
+    errorEl.innerText =
+      currentLang === "fr"
+        ? "Plusieurs véhicules trouvés – veuillez affiner la recherche"
+        : "Mehrere Fahrzeuge gefunden – bitte Suche präzisieren";
   } else {
+    // kein Treffer
     errorEl.innerText = t.errorNoMatch;
   }
 });
