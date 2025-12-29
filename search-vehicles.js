@@ -1,51 +1,29 @@
 let dataGlobal = null;
 let currentLang = localStorage.getItem("appLang") || (navigator.language.startsWith("fr") ? "fr" : "de");
 
-
-/* ---------------------------
-   Geburtsdatum normalisieren
---------------------------- */
-function normalizeDob(input) {
-  if (!input) return null;
-  if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(input)) {
-    const [d, m, y] = input.split(".");
-    return `${d.padStart(2,"0")}.${m.padStart(2,"0")}.${y}`;
-  }
-  if (/^\d{8}$/.test(input)) {
-    const d = input.slice(0,2);
-    const m = input.slice(2,4);
-    const y = input.slice(4);
-    return `${d}.${m}.${y}`;
-  }
-  return null;
-}
-
 /* ---------------------------
    UI Texte für Sprache
 --------------------------- */
 const uiText = {
   de: {
-    lastname: "Nachname",
-    firstname: "Vorname (optional)",
-    dob: "DD.MM.YYYY",
-    searchBtn: "Suchen",
-    subtitle: "Name und Geburtsdatum eingeben",
-    pageTitle: "Identitätsabfrage",
-    errorNoData: "Daten nicht geladen",
-    errorRequired: "Nachname und Geburtsdatum sind erforderlich",
-    errorInvalidDob: "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)",
-    errorNoMatch: "Kein Treffer gefunden"
-  },
+  plate: "Kontrollschild",
+  vin: "VIN",
+  searchBtn: "Suchen",
+  subtitle: "Kontrollschild und/oder VIN eingeben",
+  pageTitle: "Fahrzeugabfrage",
+  errorNoData: "Daten nicht geladen",
+  errorRequired: "Kontrollschild oder VIN erforderlich",
+  errorNoMatch: "Kein Treffer gefunden"
+}
+,
   fr: {
-    lastname: "Nom",
-    firstname: "Prénom (facultatif)",
-    dob: "JJ.MM.AAAA",
+    plate: "Plaque d’immatriculation",
+    vin: "VIN",
     searchBtn: "Rechercher",
-    subtitle: "Entrez le nom et la date de naissance",
-    pageTitle: "Identité à vérifier",
+    subtitle: "Entrez la plaque et/ou le VIN",
+    pageTitle: "Recherche de véhicule",
     errorNoData: "Données non chargées",
-    errorRequired: "Nom et date de naissance requis",
-    errorInvalidDob: "Date de naissance invalide (ex. 12.03.1980 ou 12031980)",
+    errorRequired: "Plaque ou VIN requis",
     errorNoMatch: "Aucun résultat trouvé"
   }
 };
@@ -55,18 +33,13 @@ const uiText = {
 --------------------------- */
 function updateUIText() {
   const t = uiText[currentLang];
-  document.getElementById("label-lastname").textContent = t.lastname;
-  document.getElementById("label-firstname").textContent = t.firstname;
-  document.getElementById("label-dob").textContent = t.dob;
+  document.getElementById("label-plate").textContent = t.plate;
+  document.getElementById("label-vin").textContent = t.vin;
   document.getElementById("search-btn").textContent = t.searchBtn;
   document.getElementById("page-subtitle").textContent = t.subtitle;
   document.getElementById("page-title").textContent = t.pageTitle;
+  return t; 
 
-  // DOB Placeholder nach Sprache setzen
-  const dobInput = document.getElementById("dob");
-  if (dobInput) dobInput.placeholder = t.dob;
-
-  return t;
 }
 
 /* ---------------------------
@@ -91,53 +64,58 @@ document.addEventListener("DOMContentLoaded", () => {
 --------------------------- */
 document.getElementById("search-form").addEventListener("submit", e => {
   e.preventDefault();
-  const t = updateUIText(); // aktuelle Sprache
+  const t = updateUIText();
 
-  const lastname = document.getElementById("lastname").value.trim().toLowerCase();
-  const firstname = document.getElementById("firstname").value.trim().toLowerCase();
-  const dobInput = document.getElementById("dob").value.trim();
+  const plateInput = document.getElementById("plate").value.trim().toLowerCase();
+  const vinInput = document.getElementById("vin").value.trim().toLowerCase();
   const errorEl = document.getElementById("error");
   errorEl.innerText = "";
 
-  // Pflichtfelder prüfen
-  if (!lastname || !dobInput) {
-    errorEl.innerText = t.errorRequired; // aus uiText: deutsch oder französisch
+  // Mindestens ein Feld erforderlich
+  if (!plateInput && !vinInput) {
+    errorEl.innerText = t.errorRequired;
     return;
   }
 
-  // Datum validieren
-  const normalizedDob = normalizeDob(dobInput);
-  if (!normalizedDob) {
-    errorEl.innerText = t.errorInvalidDob;
+  if (!dataGlobal) {
+    errorEl.innerText = t.errorNoData;
     return;
   }
 
-  // Suche starten
-  let found = false;
+  let foundKarte = null;
+
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
-    const sections = steckbrief[currentLang];
-    if (!sections) continue;
+    if (!steckbrief) continue;
 
-    for (const key of ["GERES","ISA","ZEMIS"]) {
-      const entries = sections[key] || [];
-      for (const entry of entries) {
-        const eLower = entry.toLowerCase();
-        const hasLastname = eLower.includes(lastname);
-        const hasFirstname = firstname === "" || eLower.includes(firstname);
-        const hasDob = entry.includes(normalizedDob);
-        if (hasLastname && hasDob && hasFirstname) {
-          found = true;
-          window.location.href = `index.html?karte=${karteId}`;
-          break;
-        }
+    const sections = steckbrief[currentLang];
+    if (!sections || !Array.isArray(sections.MOFIS)) continue;
+
+    for (const vehicle of sections.MOFIS) {
+      if (!vehicle || typeof vehicle !== "object") continue;
+
+      const plateMatch =
+        !plateInput || vehicle.plate?.toLowerCase().includes(plateInput);
+
+      const vinMatch =
+        !vinInput || vehicle.vin?.toLowerCase().includes(vinInput);
+
+      // 🔑 Logik:
+      // - nur plate → plateMatch
+      // - nur vin → vinMatch
+      // - beide → beide true
+      if (plateMatch && vinMatch) {
+        foundKarte = karteId;
+        break;
       }
-      if (found) break;
     }
-    if (found) break;
+
+    if (foundKarte) break;
   }
 
-  if (!found) {
+  if (foundKarte) {
+    window.location.href = `index.html?karte=${foundKarte}`;
+  } else {
     errorEl.innerText = t.errorNoMatch;
   }
 });
@@ -201,9 +179,8 @@ function setupFooter() {
 
   /* Reset */
   resetBtn?.addEventListener("click", () => {
-    document.getElementById("lastname").value="";
-    document.getElementById("firstname").value="";
-    document.getElementById("dob").value="";
+    document.getElementById("plate").value="";
+    document.getElementById("vin").value="";
     document.getElementById("error").innerText="";
   });
 
