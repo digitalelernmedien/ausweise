@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Fahrzeugabfrage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="main-content">
+  <div class="title-row">
+    <div class="title-text">
+      <h1 id="page-title">Identitätsabfrage</h1>
+      <p class="subtitle" id="page-subtitle">Name und Geburtsdatum eingeben</p>
+    </div>
+    <i data-feather="users" class="app-icon"></i>
+  </div>
+
+  <form id="search-form" novalidate>
+    <label for="lastname" id="label-lastname">Nachname</label>
+    <input type="text" id="lastname" required />
+
+    <label for="firstname" id="label-firstname">Vorname (optional)</label>
+    <input type="text" id="firstname"/>
+
+    <label for="dob" id="label-dob">Geburtsdatum (DD.MM.YYYY)</label>
+    <input type="text" id="dob" placeholder="DD.MM.YYYY" autocomplete="off" inputmode="decimal"/>
+
+    <button type="submit" id="search-btn">Suchen</button>
+  </form>
+
+  <p id="error" class="error"></p>
+</main>
+
+<!-- Footer -->
+<footer id="footer"></footer>
+
+<!-- Info Modal -->
+<div id="info-modal">
+  <div id="info-content">
+    <h2 id="modal-title" class="info-header"></h2>
+    <p id="modal-body" class="info-text"></p>
+    <p id="modal-functions-title" class="info-subheader"></p>
+    <ul id="modal-functions-list" class="info-list"></ul>
+    <div id="modal-warning" class="info-warning"></div>
+    <div id="modal-credits" class="info-text"></div>
+    <button id="info-close-btn">OK</button>
+  </div>
+</div>
+
+<!-- Settings Menu -->
+<div id="settings-menu">
+  <button data-lang="de">Deutsch</button>
+  <button data-lang="fr">Französisch</button>
+</div>
+<div id="backdrop"></div>
+
+<!-- Footer Buttons definieren -->
+<script> window.footerButtons = ['home', 'reset'];</script>
+
+<!-- Feather Icons & JS -->
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="search-persons.js"></script>
+<script src="footer.js"></script>
+<script> feather.replace();</script>
+</body>
+</html>
