@@ -61,6 +61,11 @@ function updateUIText() {
   document.getElementById("search-btn").textContent = t.searchBtn;
   document.getElementById("page-subtitle").textContent = t.subtitle;
   document.getElementById("page-title").textContent = t.pageTitle;
+
+  // DOB Placeholder nach Sprache setzen
+  const dobInput = document.getElementById("dob");
+  if (dobInput) dobInput.placeholder = t.dob;
+
   return t;
 }
 
