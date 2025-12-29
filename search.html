@@ -32,8 +32,10 @@
   <p id="error" class="error"></p>
 </main>
 
+<!-- Footer -->
 <footer id="footer"></footer>
 
+<!-- Info Modal -->
 <div id="info-modal">
   <div id="info-content">
     <h2 id="modal-title" class="info-header"></h2>
@@ -46,50 +48,21 @@
   </div>
 </div>
 
+<!-- Settings Menu -->
 <div id="settings-menu">
   <button data-lang="de">Deutsch</button>
   <button data-lang="fr">Französisch</button>
 </div>
 <div id="backdrop"></div>
 
-<script> window.footerButtons = ['info', 'speech', 'back', 'reset']; </script>
+<!-- Footer Buttons definieren -->
+<script> window.footerButtons = ['info', 'speech', 'back', 'reset'];</script>
+
+<!-- Feather Icons & JS -->
 <script src="https://unpkg.com/feather-icons"></script>
+<script src="app.js"></script>
+<script src="search.js"></script>
 <script src="footer.js"></script>
-
-<!-- Sprachblock wie in start.html -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
-  const texts = {
-    de: {
-      pageTitle: "Identitätsabfrage",
-      pageSubtitle: "Name und Geburtsdatum eingeben",
-      lastname: "Nachname",
-      firstname: "Vorname (optional)",
-      dob: "Geburtsdatum (DD.MM.YYYY)",
-      searchBtn: "Suchen"
-    },
-    fr: {
-      pageTitle: "Requête d'identité",
-      pageSubtitle: "Entrez le nom et la date de naissance",
-      lastname: "Nom",
-      firstname: "Prénom (facultatif)",
-      dob: "Date de naissance (JJ.MM.AAAA)",
-      searchBtn: "Rechercher"
-    }
-  };
-
-  const t = texts[lang];
-
-  document.getElementById("page-title").textContent = t.pageTitle;
-  document.getElementById("page-subtitle").textContent = t.pageSubtitle;
-  document.getElementById("label-lastname").textContent = t.lastname;
-  document.getElementById("label-firstname").textContent = t.firstname;
-  document.getElementById("label-dob").textContent = t.dob;
-  document.getElementById("search-btn").textContent = t.searchBtn;
-});
-</script>
-
-<script> feather.replace(); </script>
+<script> feather.replace();</script>
 </body>
 </html>
