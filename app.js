@@ -19,15 +19,23 @@ document.addEventListener("DOMContentLoaded", () => {
      MOFIS Eintrag formatieren
   --------------------------- */
   function formatMofisEntry(vehicle, lang) {
-  if (!vehicle || typeof vehicle !== "object") return "";
+    if (!vehicle || typeof vehicle !== "object") return "";
 
-  if (lang === "fr") {
-    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN: ${vehicle.vin}.`;
+    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate || "(kein Kontrollschild)"}, VIN: ${vehicle.vin || "(keine VIN)"}.`;
   }
 
-  // de
-  return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN: ${vehicle.vin}.`;
-}
+  /* ---------------------------
+     Generischer Objekt-Renderer
+     z.B. GERES, ISA, FABER
+  --------------------------- */
+  function formatObjectEntry(obj) {
+    if (!obj || typeof obj !== "object") return "";
+
+    // Alle Schlüssel des Objekts in "Feld: Wert" darstellen
+    return Object.entries(obj)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join(", ");
+  }
 
   function render() {
     if (!dataGlobal) return;
@@ -85,14 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
           const li = document.createElement("li");
 
           if (typeof item === "string") {
-            // normale Texte
             li.innerText = item;
           } else if (key === "MOFIS") {
-            // Fahrzeug-Objekte
             li.innerText = formatMofisEntry(item, lang);
           } else {
-            // Fallback (sollte nicht vorkommen)
-            li.innerText = JSON.stringify(item);
+            li.innerText = formatObjectEntry(item);
           }
 
           ul.appendChild(li);
