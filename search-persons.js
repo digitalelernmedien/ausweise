@@ -27,7 +27,7 @@ const uiText = {
   de: {
     lastname: "Nachname",
     firstname: "Vorname (optional)",
-    dob: "Geburtsdatum (DD.MM.YYYY)",
+    dob: "DD.MM.YYYY",
     searchBtn: "Suchen",
     subtitle: "Name und Geburtsdatum eingeben",
     pageTitle: "Identitätsabfrage",
@@ -39,7 +39,7 @@ const uiText = {
   fr: {
     lastname: "Nom",
     firstname: "Prénom (facultatif)",
-    dob: "Date de naissance (JJ.MM.AAAA)",
+    dob: "JJ.MM.AAAA",
     searchBtn: "Rechercher",
     subtitle: "Entrez le nom et la date de naissance",
     pageTitle: "Identité à vérifier",
