@@ -1,7 +1,6 @@
 let dataGlobal = null;
 let currentLang = localStorage.getItem("appLang") || (navigator.language.startsWith("fr") ? "fr" : "de");
 
-
 /* ---------------------------
    Geburtsdatum normalisieren
 --------------------------- */
@@ -73,25 +72,23 @@ function updateUIText() {
    Daten laden
 --------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  // currentLang bereits gesetzt
-  updateUIText(); // setzt alle Texte direkt beim Laden
+  updateUIText();
 
   fetch("data.json")
     .then(res => res.json())
     .then(data => {
       dataGlobal = data;
-      setupFooter(); // Footer-Funktionen aktivieren
+      setupFooter();
     })
     .catch(err => console.error("Fehler beim Laden der Daten:", err));
 });
-
 
 /* ---------------------------
    Suche
 --------------------------- */
 document.getElementById("search-form").addEventListener("submit", e => {
   e.preventDefault();
-  const t = updateUIText(); // aktuelle Sprache
+  const t = updateUIText();
 
   const lastname = document.getElementById("lastname").value.trim().toLowerCase();
   const firstname = document.getElementById("firstname").value.trim().toLowerCase();
@@ -99,21 +96,25 @@ document.getElementById("search-form").addEventListener("submit", e => {
   const errorEl = document.getElementById("error");
   errorEl.innerText = "";
 
-  // Pflichtfelder prüfen
   if (!lastname || !dobInput) {
-    errorEl.innerText = t.errorRequired; // aus uiText: deutsch oder französisch
+    errorEl.innerText = t.errorRequired;
     return;
   }
 
-  // Datum validieren
   const normalizedDob = normalizeDob(dobInput);
   if (!normalizedDob) {
     errorEl.innerText = t.errorInvalidDob;
     return;
   }
 
-  // Suche starten
-  let found = false;
+  if (!dataGlobal) {
+    errorEl.innerText = t.errorNoData;
+    return;
+  }
+
+  // Alle passenden Karten sammeln
+  const matchedKarten = [];
+
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
     const sections = steckbrief[currentLang];
@@ -122,41 +123,45 @@ document.getElementById("search-form").addEventListener("submit", e => {
     for (const key of ["GERES","ISA","ZEMIS"]) {
       const entries = sections[key] || [];
       for (const entry of entries) {
-        const eLower = entry.toLowerCase();
-        const hasLastname = eLower.includes(lastname);
-        const hasFirstname = firstname === "" || eLower.includes(firstname);
-        const hasDob = entry.includes(normalizedDob);
+        if (!entry || typeof entry !== "object") continue;
+
+        const hasLastname = entry.lastname?.toLowerCase().includes(lastname);
+        const hasFirstname = !firstname || entry.firstname?.toLowerCase().includes(firstname);
+        const hasDob = normalizeDob(entry.dob) === normalizedDob;
+
         if (hasLastname && hasDob && hasFirstname) {
-          found = true;
-          window.location.href = `index.html?karte=${karteId}`;
-          break;
+          matchedKarten.push(karteId);
+          break; // 1 Treffer pro Steckbrief reicht
         }
       }
-      if (found) break;
+      if (matchedKarten.includes(karteId)) break;
     }
-    if (found) break;
   }
 
-  if (!found) {
+  if (matchedKarten.length === 1) {
+    // Ein Treffer → direkt weiterleiten
+    window.location.href = `index.html?karte=${matchedKarten[0]}`;
+  } else if (matchedKarten.length > 1) {
+    // Mehrere Treffer → Liste anzeigen (optional: Modal oder neue Seite)
+    errorEl.innerHTML = `Mehrere Treffer gefunden: ${matchedKarten.join(", ")}`;
+  } else {
     errorEl.innerText = t.errorNoMatch;
   }
 });
 
-
 /* ---------------------------
-   Footer-Funktionen (Info, Sprache, Reset, Zurück)
+   Footer-Funktionen
 --------------------------- */
 function setupFooter() {
   const infoBtn = document.getElementById("info-btn");
   const speechBtn = document.getElementById("speech-btn");
   const resetBtn = document.getElementById("reset-btn");
-  const backBtn = document.getElementById("back-btn"); // falls vorhanden
+  const backBtn = document.getElementById("back-btn");
   const settingsMenu = document.getElementById("settings-menu");
   const backdrop = document.getElementById("backdrop");
   const infoModal = document.getElementById("info-modal");
   const infoCloseBtn = document.getElementById("info-close-btn");
 
-  /* Info-Modal öffnen */
   infoBtn?.addEventListener("click", () => {
     if (!dataGlobal) return;
     const infoData = dataGlobal.info_text[currentLang];
@@ -178,7 +183,6 @@ function setupFooter() {
   infoCloseBtn?.addEventListener("click", () => infoModal.style.display = "none");
   infoModal?.addEventListener("click", e => { if(e.target===infoModal) infoModal.style.display="none"; });
 
-  /* Sprachwechsel */
   speechBtn?.addEventListener("click", () => {
     settingsMenu.style.display="flex";
     backdrop.style.display="block";
@@ -199,7 +203,6 @@ function setupFooter() {
     backdrop.style.display="none";
   });
 
-  /* Reset */
   resetBtn?.addEventListener("click", () => {
     document.getElementById("lastname").value="";
     document.getElementById("firstname").value="";
@@ -207,6 +210,5 @@ function setupFooter() {
     document.getElementById("error").innerText="";
   });
 
-  /* Zurück */
   backBtn?.addEventListener("click", () => window.history.back());
 }
