@@ -20,7 +20,7 @@
         "GERES": ["Meier Thomas, m, 12.03.1980, von Bern BE, wft. 3000 Bern, Hauptstrasse 10"],
         "ISA": ["Meier Thomas, m, 12.03.1980"],
         "FABER": ["Kat. B seit 15.05.2000"],
-        "MOFIS": ["PW, Audi, A3, BE555666"],
+        "MOFIS": [{"plate": "BE555666", "vin": "WAUZZZ8V1JA123456", "type": "PW", "brand": "Audi", "model": "A3"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
@@ -30,7 +30,7 @@
         "GERES": ["Meier Thomas, m, 12.03.1980, de Berne BE, domicilié 3000 Berne, Rue principale 10"],
         "ISA": ["Meier Thomas, m, 12.03.1980"],
         "FABER": ["Cat. B depuis le 15.05.2000"],
-        "MOFIS": ["Voiture, Audi, A3, BE555666"],
+        "MOFIS": [{"plate": "BE555666", "vin": "WAUZZZ8V1JA123456", "type": "Voiture de tourisme", "brand": "Audi", "model": "A3"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
