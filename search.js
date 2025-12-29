@@ -1,6 +1,7 @@
 let dataGlobal = null;
 let currentLang = localStorage.getItem("appLang") || (navigator.language.startsWith("fr") ? "fr" : "de");
 
+
 /* ---------------------------
    Geburtsdatum normalisieren
 --------------------------- */
@@ -71,9 +72,10 @@ fetch("data.json")
   .then(data => {
     dataGlobal = data;
     setupFooter();      // Footer-Funktionen aktivieren
-    updateUIText();     // Texte direkt beim Laden setzen
+    updateUIText();     // Texte direkt beim Laden in der aktuellen Sprache setzen
   })
   .catch(err => console.error("Fehler beim Laden der Daten:", err));
+
 
 /* ---------------------------
    Suche
