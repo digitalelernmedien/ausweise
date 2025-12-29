@@ -46,7 +46,7 @@
         "GERES": ["Schmid Anna, w, 23.08.1992, von Bern BE, wft. 3000 Bern, Lindenstrasse 5, verheiratet mit Schmid Lukas"],
         "ISA": ["Schmid Anna, w, 23.08.1992, von Bern BE"],
         "FABER": ["Kat. B seit 10.09.2012"],
-        "MOFIS": [{"plate": "BE12345", "vin": "WAUZZZ8V1JA123456", "type": "PW", "brand": "BMW", "model": "X3"}, {"plate": "BE678", "vin": "WAUZZZ8V1JA123456", "type": "MR", "brand": "Yamaha", "model": "R1"}],
+        "MOFIS": [{"plate": "BE12345", "vin": "WVWZZZ1KZJW234567", "type": "PW", "brand": "BMW", "model": "X3"}, {"plate": "BE678", "vin": "WAUZZZ8V1JA123456", "type": "MR", "brand": "Yamaha", "model": "R1"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
@@ -56,7 +56,7 @@
         "GERES": ["Schmid Anna, w, 23.08.1992, de Berne BE, domiciliée 3000 Berne, Lindenstrasse 5, mariée à Schmid Lukas"],
         "ISA": ["Schmid Anna, w, 23.08.1992, de Berne BE"],
         "FABER": ["Cat. B depuis le 10.09.2012"],
-        "MOFIS": [{"plate": "BE12345", "vin": "WAUZZZ8V1JA123456", "type": "Voiture de tourisme", "brand": "BMW", "model": "X3"}, {"plate": "BE678", "vin": "WAUZZZ8V1JA123456", "type": "Moto", "brand": "Yamaha", "model": "R1"}],
+        "MOFIS": [{"plate": "BE12345", "vin": "WVWZZZ1KZJW234567", "type": "Voiture de tourisme", "brand": "BMW", "model": "X3"}, {"plate": "BE678", "vin": "WAUZZZ8V1JA123456", "type": "Moto", "brand": "Yamaha", "model": "R1"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
@@ -98,7 +98,7 @@
         "GERES": ["Diallo Amina, w, 30.06.1990, von Dakar, Senegal, wft. 3600 Thun, Allmendstrasse 18"],
         "ISA": [],
         "FABER": ["Kat. B seit 20.05.2010"],
-        "MOFIS": ["PW, VW, Golf, BE45678"],
+        "MOFIS": [{"plate": "BE45678", "vin": "VF3CUHNZJFS345678", "type": "PW", "brand": "VW", "model": "Golf"}],
         "ZEMIS": ["Diallo Amina, w, 30.06.1990, von Dakar, Senegal, Niederlassungsbewilligung (Ausweis C)"],
         "Hoogan": [],
         "RIPOL": []
@@ -108,7 +108,7 @@
         "GERES": ["Diallo Amina, w, 30.06.1990, de Dakar, Sénégal, domiciliée 3600 Thun, Allmendstrasse 18"],
         "ISA": [],
         "FABER": ["Cat. B depuis le 20.05.2010"],
-        "MOFIS": ["Voiture, VW, Golf, BE45678"],
+        "MOFIS": [{"plate": "BE45678", "vin": "VF3CUHNZJFS345678", "type": "Voiture de tourisme", "brand": "VW", "model": "Golf"}],
         "ZEMIS": ["Diallo Amina, w, 30.06.1990, de Dakar, Sénégal, Autorisation d’établissement (permis C)"],
         "Hoogan": [],
         "RIPOL": []
@@ -124,7 +124,7 @@
         "GERES": ["Jenni Ramon, m, 01.08.2000, von Bern BE, ledig, wft. 4900 Langenthal, Murgenthalstrasse 41"],
         "ISA": ["Jenni Ramon, m, 01.08.2000"],
         "FABER": ["Kat. B seit 10.09.2019"],
-        "MOFIS": ["PW, Audi, A4, BE67890"],
+        "MOFIS": [{"plate": "BE67890", "vin": "JN1AZ4EH8KM456789", "type": "PW", "brand": "Audi", "model": "A4"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
@@ -134,7 +134,7 @@
         "GERES": ["Jenni Ramon, m, 01.08.2000, de Berne BE, célibataire, domicilié 4900 Langenthal, Murgenthalstrasse 41"],
         "ISA": ["Jenni Ramon, m, 01.08.2000"],
         "FABER": ["Cat. B depuis le 10.09.2019"],
-        "MOFIS": ["Voiture, Audi, A4, BE67890"],
+        "MOFIS": [{"plate": "BE67890", "vin": "JN1AZ4EH8KM456789", "type": "Voiture de tourisme", "brand": "Audi", "model": "A4"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
