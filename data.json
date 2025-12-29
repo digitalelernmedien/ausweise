@@ -46,7 +46,7 @@
         "GERES": ["Schmid Anna, w, 23.08.1992, von Bern BE, wft. 3000 Bern, Lindenstrasse 5, verheiratet mit Schmid Lukas"],
         "ISA": ["Schmid Anna, w, 23.08.1992, von Bern BE"],
         "FABER": ["Kat. B seit 10.09.2012"],
-        "MOFIS": ["PW, BMW, X3, BE12345", "MR, Yamaha, R1, BE6789"],
+        "MOFIS": [{"plate": "BE12345", "vin": "WAUZZZ8V1JA123456", "type": "PW", "brand": "BMW", "model": "X3"}, {"plate": "BE678", "vin": "WAUZZZ8V1JA123456", "type": "MR", "brand": "Yamaha", "model": "R1"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
@@ -56,7 +56,7 @@
         "GERES": ["Schmid Anna, w, 23.08.1992, de Berne BE, domiciliée 3000 Berne, Lindenstrasse 5, mariée à Schmid Lukas"],
         "ISA": ["Schmid Anna, w, 23.08.1992, de Berne BE"],
         "FABER": ["Cat. B depuis le 10.09.2012"],
-        "MOFIS": ["Voiture de tourisme, BMW, X3, BE12345", "Moto, Yamaha, R1, BE6789"],
+        "MOFIS": [{"plate": "BE12345", "vin": "WAUZZZ8V1JA123456", "type": "Voiture de tourisme", "brand": "BMW", "model": "X3"}, {"plate": "BE678", "vin": "WAUZZZ8V1JA123456", "type": "Moto", "brand": "Yamaha", "model": "R1"}],
         "ZEMIS": [],
         "Hoogan": [],
         "RIPOL": []
