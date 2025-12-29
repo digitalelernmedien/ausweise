@@ -5,16 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const buttons = window.footerButtons || [];
   footer.innerHTML = "";
 
-  // JSON-Inhalt vorbereiten
-  let infoDataCache = null;
-  const lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
-  fetch('infomodal.json')
-    .then(res => res.json())
-    .then(data => {
-      infoDataCache = data.info_text[lang];
-    })
-    .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
-
+  
   buttons.forEach(btn => {
     const button = document.createElement("button");
     button.classList.add("icon-btn");
@@ -38,28 +29,40 @@ document.addEventListener("DOMContentLoaded", () => {
     // Eventlistener
     switch(btn){
       case "info":
-        button.addEventListener("click", () => {
-          const modal = document.getElementById("info-modal");
-          if(!modal || !infoDataCache) return;
+  button.addEventListener("click", () => {
+    const modal = document.getElementById("info-modal");
+    if (!modal) return;
 
-          document.getElementById("modal-title").innerHTML = infoDataCache.title;
-          document.getElementById("modal-body").innerHTML = infoDataCache.body;
-          document.getElementById("modal-functions-title").innerHTML = infoDataCache.functions_title;
+    const lang = localStorage.getItem('appLang') ||
+      (navigator.language.startsWith('fr') ? 'fr' : 'de');
 
-          const list = document.getElementById("modal-functions-list");
-          list.innerHTML = "";
-          infoDataCache.functions.forEach(f => {
-            const li = document.createElement("li");
-            li.innerHTML = f;
-            list.appendChild(li);
-          });
+    fetch('infomodal.json')
+      .then(res => res.json())
+      .then(data => {
+        const info = data.info_text[lang];
+        if (!info) return;
 
-          document.getElementById("modal-warning").innerHTML = infoDataCache.warning;
-          document.getElementById("modal-credits").innerHTML = infoDataCache.credits;
+        document.getElementById("modal-title").innerHTML = info.title;
+        document.getElementById("modal-body").innerHTML = info.body;
+        document.getElementById("modal-functions-title").innerHTML = info.functions_title;
 
-          modal.style.display = "flex";
+        const list = document.getElementById("modal-functions-list");
+        list.innerHTML = "";
+        info.functions.forEach(f => {
+          const li = document.createElement("li");
+          li.innerHTML = f;
+          list.appendChild(li);
         });
-        break;
+
+        document.getElementById("modal-warning").innerHTML = info.warning;
+        document.getElementById("modal-credits").innerHTML = info.credits;
+
+        modal.style.display = "flex";
+      })
+      .catch(err => console.error("infomodal.json Fehler:", err));
+  });
+  break;
+
 
       case "speech":
         button.addEventListener("click", () => {
