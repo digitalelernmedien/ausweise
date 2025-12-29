@@ -91,19 +91,28 @@ document.addEventListener("DOMContentLoaded", () => {
 --------------------------- */
 document.getElementById("search-form").addEventListener("submit", e => {
   e.preventDefault();
-  const t = updateUIText();
+  const t = updateUIText(); // aktuelle Sprache
+
   const lastname = document.getElementById("lastname").value.trim().toLowerCase();
   const firstname = document.getElementById("firstname").value.trim().toLowerCase();
   const dobInput = document.getElementById("dob").value.trim();
   const errorEl = document.getElementById("error");
   errorEl.innerText = "";
 
-  if (!dataGlobal) return errorEl.innerText = t.errorNoData;
-  if (!lastname || !dobInput) return errorEl.innerText = t.errorRequired;
+  // Pflichtfelder prüfen
+  if (!lastname || !dobInput) {
+    errorEl.innerText = t.errorRequired; // aus uiText: deutsch oder französisch
+    return;
+  }
 
+  // Datum validieren
   const normalizedDob = normalizeDob(dobInput);
-  if (!normalizedDob) return errorEl.innerText = t.errorInvalidDob;
+  if (!normalizedDob) {
+    errorEl.innerText = t.errorInvalidDob;
+    return;
+  }
 
+  // Suche starten
   let found = false;
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
@@ -128,8 +137,11 @@ document.getElementById("search-form").addEventListener("submit", e => {
     if (found) break;
   }
 
-  if (!found) errorEl.innerText = t.errorNoMatch;
+  if (!found) {
+    errorEl.innerText = t.errorNoMatch;
+  }
 });
+
 
 /* ---------------------------
    Footer-Funktionen (Info, Sprache, Reset, Zurück)
