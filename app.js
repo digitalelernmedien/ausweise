@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!vehicle || typeof vehicle !== "object") return "";
 
   if (lang === "fr") {
-    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN ${vehicle.vin}`;
+    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN: ${vehicle.vin}.`;
   }
 
   // de
-  return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN ${vehicle.vin}`;
+  return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN: ${vehicle.vin}.`;
 }
 
   function render() {
