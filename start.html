@@ -78,48 +78,9 @@
   </script>
 
   <!-- Footer: Buttons definieren -->
-  <script>
-    // Auf der Startseite nur Info + Sprache
-    window.footerButtons = ['info', 'speech'];
-  </script>
+  <script> window.footerButtons = ['info', 'speech'];</script>
   <script src="footer.js"></script>
-
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const lang =
-      localStorage.getItem("appLang") ||
-      (navigator.language.startsWith("fr") ? "fr" : "de");
-
-    const texts = {
-      de: {
-        title: "Was möchtest du suchen?",
-        subtitle: "Bitte wähle eine Kategorie aus.",
-        personen: "Personen",
-        fahrzeuge: "Fahrzeuge",
-        sachen: "Sachen"
-      },
-      fr: {
-        title: "Qu'est-ce que tu cherches?",
-        subtitle: "Veuillez sélectionner une catégorie.",
-        personen: "Personnes",
-        fahrzeuge: "Véhicules",
-        sachen: "Objets"
-      }
-    };
-
-    const t = texts[lang];
-
-    if (!t) return;
-
-    document.getElementById("title").textContent = t.title;
-    document.getElementById("subtitle").textContent = t.subtitle;
-
-    document.querySelector("#tile-personen span").textContent = t.personen;
-    document.querySelector("#tile-fahrzeuge span").textContent = t.fahrzeuge;
-    document.querySelector("#tile-sachen span").textContent = t.sachen;
-  });
-</script>
-
+  <script src="start.js"></script>
 
 </body>
 </html>
