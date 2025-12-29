@@ -11,20 +11,17 @@
   <div class="title-row">
     <div class="title-text">
       <h1 id="page-title">Identitätsabfrage</h1>
-      <p class="subtitle" id="page-subtitle">Name und Geburtsdatum eingeben</p>
+      <p class="subtitle" id="page-subtitle">Kontrollschild oder VIN eingeben</p>
     </div>
-    <i data-feather="users" class="app-icon"></i>
+    <i data-feather="truck" class="app-icon"></i>
   </div>
 
   <form id="search-form" novalidate>
-    <label for="lastname" id="label-lastname">Nachname</label>
-    <input type="text" id="lastname" required />
+    <label for="plate" id="label-plate">Kontrollschild</label>
+    <input type="text" id="plate" required />
 
-    <label for="firstname" id="label-firstname">Vorname (optional)</label>
-    <input type="text" id="firstname"/>
-
-    <label for="dob" id="label-dob">Geburtsdatum (DD.MM.YYYY)</label>
-    <input type="text" id="dob" placeholder="DD.MM.YYYY" autocomplete="off" inputmode="decimal"/>
+    <label for="vin" id="label-vin">VIN</label>
+    <input type="text" id="vin" />
 
     <button type="submit" id="search-btn">Suchen</button>
   </form>
