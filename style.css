@@ -361,6 +361,7 @@ button:active {
 }
 
 .app-icon {
+  color: gray;
   width: 40px;
   height: 40px;
 }
