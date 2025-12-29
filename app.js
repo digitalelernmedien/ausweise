@@ -15,6 +15,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let dataGlobal = null;
 
+  /* ---------------------------
+     MOFIS Eintrag formatieren
+  --------------------------- */
+  function formatMofisEntry(vehicle, lang) {
+  if (!vehicle || typeof vehicle !== "object") return "";
+
+  if (lang === "fr") {
+    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN ${vehicle.vin}`;
+  }
+
+  // de
+  return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate}, VIN ${vehicle.vin}`;
+}
+
   function render() {
     if (!dataGlobal) return;
 
@@ -46,10 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     textEl.innerHTML = "";
+
     Object.keys(sections).forEach(key => {
       const items = sections[key];
       const header = document.createElement("h3");
       const arrow = document.createElement("span");
+
       arrow.classList.add("arrow");
       arrow.innerText = "▶";
       arrow.style.marginRight = "5px";
@@ -65,13 +81,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const ul = document.createElement("ul");
         ul.style.paddingLeft = "1.8rem";
 
-        items.forEach(i => {
+        items.forEach(item => {
           const li = document.createElement("li");
-          li.innerText = i;
+
+          if (typeof item === "string") {
+            // normale Texte
+            li.innerText = item;
+          } else if (key === "MOFIS") {
+            // Fahrzeug-Objekte
+            li.innerText = formatMofisEntry(item, lang);
+          } else {
+            // Fallback (sollte nicht vorkommen)
+            li.innerText = JSON.stringify(item);
+          }
+
           ul.appendChild(li);
         });
 
         contentDiv.appendChild(ul);
+
         header.addEventListener("click", () => {
           const open = contentDiv.style.display === "block";
           contentDiv.style.display = open ? "none" : "block";
@@ -97,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       dataGlobal = data;
       render();
-      feather.replace(); // Icons rendern
+      feather.replace();
     })
     .catch(err => {
       console.error("Fehler:", err);
