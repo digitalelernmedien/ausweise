@@ -30,6 +30,22 @@
     </div>
   </main>
 
+  <footer id="footer"></footer>
+
+<!-- Infomodal -->
+<div id="info-modal">
+  <div id="info-content">
+    <h2 id="modal-title" class="info-header"></h2>
+    <p id="modal-body" class="info-text"></p>
+    <p id="modal-functions-title" class="info-subheader"></p>
+    <ul id="modal-functions-list" class="info-list"></ul>
+    <div id="modal-warning" class="info-warning"></div>
+    <div id="modal-credits" class="info-text"
+         style="margin-top:15px;font-size:0.8rem;color:#8e8e93;"></div>
+    <button id="info-close-btn">OK</button>
+  </div>
+</div>
+
 
 
   <!-- Settings -->
@@ -62,31 +78,5 @@
   </script>
   <script src="footer.js"></script>
 
-  <!-- Infomodal Text aus JSON laden -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const lang = localStorage.getItem('appLang') || (navigator.language.startsWith('fr') ? 'fr' : 'de');
-      fetch('infomodal.json')
-        .then(res => res.json())
-        .then(data => {
-          const infoData = data.info_text[lang];
-          if(infoData){
-            document.getElementById('modal-title').innerHTML = infoData.title;
-            document.getElementById('modal-body').innerHTML = infoData.body;
-            document.getElementById('modal-functions-title').innerHTML = infoData.functions_title;
-            const list = document.getElementById('modal-functions-list');
-            list.innerHTML = '';
-            infoData.functions.forEach(fn => {
-              const li = document.createElement('li');
-              li.innerHTML = fn;
-              list.appendChild(li);
-            });
-            document.getElementById('modal-warning').innerHTML = infoData.warning;
-            document.getElementById('modal-credits').innerHTML = infoData.credits;
-          }
-        })
-        .catch(err => console.error("Fehler beim Laden von infomodal.json:", err));
-    });
-  </script>
 </body>
 </html>
