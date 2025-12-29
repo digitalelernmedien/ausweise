@@ -360,7 +360,10 @@ button:active {
   stroke: #007AFF;
 }
 
-
+.app-icon {
+  width: 48px;
+  height: 48px;
+}
 
 
 /* Druckversion */
