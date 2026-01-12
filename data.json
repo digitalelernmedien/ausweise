@@ -123,7 +123,7 @@
     "fr": "Consultation de personne – Jenni Ramon, 01.08.2000"
   },
   "de": {
-    "Vorgangsbearbeitung": [{ "year": 2019, "description": "Geschädigt Diebstahl", "serial": ""}],
+    "Vorgangsbearbeitung": [{ "year": 2019, "description": "Geschädigt Diebstahl", "serial": ""}, { "year": "2020", "description": "Waffenbesitz, Pistole, SIG P229, 9mm Para", "serial": "AM78526"}],
     "GERES": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000", "poo": "von Bern BE", "adress": "wft. 4900 Langenthal, Murgenthalstrasse 41", "zivilstand": "ledig"}],
     "ISA": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000"}],
     "FABER": [{"category": "Kat. B", "since": "seit 10.09.2019"}],
@@ -133,7 +133,7 @@
     "RIPOL": [{"year": "", "description": "", "serial": ""}]
   },
   "fr": {
-    "Traitement des processus": [{ "year": 2019, "description": "lésé vol", "serial": ""}],
+    "Traitement des processus": [{ "year": 2019, "description": "lésé vol", "serial": ""}, { "year": "2020", "description": "Possession d'armes, Pistole, SIG P229, 9mm Para", "serial": "AM78526"}],
     "GERES": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000", "poo": "de Berne BE", "adress": "domicilié 4900 Langenthal, Murgenthalstrasse 41", "zivilstand": "célibataire"}],
     "ISA": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000"}],
     "FABER": [{"category": "Cat. B", "since": "depuis 10.09.2019"}],
