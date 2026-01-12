@@ -53,6 +53,7 @@ function formatObjectEntryValues(obj) {
       return;
     }
 
+    /*
     // Subtitle
     if (subtitleEl && steckbrief.subtitle && steckbrief.subtitle[lang]) {
       subtitleEl.innerText = steckbrief.subtitle[lang];
@@ -60,6 +61,7 @@ function formatObjectEntryValues(obj) {
     } else if (subtitleEl) {
       subtitleEl.style.display = "none";
     }
+    */
 
     // Inhalt rendern
     const sections = steckbrief[lang];
