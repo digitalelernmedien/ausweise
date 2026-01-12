@@ -33,7 +33,8 @@ const uiText = {
     errorNoData: "Daten nicht geladen",
     errorRequired: "Nachname und Geburtsdatum erforderlich",
     errorInvalidDob: "Ungültiges Geburtsdatum (z. B. 12.03.1980 oder 12031980)",
-    errorNoMatch: "Kein Treffer gefunden"
+    errorNoMatch: "Kein Treffer gefunden",
+    errorMultiple: "Mehrere Treffer – bitte Suche präzisieren"
   },
   fr: {
     lastname: "Nom",
@@ -45,7 +46,8 @@ const uiText = {
     errorNoData: "Données non chargées",
     errorRequired: "Nom et date de naissance requis",
     errorInvalidDob: "Date de naissance invalide (ex. 12.03.1980 ou 12031980)",
-    errorNoMatch: "Aucun résultat trouvé"
+    errorNoMatch: "Aucun résultat trouvé",
+    errorMultiple: "Plusieurs résultats – veuillez affiner la recherche"
   }
 };
 
@@ -61,7 +63,6 @@ function updateUIText() {
   document.getElementById("page-subtitle").textContent = t.subtitle;
   document.getElementById("page-title").textContent = t.pageTitle;
 
-  // DOB Placeholder nach Sprache setzen
   const dobInput = document.getElementById("dob");
   if (dobInput) dobInput.placeholder = t.dob;
 
@@ -72,7 +73,7 @@ function updateUIText() {
    Daten laden
 --------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  updateUIText(); // setzt alle Texte direkt beim Laden
+  updateUIText();
 
   fetch("data.json")
     .then(res => res.json())
@@ -112,39 +113,53 @@ document.getElementById("search-form").addEventListener("submit", e => {
     return;
   }
 
+  // Text für Untertitel vorbereiten
+  let queryParts = [lastname];
+  if (firstname) queryParts.push(firstname);
+  queryParts.push(normalizedDob);
+  const queryText = queryParts.join(" ");
+
   // ---------------------------
-  // Suche über GERES, ISA, ZEMIS (Objekte)
+  // Suche über GERES, ISA, ZEMIS
   // ---------------------------
   const matchingKarten = [];
 
   for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
+    if (!steckbrief) continue;
+
     const sections = steckbrief[currentLang];
     if (!sections) continue;
 
     for (const key of ["GERES","ISA","ZEMIS"]) {
       const entries = sections[key] || [];
       for (const entry of entries) {
-        // Prüfen, ob Felder existieren
+        if (!entry || typeof entry !== "object") continue;
+
         const hasLastname = entry.lastname?.toLowerCase().includes(lastname);
         const hasFirstname = !firstname || entry.firstname?.toLowerCase().includes(firstname);
         const hasDob = entry.dob === normalizedDob;
 
-        if (hasLastname && hasDob && hasFirstname) {
+        if (hasLastname && hasFirstname && hasDob) {
           if (!matchingKarten.includes(karteId)) matchingKarten.push(karteId);
         }
       }
     }
   }
 
+  // Auswertung
   if (matchingKarten.length === 0) {
     errorEl.innerText = t.errorNoMatch;
   } else if (matchingKarten.length === 1) {
-    window.location.href = `index.html?karte=${matchingKarten[0]}`;
+    window.location.href = `index.html?karte=${matchingKarten[0]}&query=${encodeURIComponent(queryText)}`;
   } else {
-    // Mehrfachtreffer: Liste zur Auswahl anzeigen
-    const selection = matchingKarten.map(k => `<li><a href="index.html?karte=${k}">${k}</a></li>`).join("");
-    errorEl.innerHTML = `<strong>Mehrere Treffer:</strong><ul>${selection}</ul>`;
+    // Mehrfachtreffer mit Namen anzeigen
+    const selection = matchingKarten.map(k => {
+      const steckbrief = dataGlobal.steckbriefe[dataGlobal.zuordnung[k]];
+      const name = steckbrief[currentLang].GERES?.[0]?.lastname || k;
+      return `<li><a href="index.html?karte=${k}&query=${encodeURIComponent(name)}">${name}</a></li>`;
+    }).join("");
+    errorEl.innerHTML = `<strong>${t.errorMultiple}</strong><ul>${selection}</ul>`;
   }
 });
 
@@ -167,6 +182,7 @@ function setupFooter() {
     document.getElementById("modal-title").innerHTML = infoData.title;
     document.getElementById("modal-body").innerHTML = infoData.body;
     document.getElementById("modal-functions-title").innerHTML = infoData.functions_title;
+
     const ul = document.getElementById("modal-functions-list");
     ul.innerHTML = "";
     infoData.functions.forEach(fn => {
@@ -174,8 +190,10 @@ function setupFooter() {
       li.innerHTML = fn;
       ul.appendChild(li);
     });
+
     document.getElementById("modal-warning").innerHTML = infoData.warning;
     document.getElementById("modal-credits").innerHTML = infoData.credits;
+
     infoModal.style.display = "flex";
   });
 
