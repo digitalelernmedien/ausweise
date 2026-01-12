@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(data => {
       dataGlobal = data;
-      setupFooter(); // Footer-Funktionen aktivieren
+      setupFooter();
     })
     .catch(err => {
       console.error("Fehler beim Laden der Daten:", err);
@@ -73,7 +73,6 @@ document.getElementById("search-form").addEventListener("submit", e => {
   const errorEl = document.getElementById("error");
   errorEl.textContent = "";
 
-  // Pflichtfeld
   if (!serialInput) {
     errorEl.textContent = t.errorRequired;
     return;
@@ -86,29 +85,36 @@ document.getElementById("search-form").addEventListener("submit", e => {
 
   const foundKarten = [];
 
-  for (const [karteId, steckbriefId] of Object.entries(
-    dataGlobal.zuordnung
-  )) {
+  const searchSections =
+    currentLang === "fr"
+      ? ["Traitement des processus", "RIPOL"]
+      : ["Vorgangsbearbeitung", "RIPOL"];
+
+  for (const [karteId, steckbriefId] of Object.entries(dataGlobal.zuordnung)) {
     const steckbrief = dataGlobal.steckbriefe[steckbriefId];
     if (!steckbrief) continue;
 
     const sections = steckbrief[currentLang];
-    if (!sections || !Array.isArray(sections.SACHEN)) continue;
+    if (!sections) continue;
 
-    for (const item of sections.SACHEN) {
-      if (!item || typeof item !== "object") continue;
-      if (!item.serial) continue;
+    for (const sectionName of searchSections) {
+      const entries = sections[sectionName];
+      if (!Array.isArray(entries)) continue;
 
-      if (item.serial.toLowerCase().includes(serialInput)) {
-        if (!foundKarten.includes(karteId)) {
-          foundKarten.push(karteId);
+      for (const item of entries) {
+        if (!item || typeof item !== "object") continue;
+        if (!item.serial) continue;
+
+        if (item.serial.toLowerCase() === serialInput) {
+          if (!foundKarten.includes(karteId)) {
+            foundKarten.push(karteId);
+          }
+          break;
         }
-        break; // Steckbrief reicht einmal
       }
     }
   }
 
-  // Auswertung
   if (foundKarten.length === 1) {
     window.location.href = `index.html?karte=${foundKarten[0]}`;
   } else if (foundKarten.length > 1) {
@@ -135,6 +141,7 @@ function setupFooter() {
   infoBtn?.addEventListener("click", () => {
     if (!dataGlobal) return;
     const infoData = dataGlobal.info_text[currentLang];
+
     document.getElementById("modal-title").innerHTML = infoData.title;
     document.getElementById("modal-body").innerHTML = infoData.body;
     document.getElementById("modal-functions-title").innerHTML =
@@ -148,18 +155,16 @@ function setupFooter() {
       ul.appendChild(li);
     });
 
-    document.getElementById("modal-warning").innerHTML =
-      infoData.warning;
-    document.getElementById("modal-credits").innerHTML =
-      infoData.credits;
+    document.getElementById("modal-warning").innerHTML = infoData.warning;
+    document.getElementById("modal-credits").innerHTML = infoData.credits;
 
     infoModal.style.display = "flex";
   });
 
-  infoCloseBtn?.addEventListener(
-    "click",
-    () => (infoModal.style.display = "none")
-  );
+  infoCloseBtn?.addEventListener("click", () => {
+    infoModal.style.display = "none";
+  });
+
   infoModal?.addEventListener("click", e => {
     if (e.target === infoModal) infoModal.style.display = "none";
   });
