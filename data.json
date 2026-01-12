@@ -50,7 +50,7 @@
   "MOFIS": [{"plate": "BE175684", "vin": "WVWZZZ1KZJW234567", "type": "PW", "brand": "BMW", "model": "X3"}, {"plate": "BE6029", "vin": "WAUZZZ8V1JA123456", "type": "MR", "brand": "Yamaha", "model": "R1"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "", "description": "", "itemnumber": ""}, {"year": "", "description": "", "itemnumber": ""}]
+  "RIPOL": [{"year": "", "description": "", "itemnumber": "", "serial": "SN-889900"}, {"year": "", "description": "", "itemnumber": "", "serial": "SN-100100"}]
 },
 "fr": {
   "Traitement des processus": [{ "year": 2023, "description": "lésé accident"}, { "year": 2022, "description": "lésé vol" }],
@@ -60,7 +60,7 @@
   "MOFIS": [{"plate": "BE175684", "vin": "WVWZZZ1KZJW234567", "type": "Voiture de tourisme", "brand": "BMW", "model": "X3"}, {"plate": "BE6029", "vin": "WAUZZZ8V1JA123456", "type": "Moto", "brand": "Yamaha", "model": "R1"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "", "description": "", "itemnumber": ""}, {"year": "", "description": "", "itemnumber": ""}]	  
+  "RIPOL": [{"year": "", "description": "", "itemnumber": "", "serial": "SN-889900"}, {"year": "", "description": "", "itemnumber": "", "serial": "SN-100100"}]	  
       }
     },
     "S003": {
@@ -76,7 +76,7 @@
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "Omar", "lastname": "El-Sayed", "gender": "m", "dob": "12.12.1987", "poo": "von Kairo, Ägypten", "adress": "", "zivilstand": "ledig", "status": "Aufenthaltstitel F"}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": ""}]
+    "RIPOL": [{"year": "", "description": "", "itemnumber": "", "serial": ""}]
   },
   "fr": {
     "Traitement des processus": [{ "year": 2021, "description": "prévenu de vol à l'étalage" }, { "year": "", "description": "" }],
@@ -86,7 +86,7 @@
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "Omar", "lastname": "El-Sayed", "gender": "m", "dob": "12.12.1987", "poo": "de Le Caire, Égypte", "adress": "", "zivilstand": "célibataire", "status": "Livret F"}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": ""}]
+    "RIPOL": [{"year": "", "description": "", "itemnumber": "", "serial": ""}]
   }
 },
 
