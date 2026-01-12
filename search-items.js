@@ -105,7 +105,8 @@ document.getElementById("search-form").addEventListener("submit", e => {
         if (!item || typeof item !== "object") continue;
         if (!item.serial) continue;
 
-        if (item.serial.toLowerCase() === serialInput) {
+        // ✅ Teiltreffer NUR im Seriennummer-Feld
+        if (item.serial.toLowerCase().includes(serialInput)) {
           if (!foundKarten.includes(karteId)) {
             foundKarten.push(karteId);
           }
@@ -137,7 +138,6 @@ function setupFooter() {
   const infoModal = document.getElementById("info-modal");
   const infoCloseBtn = document.getElementById("info-close-btn");
 
-  /* Info */
   infoBtn?.addEventListener("click", () => {
     if (!dataGlobal) return;
     const infoData = dataGlobal.info_text[currentLang];
@@ -169,7 +169,6 @@ function setupFooter() {
     if (e.target === infoModal) infoModal.style.display = "none";
   });
 
-  /* Sprache */
   speechBtn?.addEventListener("click", () => {
     settingsMenu.style.display = "flex";
     backdrop.style.display = "block";
@@ -191,12 +190,10 @@ function setupFooter() {
     backdrop.style.display = "none";
   });
 
-  /* Reset */
   resetBtn?.addEventListener("click", () => {
     document.getElementById("serial").value = "";
     document.getElementById("error").textContent = "";
   });
 
-  /* Zurück */
   backBtn?.addEventListener("click", () => window.history.back());
 }
