@@ -16,7 +16,7 @@
       "fr": "Consultation de personne – Meier Thomas, 12.03.1980"
       },
 	  "de": {
-  "Vorgangsbearbeitung": [{ "year": 2025, "description": "Geschädigt EBD", "serial": "SN-2024-998877"}, { "year": 2024, "description": "Geschädigt Sachbeschädigung"}],
+  "Vorgangsbearbeitung": [{ "year": 2025, "description": "Geschädigt EBD", "serial": ""}, { "year": 2024, "description": "Geschädigt Sachbeschädigung", "serial": ""}],
   "GERES": [{"firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980", "poo": "von Bern BE", "adress": "wft. 3000 Bern, Hauptstrasse 10", "zivilstand": "ledig"}],
   "ISA": [{"firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980"}],
   "FABER": [{ "category": "Kat. B", "since": "seit 15.05.2000" }],
@@ -26,7 +26,7 @@
   "RIPOL": [{"year": "", "description": "", "serial": ""}, {"year": "", "description": "", "serial": ""}]
 },
 "fr": {
-  "Traitement des processus": [{ "year": 2025, "description": "lésé VPE", "serial": "SN-2024-998877"}, { "year": 2024, "description": "lésé dommages à la propriété" }],
+  "Traitement des processus": [{ "year": 2025, "description": "lésé VPE", "serial": ""}, { "year": 2024, "description": "lésé dommages à la propriété", "serial": ""}],
   "GERES": [{ "firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980", "poo": "de Berne BE", "adress": "domicilié 3000 Berne, Rue principale 10", "zivilstand": "célibataire"}],
   "ISA": [{ "firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980"}],
   "FABER": [{ "category": "Cat. B", "since": "depuis 15.05.2000" }],
@@ -50,7 +50,7 @@
   "MOFIS": [{"plate": "BE175684", "vin": "WVWZZZ1KZJW234567", "type": "PW", "brand": "BMW", "model": "X3"}, {"plate": "BE6029", "vin": "WAUZZZ8V1JA123456", "type": "MR", "brand": "Yamaha", "model": "R1"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "2025", "description": "Gesucht, Pistole SIG Sauer P226", "serial": "SN-889900"}, {"year": "", "description": "", "serial": "SN-100100"}]
+  "RIPOL": [{"year": "2022", "description": "Gesucht, Pistole SIG Sauer P226", "serial": "SN-889900"}, {"year": "2022", "description": "Gesucht, Reisepass lautend auf Schmid Anna", "serial": "F98765432"}]
 },
 "fr": {
   "Traitement des processus": [{ "year": 2023, "description": "lésé accident", "serial": ""}, { "year": 2022, "description": "lésé vol", "serial": ""}],
@@ -60,7 +60,7 @@
   "MOFIS": [{"plate": "BE175684", "vin": "WVWZZZ1KZJW234567", "type": "Voiture de tourisme", "brand": "BMW", "model": "X3"}, {"plate": "BE6029", "vin": "WAUZZZ8V1JA123456", "type": "Moto", "brand": "Yamaha", "model": "R1"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "2025", "description": "Recherché, pistolet SIG Sauer P226", "serial": "SN-889900"}, {"year": "", "description": "", "serial": "SN-100100"}]	  
+  "RIPOL": [{"year": "2022", "description": "Recherché, pistolet SIG Sauer P226", "serial": "SN-889900"}, {"year": "2022", "description": "Recherché, passeport au nom de Schmid Anna", "serial": "F98765432"}]	  
       }
     },
     "S003": {
