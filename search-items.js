@@ -117,7 +117,8 @@ document.getElementById("search-form").addEventListener("submit", e => {
   }
 
   if (foundKarten.length === 1) {
-    window.location.href = `index.html?karte=${foundKarten[0]}`;
+    window.location.href =
+  `index.html?karte=${foundKarten[0]}&query=${encodeURIComponent(serialInput)}`;
   } else if (foundKarten.length > 1) {
     errorEl.textContent = t.errorMultiple;
   } else {
