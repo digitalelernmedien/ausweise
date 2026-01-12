@@ -23,7 +23,7 @@
   "MOFIS": [{ "plate": "BE839402", "vin": "WAUZZZ8V1JA123456", "type": "PW", "brand": "Audi", "model": "A3"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "", "description": "", "itemnumber": ""}, {"year": "", "description": "", "itemnumber": ""}]
+  "RIPOL": [{"year": "", "description": "", "serial": ""}, {"year": "", "description": "", "serial": ""}]
 },
 "fr": {
   "Traitement des processus": [{ "year": 2025, "description": "lésé VPE", "serial": "SN-2024-998877"}, { "year": 2024, "description": "lésé dommages à la propriété" }],
@@ -33,7 +33,7 @@
   "MOFIS": [{ "plate": "BE839402", "vin": "WAUZZZ8V1JA123456", "type": "Voiture de tourisme", "brand": "Audi", "model": "A3"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "", "description": "", "itemnumber": ""}, {"year": "", "description": "", "itemnumber": ""}]
+  "RIPOL": [{"year": "", "description": "", "serial": ""}, {"year": "", "description": "", "serial": ""}]
 }
     },
     "S002": {
@@ -43,24 +43,24 @@
       },
       "de": {
       
-"Vorgangsbearbeitung": [{ "year": 2023, "description": "Geschädigt Unfall"}, { "year": 2022, "description": "Geschädigt Diebstahl"}],
+"Vorgangsbearbeitung": [{ "year": 2023, "description": "Geschädigt Unfall", "serial": ""}, { "year": 2022, "description": "Geschädigt Diebstahl", "serial": ""}],
   "GERES": [{"firstname": "Anna", "lastname": "Schmid", "gender": "w", "dob": "23.08.1992", "poo": "von Bern BE", "adress": "wft. 3000 Bern, Lindenstrasse 5", "zivilstand": "verheiratet mit Schmid Lukas"}],
   "ISA": [{"firstname": "Anna", "lastname": "Schmid", "gender": "w", "dob": "23.08.1992", "poo": "von Bern BE"}],
   "FABER": [{ "category": "Kat. B", "since": "seit 10.09.2012" }],
   "MOFIS": [{"plate": "BE175684", "vin": "WVWZZZ1KZJW234567", "type": "PW", "brand": "BMW", "model": "X3"}, {"plate": "BE6029", "vin": "WAUZZZ8V1JA123456", "type": "MR", "brand": "Yamaha", "model": "R1"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "2025", "description": "Gesucht, Pistole SIG Sauer P226", "itemnumber": "", "serial": "SN-889900"}, {"year": "", "description": "", "itemnumber": "", "serial": "SN-100100"}]
+  "RIPOL": [{"year": "2025", "description": "Gesucht, Pistole SIG Sauer P226", "serial": "SN-889900"}, {"year": "", "description": "", "serial": "SN-100100"}]
 },
 "fr": {
-  "Traitement des processus": [{ "year": 2023, "description": "lésé accident"}, { "year": 2022, "description": "lésé vol" }],
+  "Traitement des processus": [{ "year": 2023, "description": "lésé accident", "serial": ""}, { "year": 2022, "description": "lésé vol", "serial": ""}],
   "GERES": [{ "firstname": "Anna", "lastname": "Schmid", "gender": "w", "dob": "23.08.1992", "poo": "de Berne BE", "adress": "domicilié 3000 Berne, Lindenstrasse 5", "zivilstand": "mariée à Schmid Lukas"}],
   "ISA": [{ "firstname": "Anna", "lastname": "Schmid", "gender": "w", "dob": "23.08.1992", "poo": "de Berne BE"}],
   "FABER": [{ "category": "Cat. B", "since": "depuis 10.09.2012" }],
   "MOFIS": [{"plate": "BE175684", "vin": "WVWZZZ1KZJW234567", "type": "Voiture de tourisme", "brand": "BMW", "model": "X3"}, {"plate": "BE6029", "vin": "WAUZZZ8V1JA123456", "type": "Moto", "brand": "Yamaha", "model": "R1"}],
   "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
   "Hoogan": [{ "year": "", "description": ""}, { "year": "", "description": ""}],
-  "RIPOL": [{"year": "2025", "description": "Recherché, pistolet SIG Sauer P226", "itemnumber": "", "serial": "SN-889900"}, {"year": "", "description": "", "itemnumber": "", "serial": "SN-100100"}]	  
+  "RIPOL": [{"year": "2025", "description": "Recherché, pistolet SIG Sauer P226", "serial": "SN-889900"}, {"year": "", "description": "", "serial": "SN-100100"}]	  
       }
     },
     "S003": {
@@ -69,24 +69,24 @@
     "fr": "Consultation de personne – El-Sayed Omar, 12.12.1987"
   },
   "de": {
-    "Vorgangsbearbeitung": [{ "year": 2021, "description": "Beschuldigt Ladendiebstahl" }, { "year": "", "description": "" }],
+    "Vorgangsbearbeitung": [{ "year": 2021, "description": "Beschuldigt Ladendiebstahl", "serial": ""}, { "year": "", "description": "", "serial": ""}],
     "GERES": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "zivilstand": ""}],
     "ISA": [{"firstname": "", "lastname": "", "gender": "", "dob": ""}],
     "FABER": [{"category": "", "since": ""}],
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "Omar", "lastname": "El-Sayed", "gender": "m", "dob": "12.12.1987", "poo": "von Kairo, Ägypten", "adress": "", "zivilstand": "ledig", "status": "Aufenthaltstitel F"}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": "", "serial": ""}]
+    "RIPOL": [{"year": "", "description": "", "serial": ""}]
   },
   "fr": {
-    "Traitement des processus": [{ "year": 2021, "description": "prévenu de vol à l'étalage" }, { "year": "", "description": "" }],
+    "Traitement des processus": [{ "year": 2021, "description": "prévenu de vol à l'étalage", "serial": ""}, { "year": "", "description": "", "serial": ""}],
     "GERES": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "zivilstand": ""}],
     "ISA": [{"firstname": "", "lastname": "", "gender": "", "dob": ""}],
     "FABER": [{"category": "", "since": ""}],
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "Omar", "lastname": "El-Sayed", "gender": "m", "dob": "12.12.1987", "poo": "de Le Caire, Égypte", "adress": "", "zivilstand": "célibataire", "status": "Livret F"}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": "", "serial": ""}]
+    "RIPOL": [{"year": "", "description": "", "serial": ""}]
   }
 },
 
@@ -96,24 +96,24 @@
     "fr": "Consultation de personne – Diallo Amina, 30.06.1990"
   },
   "de": {
-    "Vorgangsbearbeitung": [{ "year": 2020, "description": "Geschädigt Sachbeschädigung" }],
+    "Vorgangsbearbeitung": [{ "year": 2020, "description": "Geschädigt Sachbeschädigung", "serial": ""}],
     "GERES": [{"firstname": "Amina", "lastname": "Diallo", "gender": "w", "dob": "30.06.1990", "poo": "von Dakar, Senegal", "adress": "wft. 3600 Thun, Allmendstrasse 18", "zivilstand": "ledig"}],
     "ISA": [{"firstname": "", "lastname": "", "gender": "", "dob": ""}],
     "FABER": [{"category": "Kat. B", "since": "seit 20.05.2010"}],
     "MOFIS": [{"plate": "BE948275", "vin": "VF3CUHNZJFS345678", "type": "PW", "brand": "VW", "model": "Golf"}],
     "ZEMIS": [{"firstname": "Amina", "lastname": "Diallo", "gender": "w", "dob": "30.06.1990", "poo": "von Dakar, Senegal", "adress": "wft. 3600 Thun, Allmendstrasse 18", "zivilstand": "ledig", "status": "Niederlassungsbewilligung (Ausweis C)"}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": ""}]
+    "RIPOL": [{"year": "", "description": "", "serial": ""}]
   },
   "fr": {
-    "Traitement des processus": [{ "year": 2020, "description": "lésé dommages à la propriété" }],
+    "Traitement des processus": [{ "year": 2020, "description": "lésé dommages à la propriété", "serial": ""}],
     "GERES": [{"firstname": "Amina", "lastname": "Diallo", "gender": "w", "dob": "30.06.1990", "poo": "de Dakar, Sénégal", "adress": "domiciliée 3600 Thun, Allmendstrasse 18", "zivilstand": "célibataire"}],
     "ISA": [{"firstname": "", "lastname": "", "gender": "", "dob": ""}],
     "FABER": [{"category": "Cat. B", "since": "depuis 20.05.2010"}],
     "MOFIS": [{"plate": "BE948275", "vin": "VF3CUHNZJFS345678", "type": "Voiture de tourisme", "brand": "VW", "model": "Golf"}],
     "ZEMIS": [{"firstname": "Amina", "lastname": "Diallo", "gender": "w", "dob": "30.06.1990", "poo": "de Dakar, Sénégal", "adress": "domiciliée 3600 Thun, Allmendstrasse 18", "zivilstand": "célibataire", "status": "Autorisation d’établissement (permis C)"}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": ""}]
+    "RIPOL": [{"year": "", "description": "", "serial": ""}]
   }
 },
 
@@ -123,24 +123,24 @@
     "fr": "Consultation de personne – Jenni Ramon, 01.08.2000"
   },
   "de": {
-    "Vorgangsbearbeitung": [{ "year": 2019, "description": "Geschädigt Diebstahl" }],
+    "Vorgangsbearbeitung": [{ "year": 2019, "description": "Geschädigt Diebstahl", "serial": ""}],
     "GERES": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000", "poo": "von Bern BE", "adress": "wft. 4900 Langenthal, Murgenthalstrasse 41", "zivilstand": "ledig"}],
     "ISA": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000"}],
     "FABER": [{"category": "Kat. B", "since": "seit 10.09.2019"}],
     "MOFIS": [{"plate": "BE361809", "vin": "JN1AZ4EH8KM456789", "type": "PW", "brand": "Audi", "model": "A4"}],
     "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": ""}]
+    "RIPOL": [{"year": "", "description": "", "serial": ""}]
   },
   "fr": {
-    "Traitement des processus": [{ "year": 2019, "description": "lésé vol" }],
+    "Traitement des processus": [{ "year": 2019, "description": "lésé vol", "serial": ""}],
     "GERES": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000", "poo": "de Berne BE", "adress": "domicilié 4900 Langenthal, Murgenthalstrasse 41", "zivilstand": "célibataire"}],
     "ISA": [{"firstname": "Ramon", "lastname": "Jenni", "gender": "m", "dob": "01.08.2000"}],
     "FABER": [{"category": "Cat. B", "since": "depuis 10.09.2019"}],
     "MOFIS": [{"plate": "BE361809", "vin": "JN1AZ4EH8KM456789", "type": "Voiture de tourisme", "brand": "Audi", "model": "A4"}],
     "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": "", "description": "", "itemnumber": ""}]
+    "RIPOL": [{"year": "", "description": "", "serial": ""}]
   }
 },
 
@@ -150,24 +150,24 @@
     "fr": "Consultation de personne – Ramseier Joel, 05.07.1985"
   },
   "de": {
-    "Vorgangsbearbeitung": [{ "year": 2024, "description": "Beschuldigt Konsum BM" }, { "year": 2025, "description": "Beschuldigt Konsum BM" }],
+    "Vorgangsbearbeitung": [{ "year": 2024, "description": "Beschuldigt Konsum BM", "serial": ""}, { "year": 2025, "description": "Beschuldigt Konsum BM", "serial": ""}],
     "GERES": [{"firstname": "Joel", "lastname": "Ramseier", "gender": "m", "dob": "05.07.1985", "poo": "von Bern BE", "adress": "ohne festen Wohnsitz", "zivilstand": "ledig"}],
     "ISA": [{"firstname": "Joel", "lastname": "Ramseier", "gender": "m", "dob": "05.07.1985"}],
     "FABER": [{"category": "Entzug auf unbestimmte Zeit", "since": "seit 10.09.2021"}],
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": 2025, "description": "Aufenthaltsnachforschung", "itemnumber": ""}]
+    "RIPOL": [{"year": 2025, "description": "Aufenthaltsnachforschung", "serial": ""}]
   },
   "fr": {
-    "Traitement des processus": [{ "year": 2024, "description": "consommation de stupéfiants" }, { "year": 2025, "description": "consommation de stupéfiants" }],
+    "Traitement des processus": [{ "year": 2024, "description": "consommation de stupéfiants", "serial": ""}, { "year": 2025, "description": "consommation de stupéfiants", "serial": ""}],
     "GERES": [{"firstname": "Joel", "lastname": "Ramseier", "gender": "m", "dob": "05.07.1985", "poo": "de Berne BE", "adress": "sans adresse permanente", "zivilstand": "célibataire"}],
     "ISA": [{"firstname": "Joel", "lastname": "Ramseier", "gender": "m", "dob": "05.07.1985"}],
     "FABER": [{"category": "Retrait de durée indéterminée", "since": "depuis le 10.09.2021"}],
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": 2025, "description": "Recherche du lieu de séjour", "itemnumber": ""}]
+    "RIPOL": [{"year": 2025, "description": "Recherche du lieu de séjour", "serial": ""}]
   }
 },
 
@@ -177,25 +177,25 @@
     "fr": "Consultation de personne – Petrov Ivan, 14.02.1978"
   },
   "de": {
-    "Vorgangsbearbeitung": [{ "year": "", "description": "" }],
+    "Vorgangsbearbeitung": [{ "year": "", "description": "", "serial": ""}],
     "GERES": [{"firstname": "Ivan", "lastname": "Petrov", "gender": "m", "dob": "14.02.1978", "poo": "von Moskau, Russland", "adress": "wft. 2520 La Neuveville, Place du Marché 3", "zivilstand": "ledig"}],
     "ISA": [{"firstname": "", "lastname": "", "gender": "", "dob": ""}],
     "FABER": [{"category": "", "since": ""}],
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": 2025, "description": "zur Verhaftung ausgeschrieben", "itemnumber": ""}]
+    "RIPOL": [{"year": 2025, "description": "zur Verhaftung ausgeschrieben", "serial": ""}]
   },
   "fr": {
-    "Traitement des processus": [{ "year": "", "description": "" }],
+    "Traitement des processus": [{ "year": "", "description": "", "serial": ""}],
     "GERES": [{"firstname": "Ivan", "lastname": "Petrov", "gender": "m", "dob": "14.02.1978", "poo": "de Moscou, Russie", "adress": "domicilié 2520 La Neuveville, Place du Marché 3", "zivilstand": "célibataire"}],
     "ISA": [{"firstname": "", "lastname": "", "gender": "", "dob": ""}],
     "FABER": [{"category": "", "since": ""}],
     "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
     "ZEMIS": [{"firstname": "", "lastname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
     "Hoogan": [{"year": "", "description": ""}],
-    "RIPOL": [{"year": 2025, "description": "Recherché pour arrestation", "itemnumber": ""}]
+    "RIPOL": [{"year": 2025, "description": "Recherché pour arrestation", "serial": ""}]
   }
 }
-  }
+}
 }
