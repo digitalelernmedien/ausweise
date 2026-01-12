@@ -53,15 +53,15 @@ function formatObjectEntryValues(obj) {
       return;
     }
 
-    /*
-    // Subtitle
-    if (subtitleEl && steckbrief.subtitle && steckbrief.subtitle[lang]) {
-      subtitleEl.innerText = steckbrief.subtitle[lang];
-      subtitleEl.style.display = "block";
-    } else if (subtitleEl) {
-      subtitleEl.style.display = "none";
-    }
-    */
+    if (subtitleEl && query) {
+  subtitleEl.innerText =
+    lang === "fr"
+      ? `Résultat de la requête pour « ${query} »`
+      : `Abfrageergebnis für „${query}“`;
+  subtitleEl.style.display = "block";
+} else if (subtitleEl) {
+  subtitleEl.style.display = "none";
+}
 
     // Inhalt rendern
     const sections = steckbrief[lang];
