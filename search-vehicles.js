@@ -114,7 +114,9 @@ document.getElementById("search-form").addEventListener("submit", e => {
   // Auswertung
   if (foundKarten.length === 1) {
     // genau ein Treffer → weiterleiten
-    window.location.href = `index.html?karte=${foundKarten[0]}`;
+    window.location.href =
+  `index.html?karte=${foundKarten[0]}&query=${encodeURIComponent(plateInput || vinInput)}`;
+
   } else if (foundKarten.length > 1) {
     // mehrere Treffer → Hinweis
     errorEl.innerText =
