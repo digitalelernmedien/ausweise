@@ -58,36 +58,20 @@ function formatObjectEntryValues(obj) {
   // -------------------------
   // Subtitel zusammenbauen
   // -------------------------
-  if (subtitleEl) {
-    let queryString = "";
-
-    // Personenabfrage: Nachname, optional Vorname, Geburtsdatum
-    const lastname = params.get("lastname")?.trim();
-    const firstname = params.get("firstname")?.trim();
-    const dob = params.get("dob")?.trim();
-
-    const queryParts = [];
-    if (lastname) queryParts.push(lastname);
-    if (firstname) queryParts.push(firstname);
-    if (dob) queryParts.push(dob);
-
-    // Alternativ: Einzelne Suchbegriffe wie Seriennummer oder Kontrollschild
-    if (query && queryParts.length === 0) {
-      queryParts.push(query);
-    }
-
-    queryString = queryParts.join(", ");
-
-    if (queryString) {
-      subtitleEl.innerText =
-        lang === "fr"
-          ? `Résultat pour « ${queryString} »`
-          : `Abfrageergebnis für „${queryString}“`;
-      subtitleEl.style.display = "block";
-    } else {
-      subtitleEl.style.display = "none";
-    }
+  // -------------------------
+// Subtitel zusammenbauen
+// -------------------------
+if (subtitleEl) {
+  if (query) {
+    subtitleEl.innerText =
+      lang === "fr"
+        ? `Résultat pour « ${query} »`
+        : `Abfrageergebnis für „${query}“`;
+    subtitleEl.style.display = "block";
+  } else {
+    subtitleEl.style.display = "none";
   }
+}
 
   // -------------------------
   // Inhalt rendern
