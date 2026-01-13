@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let lang = "de";
   let dataGlobal = null;
 
+  // -------------------------
   // Sprachwechsel
+  // -------------------------
   speechBtn.addEventListener("click", () => {
     settingsMenu.style.display = "flex";
     backdrop.style.display = "block";
@@ -36,7 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // -------------------------
   function formatMofisEntry(vehicle) {
     if (!vehicle || typeof vehicle !== "object") return "";
-    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate || "(kein Kontrollschild)"}, VIN: ${vehicle.vin || "(keine VIN)"}`;
+    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${
+      vehicle.plate || "(kein Kontrollschild)"
+    }, VIN: ${vehicle.vin || "(keine VIN)"}`;
   }
 
   function formatObjectEntryValues(obj) {
@@ -48,113 +52,81 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function hasContent(item) {
-  if (!item) return false;
-  if (typeof item === "string") {
-    return item.trim() !== "";
+    if (!item) return false;
+    if (typeof item === "string") return item.trim() !== "";
+    if (typeof item === "object") {
+      return Object.values(item).some(
+        v => v && v.toString().trim() !== ""
+      );
+    }
+    return false;
   }
-  if (typeof item === "object") {
-    return Object.values(item).some(
-      v => v && v.toString().trim() !== ""
-    );
-  }
-  return false;
-}
 
+  function formatItem(key, item) {
+    if (typeof item === "object") {
+      return key === "MOFIS"
+        ? formatMofisEntry(item)
+        : formatObjectEntryValues(item);
+    }
+    return item;
+  }
 
   // -------------------------
-  // Render-Funktion
+  // Render
   // -------------------------
   function render() {
-  if (!dataGlobal) return;
+    if (!dataGlobal) return;
 
-  titleEl.innerText =
-    lang === "fr" ? "Vue d’ensemble des données" : "Datenübersicht";
+    titleEl.innerText =
+      lang === "fr" ? "Vue d’ensemble des données" : "Datenübersicht";
 
-  contentEl.innerHTML = "";
+    contentEl.innerHTML = "";
 
-  Object.entries(dataGlobal.steckbriefe).forEach(([id, steckbrief]) => {
-    const card = document.createElement("div");
-    card.style.marginBottom = "1rem";
+    Object.entries(dataGlobal.steckbriefe).forEach(([id, steckbrief]) => {
+      const card = document.createElement("div");
+      card.style.marginBottom = "1rem";
 
-    const h3 = document.createElement("h3");
-    h3.style.cursor = "pointer";
-    h3.innerText =
-      lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
+      const h3 = document.createElement("h3");
+      h3.style.cursor = "pointer";
+      h3.innerText =
+        lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
+      card.appendChild(h3);
 
-    card.appendChild(h3);
+      const sectionsDivs = [];
+      const sections = steckbrief[lang];
 
-    const sectionsDivs = [];
-    const sections = steckbrief[lang];
+      Object.entries(sections).forEach(([key, items]) => {
+        const validItems = items.filter(hasContent);
+        if (validItems.length === 0) return;
 
-    Object.entries(sections).forEach(([key, items]) => {
-      const validItems = items.filter(hasContent);
-      if (validItems.length === 0) return;
-      const sectionDiv = document.createElement("div");
-      sectionDiv.style.marginLeft = "1rem";
-      sectionDiv.style.marginBottom = "0.3rem";
-
-      // 🔹 EIN EINTRAG → eine Zeile
-      if (validItems.length === 1) {
-        const p = document.createElement("p");
-
-        const item = validItems[0];
-        let value = "";
-
-        if (typeof item === "object") {
-          value =
-            key === "MOFIS"
-              ? formatMofisEntry(item)
-              : formatObjectEntryValues(item);
-        } else {
-          value = item;
-        }
-
-        p.innerHTML = `<strong>${key}:</strong> ${value}`;
-        sectionDiv.appendChild(p);
-      }
-
-      // 🔹 MEHRERE EINTRÄGE → Aufzählung
-      else {
-        const pTitle = document.createElement("p");
-        pTitle.innerHTML = `<strong>${key}:</strong>`;
-        sectionDiv.appendChild(pTitle);
+        const sectionDiv = document.createElement("div");
+        sectionDiv.style.marginLeft = "1rem";
+        sectionDiv.style.marginBottom = "0.3rem";
 
         const ul = document.createElement("ul");
-        ul.style.margin = "0 0 0.2rem 1.2rem";
 
         validItems.forEach(item => {
           const li = document.createElement("li");
-
-          if (typeof item === "object") {
-            li.innerText =
-              key === "MOFIS"
-                ? formatMofisEntry(item)
-                : formatObjectEntryValues(item);
-          } else {
-            li.innerText = item;
-          }
-
+          li.textContent = formatItem(key, item);
           ul.appendChild(li);
         });
 
         sectionDiv.appendChild(ul);
-      }
-
-      card.appendChild(sectionDiv);
-      sectionsDivs.push(sectionDiv);
-    });
-
-    // 🔽 Karte ein-/ausklappen
-    h3.addEventListener("click", () => {
-      sectionsDivs.forEach(div => {
-        div.style.display =
-          div.style.display === "none" ? "block" : "none";
+        card.appendChild(sectionDiv);
+        sectionsDivs.push(sectionDiv);
       });
-    });
 
-    contentEl.appendChild(card);
-  });
-}
+      // Ein-/Ausklappen
+      h3.addEventListener("click", () => {
+        sectionsDivs.forEach(div => {
+          div.style.display =
+            div.style.display === "none" ? "block" : "none";
+        });
+      });
+
+      contentEl.appendChild(card);
+    });
+  }
 
   // -------------------------
   // Daten laden
