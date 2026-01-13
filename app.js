@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const params = new URLSearchParams(window.location.search);
   const karte = params.get("karte") || "K001";
-
   const query = params.get("query");
 
   let dataGlobal = null;
@@ -20,9 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------------------------
      MOFIS Eintrag formatieren
   --------------------------- */
-  function formatMofisEntry(vehicle, lang) {
+  function formatMofisEntry(vehicle) {
     if (!vehicle || typeof vehicle !== "object") return "";
-
     return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate || "(kein Kontrollschild)"}, VIN: ${vehicle.vin || "(keine VIN)"}.`;
   }
 
@@ -30,135 +28,131 @@ document.addEventListener("DOMContentLoaded", () => {
      Generischer Objekt-Renderer
      z.B. GERES, ISA, FABER
   --------------------------- */
-function formatObjectEntryValues(obj) {
-  if (!obj || typeof obj !== "object") return "";
+  function formatObjectEntryValues(obj) {
+    if (!obj || typeof obj !== "object") return "";
+    const { firstname, lastname, ...rest } = obj;
+    const firstPart = [firstname, lastname].filter(Boolean).join(" ");
+    const otherParts = Object.values(rest).filter(Boolean).join(", ");
+    return [firstPart, otherParts].filter(Boolean).join(", ");
+  }
 
-  const { firstname, lastname, ...rest } = obj; // Vorname und Nachname abtrennen
-  const firstPart = [firstname, lastname].filter(Boolean).join(" "); // nur Leerzeichen
-  const otherParts = Object.values(rest).filter(Boolean).join(", ");  // restliche Felder mit Komma
-
-  return [firstPart, otherParts].filter(Boolean).join(", "); // alles zusammen
-}
-
+  /* ---------------------------
+     Daten rendern
+  --------------------------- */
   function render() {
-  if (!dataGlobal) return;
+    if (!dataGlobal) return;
 
-  titleEl.innerText = pageTitles[lang];
+    titleEl.innerText = pageTitles[lang];
 
-  const steckbriefId = dataGlobal.zuordnung[karte];
-  const steckbrief = dataGlobal.steckbriefe[steckbriefId];
+    const steckbriefId = dataGlobal.zuordnung[karte];
+    const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
-  if (!steckbrief) {
-    titleEl.innerText = "Fehler";
-    textEl.innerText = "Keine Daten für diese Karte gefunden";
-    subtitleEl.style.display = "none";
-    return;
-  }
-
-  // -------------------------
-// Subtitel zusammenbauen
-// -------------------------
-if (subtitleEl) {
-  if (query) {
-    subtitleEl.innerText =
-      lang === "fr"
-        ? `Résultat pour « ${query} »`
-        : `Abfrageergebnis für „${query}“`;
-    subtitleEl.style.display = "block";
-  } else {
-    subtitleEl.style.display = "none";
-  }
-}
-
-  // -------------------------
-  // Inhalt rendern
-  // -------------------------
-  const sections = steckbrief[lang];
-if (!sections || typeof sections !== "object") {
-  textEl.innerText =
-    lang === "fr"
-      ? "Aucun contenu disponible"
-      : "Keine Inhalte vorhanden";
-  return;
-}
-
-textEl.innerHTML = "";
-
-// 1. Sections vorbereiten mit Zählung der nonEmptyItems
-const sectionsWithCounts = Object.keys(sections).map(key => {
-  const items = Array.isArray(sections[key]) ? sections[key] : [];
-  const nonEmptyItems = items.filter(item => {
-    if (!item) return false;
-    if (typeof item === "string") return item.trim() !== "";
-    if (typeof item === "object") {
-      return Object.values(item).some(v => v && v.toString().trim() !== "");
+    if (!steckbrief) {
+      titleEl.innerText = "Fehler";
+      textEl.innerText = "Keine Daten für diese Karte gefunden";
+      subtitleEl.style.display = "none";
+      return;
     }
-    return false;
-  });
-  return { key, items, nonEmptyItems, count: nonEmptyItems.length };
-});
 
-// 2. Sortieren: zuerst count > 0, dann count == 0
-sectionsWithCounts.sort((a, b) => {
-  // Abschnitte mit Inhalt zuerst
-  if (a.count === 0 && b.count > 0) return 1;
-  if (a.count > 0 && b.count === 0) return -1;
-  return 0; // Reihenfolge sonst unverändert
-});
-
-// 3. Rendern der Sections
-sectionsWithCounts.forEach(section => {
-  const { key, items, nonEmptyItems, count } = section;
-
-  const header = document.createElement("h3");
-  const arrow = document.createElement("span");
-  arrow.classList.add("arrow");
-  arrow.innerText = "▶";
-  arrow.style.marginRight = "5px";
-
-  header.appendChild(arrow);
-  header.appendChild(document.createTextNode(`${key} (${count})`));
-
-  const contentDiv = document.createElement("div");
-  contentDiv.style.display = "none";
-  contentDiv.style.marginBottom = "10px";
-
-  if (count > 0) {
-    const ul = document.createElement("ul");
-    ul.style.paddingLeft = "1.8rem";
-
-    nonEmptyItems.forEach(item => {
-      const li = document.createElement("li");
-
-      if (typeof item === "string") {
-        li.innerText = item;
-      } else if (key === "MOFIS") {
-        li.innerText = formatMofisEntry(item, lang);
+    // -------------------------
+    // Subtitel zusammenbauen
+    // -------------------------
+    if (subtitleEl) {
+      if (query) {
+        subtitleEl.innerText =
+          lang === "fr"
+            ? `Résultat pour « ${query} »`
+            : `Abfrageergebnis für „${query}“`;
+        subtitleEl.style.display = "block";
       } else {
-        li.innerText = formatObjectEntryValues(item);
+        subtitleEl.style.display = "none";
+      }
+    }
+
+    // -------------------------
+    // Inhalt rendern
+    // -------------------------
+    const sections = steckbrief[lang];
+    if (!sections || typeof sections !== "object") {
+      textEl.innerText =
+        lang === "fr"
+          ? "Aucun contenu disponible"
+          : "Keine Inhalte vorhanden";
+      return;
+    }
+
+    textEl.innerHTML = "";
+
+    // 1. Sections vorbereiten mit Zählung der nonEmptyItems
+    const sectionsWithCounts = Object.keys(sections).map(key => {
+      const items = Array.isArray(sections[key]) ? sections[key] : [];
+      const nonEmptyItems = items.filter(item => {
+        if (!item) return false;
+        if (typeof item === "string") return item.trim() !== "";
+        if (typeof item === "object") {
+          return Object.values(item).some(v => v && v.toString().trim() !== "");
+        }
+        return false;
+      });
+      return { key, items, nonEmptyItems, count: nonEmptyItems.length };
+    });
+
+    // 2. Sortieren: Abschnitte mit Inhalt zuerst
+    sectionsWithCounts.sort((a, b) => {
+      if (a.count === 0 && b.count > 0) return 1;
+      if (a.count > 0 && b.count === 0) return -1;
+      return 0;
+    });
+
+    // 3. Sections rendern
+    sectionsWithCounts.forEach(section => {
+      const { key, items, nonEmptyItems, count } = section;
+
+      const header = document.createElement("h3");
+      const arrow = document.createElement("span");
+      arrow.classList.add("arrow");
+      arrow.innerText = "▶";
+      arrow.style.marginRight = "5px";
+      header.appendChild(arrow);
+      header.appendChild(document.createTextNode(`${key} (${count})`));
+
+      const contentDiv = document.createElement("div");
+      contentDiv.style.display = "none";
+      contentDiv.style.marginBottom = "10px";
+
+      if (count > 0) {
+        const ul = document.createElement("ul");
+        ul.style.paddingLeft = "1.8rem";
+
+        nonEmptyItems.forEach(item => {
+          const li = document.createElement("li");
+          if (typeof item === "string") li.innerText = item;
+          else if (key === "MOFIS") li.innerText = formatMofisEntry(item);
+          else li.innerText = formatObjectEntryValues(item);
+          ul.appendChild(li);
+        });
+
+        contentDiv.appendChild(ul);
+
+        header.addEventListener("click", () => {
+          const open = contentDiv.style.display === "block";
+          contentDiv.style.display = open ? "none" : "block";
+          arrow.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
+        });
+      } else {
+        contentDiv.innerText = "0";
+        contentDiv.style.fontStyle = "italic";
+        contentDiv.style.paddingLeft = "25px";
       }
 
-      ul.appendChild(li);
+      textEl.appendChild(header);
+      textEl.appendChild(contentDiv);
     });
-
-    contentDiv.appendChild(ul);
-
-    header.addEventListener("click", () => {
-      const open = contentDiv.style.display === "block";
-      contentDiv.style.display = open ? "none" : "block";
-      arrow.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
-    });
-  } else {
-    contentDiv.innerText = "0"; // Anzeige für leere Rubrik
-    contentDiv.style.fontStyle = "italic";
-    contentDiv.style.paddingLeft = "25px";
   }
 
-  textEl.appendChild(header);
-  textEl.appendChild(contentDiv);
-});
-    
-  // Daten laden
+  /* ---------------------------
+     Daten laden (nur einmal)
+  --------------------------- */
   fetch("data.json")
     .then(res => {
       if (!res.ok) throw new Error("HTTP-Fehler " + res.status);
