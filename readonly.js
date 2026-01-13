@@ -9,17 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let lang = "de";
   let dataGlobal = null;
 
-  // Sprache wechseln
+  // Sprachwechsel
   speechBtn.addEventListener("click", () => {
     settingsMenu.style.display = "flex";
     backdrop.style.display = "block";
   });
 
-  // Drucken
-  printBtn.addEventListener("click", () => {
-  window.print(); // Öffnet den Druckdialog
-  });
-  
   settingsMenu.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
       lang = btn.dataset.lang;
@@ -34,11 +29,31 @@ document.addEventListener("DOMContentLoaded", () => {
     backdrop.style.display = "none";
   });
 
+  printBtn.addEventListener("click", () => window.print());
+
+  // -------------------------
+  // Helferfunktionen
+  // -------------------------
+  function formatMofisEntry(vehicle) {
+    if (!vehicle || typeof vehicle !== "object") return "";
+    return `${vehicle.type}, ${vehicle.brand}, ${vehicle.model}, ${vehicle.plate || "(kein Kontrollschild)"}, VIN: ${vehicle.vin || "(keine VIN)"}`;
+  }
+
+  function formatObjectEntryValues(obj) {
+    if (!obj || typeof obj !== "object") return "";
+    const { firstname, lastname, ...rest } = obj;
+    const firstPart = [firstname, lastname].filter(Boolean).join(" ");
+    const otherParts = Object.values(rest).filter(Boolean).join(", ");
+    return [firstPart, otherParts].filter(Boolean).join(", ");
+  }
+
+  // -------------------------
+  // Render-Funktion
+  // -------------------------
   function render() {
     if (!dataGlobal) return;
 
-    titleEl.innerText =
-      lang === "fr" ? "Vue d’ensemble des données" : "Datenübersicht";
+    titleEl.innerText = lang === "fr" ? "Vue d’ensemble des données" : "Datenübersicht";
 
     contentEl.innerHTML = "";
 
@@ -48,28 +63,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const h3 = document.createElement("h3");
       h3.style.cursor = "pointer";
-
       const ausweisText = document.createElement("span");
       ausweisText.innerText = lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
-
       h3.appendChild(ausweisText);
       card.appendChild(h3);
 
-      // Alle Sektionen für diese Karte sammeln
       const sectionsDivs = [];
-
       const sections = steckbrief[lang];
+
       Object.entries(sections).forEach(([key, items]) => {
-        if (items.length > 0) { // nur anzeigen, wenn mindestens ein Eintrag
+        if (!Array.isArray(items)) return;
+        const nonEmptyItems = items.filter(item => {
+          if (!item) return false;
+          if (typeof item === "string") return item.trim() !== "";
+          if (typeof item === "object") return Object.values(item).some(v => v && v.toString().trim() !== "");
+          return false;
+        });
+
+        if (nonEmptyItems.length > 0) {
           const p = document.createElement("p");
           p.style.margin = "0.2rem 0 0.2rem 1rem";
-          p.innerHTML = `<strong>${key}:</strong> ${items.join(", ")}`;
+
+          const textContent = nonEmptyItems.map(item => {
+            if (typeof item === "string") return item;
+            else if (key === "MOFIS") return formatMofisEntry(item);
+            else return formatObjectEntryValues(item);
+          }).join(", ");
+
+          p.innerHTML = `<strong>${key}:</strong> ${textContent}`;
           card.appendChild(p);
           sectionsDivs.push(p);
         }
       });
 
-      // Klick auf die Überschrift klappt die Karte ein/aus
       h3.addEventListener("click", () => {
         sectionsDivs.forEach(p => {
           p.style.display = p.style.display === "none" ? "block" : "none";
@@ -80,6 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // -------------------------
+  // Daten laden
+  // -------------------------
   fetch("data.json")
     .then(res => res.json())
     .then(data => {
