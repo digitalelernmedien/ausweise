@@ -77,77 +77,85 @@ if (subtitleEl) {
   // Inhalt rendern
   // -------------------------
   const sections = steckbrief[lang];
-  if (!sections || typeof sections !== "object") {
-    textEl.innerText =
-      lang === "fr"
-        ? "Aucun contenu disponible"
-        : "Keine Inhalte vorhanden";
-    return;
-  }
+if (!sections || typeof sections !== "object") {
+  textEl.innerText =
+    lang === "fr"
+      ? "Aucun contenu disponible"
+      : "Keine Inhalte vorhanden";
+  return;
+}
 
-  textEl.innerHTML = "";
+textEl.innerHTML = "";
 
-  Object.keys(sections).forEach(key => {
-    const items = Array.isArray(sections[key]) ? sections[key] : [];
+// 1. Sections vorbereiten mit Zählung der nonEmptyItems
+const sectionsWithCounts = Object.keys(sections).map(key => {
+  const items = Array.isArray(sections[key]) ? sections[key] : [];
+  const nonEmptyItems = items.filter(item => {
+    if (typeof item === "string") return item.trim() !== "";
+    if (typeof item === "object") {
+      return Object.values(item).some(v => v && v.toString().trim() !== "");
+    }
+    return false;
+  });
+  return { key, items, nonEmptyItems, count: nonEmptyItems.length };
+});
 
-    const nonEmptyItems = items.filter(item => {
-      if (typeof item === "string") return item.trim() !== "";
-      if (typeof item === "object") {
-        return Object.values(item).some(v => v && v.toString().trim() !== "");
+// 2. Sortieren: zuerst count > 0, dann count == 0
+sectionsWithCounts.sort((a, b) => b.count - a.count); // absteigend
+
+// 3. Rendern der Sections
+sectionsWithCounts.forEach(section => {
+  const { key, items, nonEmptyItems, count } = section;
+
+  const header = document.createElement("h3");
+  const arrow = document.createElement("span");
+  arrow.classList.add("arrow");
+  arrow.innerText = "▶";
+  arrow.style.marginRight = "5px";
+
+  header.appendChild(arrow);
+  header.appendChild(document.createTextNode(`${key} (${count})`));
+
+  const contentDiv = document.createElement("div");
+  contentDiv.style.display = "none";
+  contentDiv.style.marginBottom = "10px";
+
+  if (count > 0) {
+    const ul = document.createElement("ul");
+    ul.style.paddingLeft = "1.8rem";
+
+    nonEmptyItems.forEach(item => {
+      const li = document.createElement("li");
+
+      if (typeof item === "string") {
+        li.innerText = item;
+      } else if (key === "MOFIS") {
+        li.innerText = formatMofisEntry(item, lang);
+      } else {
+        li.innerText = formatObjectEntryValues(item);
       }
-      return false;
+
+      ul.appendChild(li);
     });
 
-    const count = nonEmptyItems.length;
+    contentDiv.appendChild(ul);
 
-    const header = document.createElement("h3");
-    const arrow = document.createElement("span");
-    arrow.classList.add("arrow");
-    arrow.innerText = "▶";
-    arrow.style.marginRight = "5px";
+    header.addEventListener("click", () => {
+      const open = contentDiv.style.display === "block";
+      contentDiv.style.display = open ? "none" : "block";
+      arrow.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
+    });
+  } else {
+    contentDiv.innerText = "0"; // Anzeige für leere Rubrik
+    contentDiv.style.fontStyle = "italic";
+    contentDiv.style.paddingLeft = "25px";
+  }
 
-    header.appendChild(arrow);
-    header.appendChild(document.createTextNode(`${key} (${count})`));
+  textEl.appendChild(header);
+  textEl.appendChild(contentDiv);
+});
 
-    const contentDiv = document.createElement("div");
-    contentDiv.style.display = "none";
-    contentDiv.style.marginBottom = "10px";
-
-    if (count > 0) {
-      const ul = document.createElement("ul");
-      ul.style.paddingLeft = "1.8rem";
-
-      nonEmptyItems.forEach(item => {
-        const li = document.createElement("li");
-
-        if (typeof item === "string") {
-          li.innerText = item;
-        } else if (key === "MOFIS") {
-          li.innerText = formatMofisEntry(item, lang);
-        } else {
-          li.innerText = formatObjectEntryValues(item);
-        }
-
-        ul.appendChild(li);
-      });
-
-      contentDiv.appendChild(ul);
-
-      header.addEventListener("click", () => {
-        const open = contentDiv.style.display === "block";
-        contentDiv.style.display = open ? "none" : "block";
-        arrow.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
-      });
-    } else {
-      contentDiv.innerText = "0"; // Anzeige für leere Rubrik
-      contentDiv.style.fontStyle = "italic";
-      contentDiv.style.paddingLeft = "25px";
-    }
-
-    textEl.appendChild(header);
-    textEl.appendChild(contentDiv);
-  });
-}
+    
   // Daten laden
   fetch("data.json")
     .then(res => {
