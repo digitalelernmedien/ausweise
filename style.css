@@ -7,6 +7,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 main {
@@ -17,6 +18,7 @@ main {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   margin-bottom: 20px;
+  padding-bottom: calc(60px + env(safe-area-inset-bottom) + 16px);
 }
 
 h1 {
