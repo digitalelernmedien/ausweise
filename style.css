@@ -417,15 +417,24 @@ button:active {
 }
 
 #content ul {
-  margin: 0.1rem 0 0.3rem 0;   /* oben minimal, unten etwas Abstand */
-  padding: 0;                  /* kein extra padding */
-  list-style-position: inside; /* Punkt + Text in derselben Zeile */
-  line-height: 1.1;            /* enger Zeilenabstand */
+  margin: 0.1rem 0 0.3rem 0;  /* Abstand oben/unten */
+  padding-left: 0;             /* Punkt bündig mit Überschrift */
+  list-style: none;            /* Standardpunkt entfernen */
 }
 
 #content li {
-  margin: 0.05rem 0;           /* minimal vertikal */
-  text-indent: -0.15em;        /* Text direkt nach Punkt */
+  margin: 0.05rem 0;
+  line-height: 1.1;
+  position: relative;
+  padding-left: 0.5em; /* Abstand vom Punkt zum Text */
+}
+
+/* Neuer Punkt über ::before */
+#content li::before {
+  content: "•";          /* Punkt */
+  position: absolute;
+  left: 0;               /* ganz links */
+  font-weight: bold;     /* optional */
 }
 
 
