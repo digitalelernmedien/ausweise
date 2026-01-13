@@ -47,6 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
     return [firstPart, otherParts].filter(Boolean).join(", ");
   }
 
+  function hasContent(item) {
+  if (!item) return false;
+  if (typeof item === "string") {
+    return item.trim() !== "";
+  }
+  if (typeof item === "object") {
+    return Object.values(item).some(
+      v => v && v.toString().trim() !== ""
+    );
+  }
+  return false;
+}
+
+
   // -------------------------
   // Render-Funktion
   // -------------------------
@@ -73,17 +87,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const sections = steckbrief[lang];
 
     Object.entries(sections).forEach(([key, items]) => {
-      if (!Array.isArray(items) || items.length === 0) return;
-
+      const validItems = items.filter(hasContent);
+      if (validItems.length === 0) return;
       const sectionDiv = document.createElement("div");
       sectionDiv.style.marginLeft = "1rem";
       sectionDiv.style.marginBottom = "0.3rem";
 
       // 🔹 EIN EINTRAG → eine Zeile
-      if (items.length === 1) {
+      if (validItems.length === 1) {
         const p = document.createElement("p");
 
-        const item = items[0];
+        const item = validItems[0];
         let value = "";
 
         if (typeof item === "object") {
@@ -108,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const ul = document.createElement("ul");
         ul.style.margin = "0 0 0.2rem 1.2rem";
 
-        items.forEach(item => {
+        validItems.forEach(item => {
           const li = document.createElement("li");
 
           if (typeof item === "object") {
