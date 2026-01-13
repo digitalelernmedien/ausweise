@@ -16,7 +16,7 @@
       "fr": "Consultation de personne – Meier Thomas, 12.03.1980"
       },
 	  "de": {
-  "Vorgangsbearbeitung": [{ "ESW": "Einbruchdiebstahl in MFH", "Verbindung": "Geschädigte Person", "description": "in MFH", "year": 05.08.2025, "objekt": "", "serial": ""}, { "year": 2024, "description": "Geschädigt Sachbeschädigung", "serial": ""}],
+  "Vorgangsbearbeitung": [{ "ESW": "Einbruchdiebstahl in MFH", "Verbindung": "Geschädigte Person", "description": "in MFH", "year": "05.08.2025", "objekt": "", "serial": ""}, { "year": 2024, "description": "Geschädigt Sachbeschädigung", "serial": ""}],
   "GERES": [{"firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980", "poo": "von Bern BE", "adress": "wft. 3000 Bern, Hauptstrasse 10", "zivilstand": "ledig"}],
   "ISA": [{"firstname": "Thomas", "lastname": "Meier", "gender": "m", "dob": "12.03.1980"}],
   "FABER": [{ "category": "Kat. B", "since": "seit 15.05.2000" }],
