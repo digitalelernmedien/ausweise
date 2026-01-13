@@ -423,21 +423,19 @@ button:active {
 }
 }
 
-/* ===== Readonly: kompakte Abstände ===== */
+/* ===== Readonly: kompakte Abstände & bündige Aufzählungspunkte ===== */
 #content p {
-  margin: 0.15rem 0;
-}
-
-#content p + ul {
-  margin-top: 0.1rem;
+  margin: 0.15rem 0; /* Abstand zwischen Titel und UL */
 }
 
 #content ul {
-  margin: 0.1rem 0 0.3rem 1.2rem;
-  padding-left: 1rem;
+  margin: 0.1rem 0 0.3rem 0; /* oben minimal, unten etwas Abstand */
+  padding-left: 1.2em;       /* Aufzählungspunkte bündig mit Text */
+  list-style-position: inside; /* Punkt beginnt innerhalb des UL-Blocks */
 }
 
 #content li {
-  margin: 0.1rem 0;
+  margin: 0.05rem 0;          /* vertikaler Abstand zwischen Punkten */
 }
+
 
