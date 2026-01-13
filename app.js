@@ -56,9 +56,6 @@ function formatObjectEntryValues(obj) {
   }
 
   // -------------------------
-  // Subtitel zusammenbauen
-  // -------------------------
-  // -------------------------
 // Subtitel zusammenbauen
 // -------------------------
 if (subtitleEl) {
@@ -91,6 +88,7 @@ textEl.innerHTML = "";
 const sectionsWithCounts = Object.keys(sections).map(key => {
   const items = Array.isArray(sections[key]) ? sections[key] : [];
   const nonEmptyItems = items.filter(item => {
+    if (!item) return false;
     if (typeof item === "string") return item.trim() !== "";
     if (typeof item === "object") {
       return Object.values(item).some(v => v && v.toString().trim() !== "");
@@ -101,7 +99,12 @@ const sectionsWithCounts = Object.keys(sections).map(key => {
 });
 
 // 2. Sortieren: zuerst count > 0, dann count == 0
-sectionsWithCounts.sort((a, b) => b.count - a.count); // absteigend
+sectionsWithCounts.sort((a, b) => {
+  // Abschnitte mit Inhalt zuerst
+  if (a.count === 0 && b.count > 0) return 1;
+  if (a.count > 0 && b.count === 0) return -1;
+  return 0; // Reihenfolge sonst unverändert
+});
 
 // 3. Rendern der Sections
 sectionsWithCounts.forEach(section => {
@@ -154,7 +157,6 @@ sectionsWithCounts.forEach(section => {
   textEl.appendChild(header);
   textEl.appendChild(contentDiv);
 });
-
     
   // Daten laden
   fetch("data.json")
