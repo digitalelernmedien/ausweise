@@ -115,9 +115,9 @@ document.getElementById("search-form").addEventListener("submit", e => {
 
   // Text für Untertitel vorbereiten
   let queryParts = [lastname];
-  if (firstname) queryParts.push(firstname);
-  queryParts.push(normalizedDob);
-  const queryText = queryParts.join(" ");
+if (firstname) queryParts.push(firstname);
+queryParts.push(normalizedDob);
+const queryText = queryParts.join(", "); 
 
   // ---------------------------
   // Suche über GERES, ISA, ZEMIS
