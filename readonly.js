@@ -64,40 +64,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const h3 = document.createElement("h3");
     h3.style.cursor = "pointer";
+    h3.innerText =
+      lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
 
-    const ausweisText = document.createElement("span");
-    ausweisText.innerText = lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
-
-    h3.appendChild(ausweisText);
     card.appendChild(h3);
 
     const sectionsDivs = [];
-
     const sections = steckbrief[lang];
+
     Object.entries(sections).forEach(([key, items]) => {
-      if (!items || items.length === 0) return; // nur anzeigen, wenn mindestens ein Eintrag
+      if (!Array.isArray(items) || items.length === 0) return;
 
       const sectionDiv = document.createElement("div");
       sectionDiv.style.marginLeft = "1rem";
-      sectionDiv.style.marginBottom = "0.2rem";
+      sectionDiv.style.marginBottom = "0.3rem";
 
-      // Wenn nur ein Eintrag vorhanden ist → wie bisher
+      // 🔹 EIN EINTRAG → eine Zeile
       if (items.length === 1) {
         const p = document.createElement("p");
-        p.innerHTML = `<strong>${key}:</strong> ${items[0]}`;
+
+        const item = items[0];
+        let value = "";
+
+        if (typeof item === "object") {
+          value =
+            key === "MOFIS"
+              ? formatMofisEntry(item)
+              : formatObjectEntryValues(item);
+        } else {
+          value = item;
+        }
+
+        p.innerHTML = `<strong>${key}:</strong> ${value}`;
         sectionDiv.appendChild(p);
-      } else {
-        // Mehrere Einträge → Aufzählung
+      }
+
+      // 🔹 MEHRERE EINTRÄGE → Aufzählung
+      else {
         const pTitle = document.createElement("p");
         pTitle.innerHTML = `<strong>${key}:</strong>`;
         sectionDiv.appendChild(pTitle);
 
         const ul = document.createElement("ul");
+        ul.style.margin = "0 0 0.2rem 1.2rem";
+
         items.forEach(item => {
           const li = document.createElement("li");
-          li.innerText = item;
+
+          if (typeof item === "object") {
+            li.innerText =
+              key === "MOFIS"
+                ? formatMofisEntry(item)
+                : formatObjectEntryValues(item);
+          } else {
+            li.innerText = item;
+          }
+
           ul.appendChild(li);
         });
+
         sectionDiv.appendChild(ul);
       }
 
@@ -105,10 +130,11 @@ document.addEventListener("DOMContentLoaded", () => {
       sectionsDivs.push(sectionDiv);
     });
 
-    // Klick auf Überschrift klappt Karte ein/aus
+    // 🔽 Karte ein-/ausklappen
     h3.addEventListener("click", () => {
       sectionsDivs.forEach(div => {
-        div.style.display = div.style.display === "none" ? "block" : "none";
+        div.style.display =
+          div.style.display === "none" ? "block" : "none";
       });
     });
 
