@@ -417,13 +417,15 @@ button:active {
 }
 
 #content ul {
-  margin: 0.1rem 0 0.3rem 0; /* oben minimal, unten etwas Abstand */
-  padding-left: 0;       /* Aufzählungspunkte bündig mit Text */
-  list-style-position: inside; /* Punkt beginnt innerhalb des UL-Blocks */
+  margin: 0.1rem 0 0.3rem 0;   /* oben minimal, unten etwas Abstand */
+  padding: 0;                  /* kein extra padding */
+  list-style-position: inside; /* Punkt + Text in derselben Zeile */
+  line-height: 1.1;            /* enger Zeilenabstand */
 }
 
 #content li {
-  margin: 0.05rem 0;          /* vertikaler Abstand zwischen Punkten */
+  margin: 0.05rem 0;           /* minimal vertikal */
+  text-indent: -0.15em;        /* Text direkt nach Punkt */
 }
 
 
