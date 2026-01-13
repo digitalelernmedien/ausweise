@@ -51,60 +51,70 @@ document.addEventListener("DOMContentLoaded", () => {
   // Render-Funktion
   // -------------------------
   function render() {
-    if (!dataGlobal) return;
+  if (!dataGlobal) return;
 
-    titleEl.innerText = lang === "fr" ? "Vue d’ensemble des données" : "Datenübersicht";
+  titleEl.innerText =
+    lang === "fr" ? "Vue d’ensemble des données" : "Datenübersicht";
 
-    contentEl.innerHTML = "";
+  contentEl.innerHTML = "";
 
-    Object.entries(dataGlobal.steckbriefe).forEach(([id, steckbrief]) => {
-      const card = document.createElement("div");
-      card.style.marginBottom = "1rem";
+  Object.entries(dataGlobal.steckbriefe).forEach(([id, steckbrief]) => {
+    const card = document.createElement("div");
+    card.style.marginBottom = "1rem";
 
-      const h3 = document.createElement("h3");
-      h3.style.cursor = "pointer";
-      const ausweisText = document.createElement("span");
-      ausweisText.innerText = lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
-      h3.appendChild(ausweisText);
-      card.appendChild(h3);
+    const h3 = document.createElement("h3");
+    h3.style.cursor = "pointer";
 
-      const sectionsDivs = [];
-      const sections = steckbrief[lang];
+    const ausweisText = document.createElement("span");
+    ausweisText.innerText = lang === "fr" ? `Pièce d'identité ${id}` : `Ausweis ${id}`;
 
-      Object.entries(sections).forEach(([key, items]) => {
-        if (!Array.isArray(items)) return;
-        const nonEmptyItems = items.filter(item => {
-          if (!item) return false;
-          if (typeof item === "string") return item.trim() !== "";
-          if (typeof item === "object") return Object.values(item).some(v => v && v.toString().trim() !== "");
-          return false;
+    h3.appendChild(ausweisText);
+    card.appendChild(h3);
+
+    const sectionsDivs = [];
+
+    const sections = steckbrief[lang];
+    Object.entries(sections).forEach(([key, items]) => {
+      if (!items || items.length === 0) return; // nur anzeigen, wenn mindestens ein Eintrag
+
+      const sectionDiv = document.createElement("div");
+      sectionDiv.style.marginLeft = "1rem";
+      sectionDiv.style.marginBottom = "0.2rem";
+
+      // Wenn nur ein Eintrag vorhanden ist → wie bisher
+      if (items.length === 1) {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>${key}:</strong> ${items[0]}`;
+        sectionDiv.appendChild(p);
+      } else {
+        // Mehrere Einträge → Aufzählung
+        const pTitle = document.createElement("p");
+        pTitle.innerHTML = `<strong>${key}:</strong>`;
+        sectionDiv.appendChild(pTitle);
+
+        const ul = document.createElement("ul");
+        items.forEach(item => {
+          const li = document.createElement("li");
+          li.innerText = item;
+          ul.appendChild(li);
         });
+        sectionDiv.appendChild(ul);
+      }
 
-        if (nonEmptyItems.length > 0) {
-          const p = document.createElement("p");
-          p.style.margin = "0.2rem 0 0.2rem 1rem";
-
-          const textContent = nonEmptyItems.map(item => {
-            if (typeof item === "string") return item;
-            else if (key === "MOFIS") return formatMofisEntry(item);
-            else return formatObjectEntryValues(item);
-          }).join(", ");
-
-          p.innerHTML = `<strong>${key}:</strong> ${textContent}`;
-          card.appendChild(p);
-          sectionsDivs.push(p);
-        }
-      });
-
-      h3.addEventListener("click", () => {
-        sectionsDivs.forEach(p => {
-          p.style.display = p.style.display === "none" ? "block" : "none";
-        });
-      });
-
-      contentEl.appendChild(card);
+      card.appendChild(sectionDiv);
+      sectionsDivs.push(sectionDiv);
     });
-  }
+
+    // Klick auf Überschrift klappt Karte ein/aus
+    h3.addEventListener("click", () => {
+      sectionsDivs.forEach(div => {
+        div.style.display = div.style.display === "none" ? "block" : "none";
+      });
+    });
+
+    contentEl.appendChild(card);
+  });
+}
 
   // -------------------------
   // Daten laden
