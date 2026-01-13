@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const karte = params.get("karte") || "K001";
 
+  const query = params.get("query");
+
   let dataGlobal = null;
 
   /* ---------------------------
@@ -53,27 +55,31 @@ function formatObjectEntryValues(obj) {
       return;
     }
 
-    if (subtitleEl && query) {
-  subtitleEl.innerText =
-    lang === "fr"
-      ? `Résultat de la requête pour « ${query} »`
-      : `Abfrageergebnis für „${query}“`;
-  subtitleEl.style.display = "block";
-} else if (subtitleEl) {
-  subtitleEl.style.display = "none";
+    if (subtitleEl) {
+  if (query) {
+    subtitleEl.innerText =
+      lang === "fr"
+        ? `Résultat pour « ${query} »`
+        : `Abfrageergebnis für „${query}“`;
+    subtitleEl.style.display = "block";
+  } else {
+    subtitleEl.style.display = "none";
+  }
 }
+
 
     // Inhalt rendern
     const sections = steckbrief[lang];
-    if (!sections) {
-      textEl.innerText = `Keine Inhalte für Sprache "${lang}" gefunden`;
-      return;
-    }
+if (!sections || typeof sections !== "object") {
+  textEl.innerText =
+    lang === "fr"
+      ? "Aucun contenu disponible"
+      : "Keine Inhalte vorhanden";
+  return;
+}
 
-    textEl.innerHTML = "";
-
-    Object.keys(sections).forEach(key => {
-  const items = sections[key];
+Object.keys(sections).forEach(key => {
+  const items = Array.isArray(sections[key]) ? sections[key] : [];
 
   // Prüfen, wie viele Items tatsächlich Inhalt haben
   const nonEmptyItems = items.filter(item => {
