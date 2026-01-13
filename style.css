@@ -126,7 +126,7 @@ li {
   left: 0;
   width: 100%;
   background: white;
-  border-radius: 16px 16px 0 0;
+  border-radius: 12px 12px 0 0;
   box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
   display: none;
   flex-direction: column;
