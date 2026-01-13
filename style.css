@@ -426,10 +426,9 @@ button:active {
   margin: 0.05rem 0;
   line-height: 1.1;
   position: relative;
-  padding-left: 0.5em; /* Abstand vom Punkt zum Text */
+  padding-left: 1em; /* Abstand vom Punkt zum Text */
 }
 
-/* Neuer Punkt über ::before */
 #content li::before {
   content: "•";          /* Punkt */
   position: absolute;
