@@ -148,7 +148,7 @@ li {
 }
 
 #settings-menu button + button {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 #settings-menu button:hover {
