@@ -41,108 +41,129 @@ function formatObjectEntryValues(obj) {
 }
 
   function render() {
-    if (!dataGlobal) return;
+  if (!dataGlobal) return;
 
-    titleEl.innerText = pageTitles[lang];
+  titleEl.innerText = pageTitles[lang];
 
-    const steckbriefId = dataGlobal.zuordnung[karte];
-    const steckbrief = dataGlobal.steckbriefe[steckbriefId];
+  const steckbriefId = dataGlobal.zuordnung[karte];
+  const steckbrief = dataGlobal.steckbriefe[steckbriefId];
 
-    if (!steckbrief) {
-      titleEl.innerText = "Fehler";
-      textEl.innerText = "Keine Daten für diese Karte gefunden";
-      subtitleEl.style.display = "none";
-      return;
-    }
-
-    if (subtitleEl) {
-  if (query) {
-    subtitleEl.innerText =
-      lang === "fr"
-        ? `Résultat pour « ${query} »`
-        : `Abfrageergebnis für „${query}“`;
-    subtitleEl.style.display = "block";
-  } else {
+  if (!steckbrief) {
+    titleEl.innerText = "Fehler";
+    textEl.innerText = "Keine Daten für diese Karte gefunden";
     subtitleEl.style.display = "none";
+    return;
   }
-}
 
+  // -------------------------
+  // Subtitel zusammenbauen
+  // -------------------------
+  if (subtitleEl) {
+    let queryString = "";
 
-    // Inhalt rendern
-    const sections = steckbrief[lang];
-if (!sections || typeof sections !== "object") {
-  textEl.innerText =
-    lang === "fr"
-      ? "Aucun contenu disponible"
-      : "Keine Inhalte vorhanden";
-  return;
-}
+    // Personenabfrage: Nachname, optional Vorname, Geburtsdatum
+    const lastname = params.get("lastname")?.trim();
+    const firstname = params.get("firstname")?.trim();
+    const dob = params.get("dob")?.trim();
 
-Object.keys(sections).forEach(key => {
-  const items = Array.isArray(sections[key]) ? sections[key] : [];
+    const queryParts = [];
+    if (lastname) queryParts.push(lastname);
+    if (firstname) queryParts.push(firstname);
+    if (dob) queryParts.push(dob);
 
-  // Prüfen, wie viele Items tatsächlich Inhalt haben
-  const nonEmptyItems = items.filter(item => {
-    if (typeof item === "string") return item.trim() !== "";
-    if (typeof item === "object") {
-      return Object.values(item).some(v => v && v.toString().trim() !== "");
+    // Alternativ: Einzelne Suchbegriffe wie Seriennummer oder Kontrollschild
+    if (query && queryParts.length === 0) {
+      queryParts.push(query);
     }
-    return false;
-  });
 
-  const count = nonEmptyItems.length;
+    queryString = queryParts.join(", ");
 
-  const header = document.createElement("h3");
-  const arrow = document.createElement("span");
+    if (queryString) {
+      subtitleEl.innerText =
+        lang === "fr"
+          ? `Résultat pour « ${queryString} »`
+          : `Abfrageergebnis für „${queryString}“`;
+      subtitleEl.style.display = "block";
+    } else {
+      subtitleEl.style.display = "none";
+    }
+  }
 
-  arrow.classList.add("arrow");
-  arrow.innerText = "▶";
-  arrow.style.marginRight = "5px";
+  // -------------------------
+  // Inhalt rendern
+  // -------------------------
+  const sections = steckbrief[lang];
+  if (!sections || typeof sections !== "object") {
+    textEl.innerText =
+      lang === "fr"
+        ? "Aucun contenu disponible"
+        : "Keine Inhalte vorhanden";
+    return;
+  }
 
-  header.appendChild(arrow);
-  header.appendChild(document.createTextNode(`${key} (${count})`));
+  textEl.innerHTML = "";
 
-  const contentDiv = document.createElement("div");
-  contentDiv.style.display = "none";
-  contentDiv.style.marginBottom = "10px";
+  Object.keys(sections).forEach(key => {
+    const items = Array.isArray(sections[key]) ? sections[key] : [];
 
-  if (count > 0) {
-    const ul = document.createElement("ul");
-    ul.style.paddingLeft = "1.8rem";
-
-    nonEmptyItems.forEach(item => {
-      const li = document.createElement("li");
-
-      if (typeof item === "string") {
-        li.innerText = item;
-      } else if (key === "MOFIS") {
-        li.innerText = formatMofisEntry(item, lang);
-      } else {
-        li.innerText = formatObjectEntryValues(item);
+    const nonEmptyItems = items.filter(item => {
+      if (typeof item === "string") return item.trim() !== "";
+      if (typeof item === "object") {
+        return Object.values(item).some(v => v && v.toString().trim() !== "");
       }
-
-      ul.appendChild(li);
+      return false;
     });
 
-    contentDiv.appendChild(ul);
+    const count = nonEmptyItems.length;
 
-    header.addEventListener("click", () => {
-      const open = contentDiv.style.display === "block";
-      contentDiv.style.display = open ? "none" : "block";
-      arrow.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
-    });
-  } else {
-    contentDiv.innerText = "0"; // Anzeige für leere Rubrik
-    contentDiv.style.fontStyle = "italic";
-    contentDiv.style.paddingLeft = "25px";
-  }
+    const header = document.createElement("h3");
+    const arrow = document.createElement("span");
+    arrow.classList.add("arrow");
+    arrow.innerText = "▶";
+    arrow.style.marginRight = "5px";
 
-  textEl.appendChild(header);
-  textEl.appendChild(contentDiv);
-});
+    header.appendChild(arrow);
+    header.appendChild(document.createTextNode(`${key} (${count})`));
 
-  }
+    const contentDiv = document.createElement("div");
+    contentDiv.style.display = "none";
+    contentDiv.style.marginBottom = "10px";
 
+    if (count > 0) {
+      const ul = document.createElement("ul");
+      ul.style.paddingLeft = "1.8rem";
+
+      nonEmptyItems.forEach(item => {
+        const li = document.createElement("li");
+
+        if (typeof item === "string") {
+          li.innerText = item;
+        } else if (key === "MOFIS") {
+          li.innerText = formatMofisEntry(item, lang);
+        } else {
+          li.innerText = formatObjectEntryValues(item);
+        }
+
+        ul.appendChild(li);
+      });
+
+      contentDiv.appendChild(ul);
+
+      header.addEventListener("click", () => {
+        const open = contentDiv.style.display === "block";
+        contentDiv.style.display = open ? "none" : "block";
+        arrow.style.transform = open ? "rotate(0deg)" : "rotate(90deg)";
+      });
+    } else {
+      contentDiv.innerText = "0"; // Anzeige für leere Rubrik
+      contentDiv.style.fontStyle = "italic";
+      contentDiv.style.paddingLeft = "25px";
+    }
+
+    textEl.appendChild(header);
+    textEl.appendChild(contentDiv);
+  });
+}
   // Daten laden
   fetch("data.json")
     .then(res => {
