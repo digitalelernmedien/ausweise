@@ -55,9 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!item) return false;
     if (typeof item === "string") return item.trim() !== "";
     if (typeof item === "object") {
-      return Object.values(item).some(
-        v => v && v.toString().trim() !== ""
-      );
+      return Object.values(item).some(v => v && v.toString().trim() !== "");
     }
     return false;
   }
@@ -86,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.style.marginBottom = "1rem";
 
+      // Überschrift Ausweis
       const h3 = document.createElement("h3");
       h3.style.cursor = "pointer";
       h3.innerText =
@@ -96,15 +95,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const sections = steckbrief[lang];
 
       Object.entries(sections).forEach(([key, items]) => {
+        // Nur Items mit Inhalt anzeigen
         const validItems = items.filter(hasContent);
         if (validItems.length === 0) return;
 
+        // Section-Container
         const sectionDiv = document.createElement("div");
         sectionDiv.style.marginLeft = "1rem";
         sectionDiv.style.marginBottom = "0.3rem";
 
-        const ul = document.createElement("ul");
+        // Section-Überschrift
+        const sectionTitle = document.createElement("p");
+        sectionTitle.innerHTML = `<strong>${key}:</strong>`;
+        sectionDiv.appendChild(sectionTitle);
 
+        // Liste aller Items (immer mit Aufzählungszeichen)
+        const ul = document.createElement("ul");
         validItems.forEach(item => {
           const li = document.createElement("li");
           li.textContent = formatItem(key, item);
