@@ -1,35 +1,43 @@
-// ================================
-// Beispiel-Daten (hier später ersetzen)
-// ================================
-let data = {
-  steckbriefe: {
-    S001: {
-      de: {
-        Vorgangsbearbeitung: [
-          { ESW: "Diebstahl", year: "2024", description: "" }
-        ],
-        GERES: [
-          { firstname: "Thomas", lastname: "Meier", dob: "12.03.1980" }
-        ]
-      },
-      fr: {
-        "Traitement des processus": [
-          { ESW: "Vol", year: "2024", description: "" }
-        ],
-        GERES: [
-          { firstname: "Thomas", lastname: "Meier", dob: "12.03.1980" }
-        ]
-      }
-    }
-  }
-};
-
-// ================================
-// State
-// ================================
+let data = null;
 let currentKey = null;
 let currentLang = "de";
 let currentSection = null;
+
+fetch("data.json")
+  .then(res => {
+    if (!res.ok) throw new Error("JSON konnte nicht geladen werden");
+    return res.json();
+  })
+  .then(json => {
+    data = json;
+    initApp();
+  })
+  .catch(err => {
+    console.error("Fehler beim Laden der JSON:", err);
+    alert("data.json konnte nicht geladen werden");
+  });
+
+function initApp() {
+  const recordSelect = document.getElementById("recordSelect");
+
+  recordSelect.innerHTML = "";
+
+  Object.keys(data.steckbriefe).forEach(key => {
+    const opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = key;
+    recordSelect.appendChild(opt);
+  });
+
+  currentKey = recordSelect.value;
+
+  recordSelect.addEventListener("change", () => {
+    currentKey = recordSelect.value;
+    buildTabs();
+  });
+
+  buildTabs();
+}
 
 // ================================
 // Init
