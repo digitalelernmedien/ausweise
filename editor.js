@@ -40,12 +40,6 @@ function initApp() {
 
   buildTabs();
 }
-// ================================
-// Init
-// ================================
-const recordSelect = document.getElementById("recordSelect");
-const tabsEl = document.getElementById("tabs");
-const editorEl = document.getElementById("editor");
 
 // Records laden
 Object.keys(data.steckbriefe).forEach(key => {
