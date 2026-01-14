@@ -6,21 +6,31 @@ const recordSelect = document.getElementById("recordSelect");
 const tabsEl = document.getElementById("tabs");
 const editorDE = document.getElementById("editor-de");
 const editorFR = document.getElementById("editor-fr");
+const downloadBtn = document.getElementById("downloadBtn");
 
-// Daten laden
+// ================================
+// JSON laden
+// ================================
 fetch("data.json")
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) throw new Error("data.json konnte nicht geladen werden");
+    return res.json();
+  })
   .then(json => {
     data = json;
     initApp();
   })
   .catch(err => {
     console.error("JSON konnte nicht geladen werden:", err);
-    alert("data.json konnte nicht geladen werden");
+    alert("data.json konnte nicht geladen werden. Prüfe Pfad und Syntax.");
   });
 
+// ================================
+// App initialisieren
+// ================================
 function initApp() {
   recordSelect.innerHTML = "";
+
   Object.keys(data.steckbriefe).forEach(key => {
     const opt = document.createElement("option");
     opt.value = key;
@@ -29,6 +39,7 @@ function initApp() {
   });
 
   currentKey = recordSelect.value;
+
   recordSelect.addEventListener("change", () => {
     currentKey = recordSelect.value;
     buildTabs();
@@ -37,16 +48,25 @@ function initApp() {
   buildTabs();
 }
 
-// Tabs aufbauen
+// ================================
+// Tabs erstellen
+// ================================
 function buildTabs() {
   tabsEl.innerHTML = "";
-  const personDE = data.steckbriefe[currentKey]["de"];
-  const sections = Object.keys(personDE);
+  if (!currentKey || !data) return;
+
+  // DE oder FR nur für Tab-Namen prüfen, wir nehmen DE als Referenz
+  const sections = Object.keys(data.steckbriefe[currentKey].de || {});
+  if (sections.length === 0) {
+    editorDE.innerHTML = "<p>Keine Daten vorhanden</p>";
+    editorFR.innerHTML = "<p>Keine Daten vorhanden</p>";
+    return;
+  }
 
   sections.forEach((section, i) => {
     const btn = document.createElement("button");
     btn.textContent = section;
-    btn.classList.toggle("active", i===0);
+    btn.classList.toggle("active", i === 0);
     btn.onclick = () => openTab(section);
     tabsEl.appendChild(btn);
   });
@@ -57,81 +77,83 @@ function buildTabs() {
 function openTab(section) {
   currentSection = section;
   document.querySelectorAll(".tabs button").forEach(btn =>
-    btn.classList.toggle("active", btn.textContent===section)
+    btn.classList.toggle("active", btn.textContent === section)
   );
   renderSection(section);
 }
 
-// Editor rendern für DE und FR nebeneinander
+// ================================
+// Editor rendern (DE + FR nebeneinander)
+// ================================
 function renderSection(section) {
-  editorEl.innerHTML = "";
+  editorDE.innerHTML = `<h3>Deutsch</h3>`;
+  editorFR.innerHTML = `<h3>Französisch</h3>`;
 
-  // Absicherung: Section in DE und FR muss existieren
-  const personDE = data.steckbriefe[currentKey]?.de || {};
-  const personFR = data.steckbriefe[currentKey]?.fr || {};
+  const entriesDE = data.steckbriefe[currentKey].de[section] || [];
+  const entriesFR = data.steckbriefe[currentKey].fr[section] || [];
 
-  const entriesDE = Array.isArray(personDE[section]) ? personDE[section] : [];
-  const entriesFR = Array.isArray(personFR[section]) ? personFR[section] : [];
-
-  const maxLen = Math.max(entriesDE.length, entriesFR.length);
-
-  for (let i = 0; i < maxLen; i++) {
-    // DE
-    const divDE = document.createElement("div");
-    divDE.className = "entry";
-    const entryDE = entriesDE[i] || {};
-    Object.keys(entryDE).forEach(f => {
+  // DE
+  entriesDE.forEach((entry, index) => {
+    const div = document.createElement("div");
+    div.className = "entry";
+    Object.keys(entry).forEach(field => {
       const label = document.createElement("label");
-      label.textContent = f;
+      label.textContent = field;
       const input = document.createElement("input");
-      input.value = entryDE[f];
-      input.oninput = e => entryDE[f] = e.target.value;
-      divDE.appendChild(label);
-      divDE.appendChild(input);
+      input.value = entry[field];
+      input.oninput = e => entry[field] = e.target.value;
+      div.appendChild(label);
+      div.appendChild(input);
     });
-    editorEl.appendChild(divDE);
+    editorDE.appendChild(div);
+  });
 
-    // FR
-    const divFR = document.createElement("div");
-    divFR.className = "entry";
-    const entryFR = entriesFR[i] || {};
-    Object.keys(entryFR).forEach(f => {
+  const addBtnDE = document.createElement("button");
+  addBtnDE.className = "add-btn";
+  addBtnDE.textContent = "+ Eintrag hinzufügen";
+  addBtnDE.onclick = () => addEntry(section, "de");
+  editorDE.appendChild(addBtnDE);
+
+  // FR
+  entriesFR.forEach((entry, index) => {
+    const div = document.createElement("div");
+    div.className = "entry";
+    Object.keys(entry).forEach(field => {
       const label = document.createElement("label");
-      label.textContent = f;
+      label.textContent = field;
       const input = document.createElement("input");
-      input.value = entryFR[f];
-      input.oninput = e => entryFR[f] = e.target.value;
-      divFR.appendChild(label);
-      divFR.appendChild(input);
+      input.value = entry[field];
+      input.oninput = e => entry[field] = e.target.value;
+      div.appendChild(label);
+      div.appendChild(input);
     });
-    editorEl.appendChild(divFR);
-  }
+    editorFR.appendChild(div);
+  });
 
-  // + Eintrag hinzufügen
-  const addBtn = document.createElement("button");
-  addBtn.textContent = "+ Eintrag hinzufügen";
-  addBtn.className = "add-btn";
-  addBtn.onclick = () => addEntry(section);
-  editorEl.appendChild(addBtn);
+  const addBtnFR = document.createElement("button");
+  addBtnFR.className = "add-btn";
+  addBtnFR.textContent = "+ Ajouter une entrée";
+  addBtnFR.onclick = () => addEntry(section, "fr");
+  editorFR.appendChild(addBtnFR);
 }
 
-
-function addEntry(section) {
-  const entriesDE = data.steckbriefe[currentKey]["de"][section];
-  const entriesFR = data.steckbriefe[currentKey]["fr"][section];
-
-  const templateDE = entriesDE[0] ? Object.fromEntries(Object.keys(entriesDE[0]).map(k=>[k,""])) : {};
-  const templateFR = entriesFR[0] ? Object.fromEntries(Object.keys(entriesFR[0]).map(k=>[k,""])) : {};
-
-  entriesDE.push(templateDE);
-  entriesFR.push(templateFR);
-
+// ================================
+// Neue Einträge hinzufügen
+// ================================
+function addEntry(section, lang) {
+  const entries = data.steckbriefe[currentKey][lang][section];
+  const template = entries[0]
+    ? Object.fromEntries(Object.keys(entries[0]).map(k => [k, ""]))
+    : {};
+  entries.push(template);
   renderSection(section);
 }
 
-// Download JSON
-document.getElementById("downloadBtn").onclick = () => {
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+// ================================
+// JSON herunterladen
+// ================================
+downloadBtn.onclick = () => {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "steckbriefe.json";
