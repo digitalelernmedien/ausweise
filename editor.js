@@ -112,17 +112,19 @@ function renderSection(deSection) {
 
       // DE → FR Synchronisation
       input.oninput = e => {
-        entry[field] = e.target.value;
-        // Wenn FR-Feld leer, automatisch übernehmen
-        if (entriesFR[index] && (!entriesFR[index][field] || entriesFR[index][field] === "")) {
-          entriesFR[index][field] = e.target.value;
-          // FR Input auch sofort aktualisieren
-          const frInputs = editorFR.querySelectorAll(".entry")[index].querySelectorAll("input");
-          frInputs.forEach(inp => {
-            if (inp.previousSibling.textContent === field && inp.value === "") inp.value = e.target.value;
-          });
-        }
-      };
+    entry[field] = e.target.value;
+
+    // Immer DE → FR synchronisieren
+    if (entriesFR[index]) {
+        entriesFR[index][field] = e.target.value;
+
+        // FR Input sofort aktualisieren
+        const frInputs = editorFR.querySelectorAll(".entry")[index].querySelectorAll("input");
+        frInputs.forEach(inp => {
+            if (inp.previousSibling.textContent === field) inp.value = e.target.value;
+        });
+    }
+};
 
       div.appendChild(label);
       div.appendChild(input);
