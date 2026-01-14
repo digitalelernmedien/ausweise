@@ -109,9 +109,21 @@ function renderSection(deSection) {
       label.textContent = field;
       const input = document.createElement("input");
       input.value = entry[field];
+
+      // DE → FR Synchronisation
       input.oninput = e => {
         entry[field] = e.target.value;
+        // Wenn FR-Feld leer, automatisch übernehmen
+        if (entriesFR[index] && (!entriesFR[index][field] || entriesFR[index][field] === "")) {
+          entriesFR[index][field] = e.target.value;
+          // FR Input auch sofort aktualisieren
+          const frInputs = editorFR.querySelectorAll(".entry")[index].querySelectorAll("input");
+          frInputs.forEach(inp => {
+            if (inp.previousSibling.textContent === field && inp.value === "") inp.value = e.target.value;
+          });
+        }
       };
+
       div.appendChild(label);
       div.appendChild(input);
     });
@@ -136,9 +148,12 @@ function renderSection(deSection) {
       label.textContent = field;
       const input = document.createElement("input");
       input.value = entry[field];
+
+      // FR Input nur lokal
       input.oninput = e => {
         entry[field] = e.target.value;
       };
+
       div.appendChild(label);
       div.appendChild(input);
     });
@@ -146,7 +161,7 @@ function renderSection(deSection) {
     editorFR.appendChild(div);
   });
 
-  // + Eintrag hinzufügen FR (automatisch mit DE)
+  // + Eintrag hinzufügen FR (automatisch über DE)
   const addBtnFR = document.createElement("button");
   addBtnFR.textContent = "+ Eintrag hinzufügen";
   addBtnFR.className = "add-btn";
