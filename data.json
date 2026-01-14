@@ -10,10 +10,6 @@
   },
 "steckbriefe": {
 "S001": {
-	"subtitle": {
-    "de": "Personenabfrage – Meier Thomas, 12.03.1980",
-    "fr": "Consultation de personne – Meier Thomas, 12.03.1980"
-    },
 	"de": {
   "Vorgangsbearbeitung": [
 	  {"ESW": "Einbruchdiebstahl in MFH", "Verbindung": "Geschädigte Person", "description": "", "year": "05.08.2025", "objekt": "", "serial": ""},
