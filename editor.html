@@ -1,149 +1,59 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <title>JSON Steckbrief Editor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Steckbrief Editor DE/FR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #f5f6f7;
-      margin: 0;
-      padding: 1rem;
-    }
+<style>
+  body { font-family: system-ui, sans-serif; background: #f5f6f7; margin:0; padding:1rem; }
+  main { max-width: 1200px; margin:auto; background:#fff; padding:1rem; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top:0; }
 
-    main {
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+  select { width: 100%; padding:0.5rem; margin-bottom:1rem; }
 
-    h1 {
-      margin-top: 0;
-    }
+  .tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:1rem; }
+  .tabs button { padding:0.4rem 0.6rem; border:none; background:#e0e0e0; border-radius:6px; cursor:pointer; }
+  .tabs button.active { background:#007AFF; color:white; font-weight:bold; }
 
-    select {
-      width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-    }
+  .editor-container { display:flex; gap:1rem; }
+  .editor-column { flex:1; border:1px solid #ddd; border-radius:8px; padding:0.5rem; background:#fafafa; }
 
-    /* Sprachumschaltung */
-    .lang-switch {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 1rem;
-    }
+  .editor-column h3 { text-align:center; margin-top:0; }
+  .entry { border:1px solid #ccc; border-radius:6px; padding:0.5rem; margin-bottom:0.5rem; background:white; }
+  .entry label { font-size:0.75rem; color:#666; display:block; margin-top:0.3rem; }
+  .entry input { width:100%; padding:0.4rem; margin-bottom:0.3rem; box-sizing:border-box; }
 
-    .lang-switch button {
-      padding: 0.4rem 0.8rem;
-      border: none;
-      background: #ddd;
-      cursor: pointer;
-      border-radius: 6px;
-    }
+  .add-btn { margin-top:0.5rem; padding:0.5rem; background:#007AFF; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; }
 
-    .lang-switch button.active {
-      background: #007AFF;
-      color: white;
-      font-weight: bold;
-    }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    .tabs button {
-      padding: 0.4rem 0.6rem;
-      border: none;
-      background: #e0e0e0;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .tabs button.active {
-      background: #007AFF;
-      color: white;
-      font-weight: bold;
-    }
-
-    /* Editor */
-    .entry {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 0.6rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .entry label {
-      font-size: 0.75rem;
-      color: #666;
-    }
-
-    .entry input {
-      width: 100%;
-      padding: 0.4rem;
-      margin-bottom: 0.4rem;
-      box-sizing: border-box;
-    }
-
-    .add-btn {
-      margin-top: 0.5rem;
-      padding: 0.5rem;
-      background: #007AFF;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .download-btn {
-      margin-top: 1.5rem;
-      padding: 0.7rem;
-      width: 100%;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-  </style>
+  .download-btn { margin-top:1.5rem; padding:0.7rem; width:100%; background:#28a745; color:white; border:none; border-radius:8px; font-size:1rem; cursor:pointer; }
+</style>
 </head>
 <body>
 
 <main>
-  <h1>Steckbrief-Editor</h1>
+  <h1>Steckbrief Editor DE/FR</h1>
 
   <!-- Auswahl -->
   <select id="recordSelect"></select>
 
-  <!-- Sprache -->
-  <div class="lang-switch">
-    <button data-lang="de" class="active">DE</button>
-    <button data-lang="fr">FR</button>
-  </div>
-
   <!-- Tabs -->
   <div class="tabs" id="tabs"></div>
 
-  <!-- Editor -->
-  <div id="editor"></div>
+  <!-- Editor nebeneinander -->
+  <div class="editor-container">
+    <div class="editor-column" id="editor-de">
+      <h3>Deutsch</h3>
+    </div>
+    <div class="editor-column" id="editor-fr">
+      <h3>Französisch</h3>
+    </div>
+  </div>
 
   <!-- Download -->
-  <button class="download-btn" id="downloadBtn">
-    JSON herunterladen
-  </button>
+  <button class="download-btn" id="downloadBtn">JSON herunterladen</button>
 </main>
 
-<script src="editor.js" defer></script>
+<script src="editor.js"></script>
 </body>
 </html>
