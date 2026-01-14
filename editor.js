@@ -1,34 +1,25 @@
 let data = null;
 let currentKey = null;
-let currentLang = "de";
 let currentSection = null;
 
 const recordSelect = document.getElementById("recordSelect");
 const tabsEl = document.getElementById("tabs");
-const editorEl = document.getElementById("editor");
+const editorDE = document.getElementById("editor-de");
+const editorFR = document.getElementById("editor-fr");
 
-// ================================
-// JSON laden
-// ================================
+// Daten laden
 fetch("data.json")
-  .then(res => {
-    if (!res.ok) throw new Error("JSON konnte nicht geladen werden");
-    return res.json();
-  })
+  .then(res => res.json())
   .then(json => {
     data = json;
     initApp();
   })
   .catch(err => {
-    console.error("Fehler beim Laden der JSON:", err);
+    console.error("JSON konnte nicht geladen werden:", err);
     alert("data.json konnte nicht geladen werden");
   });
 
-// ================================
-// Init App
-// ================================
 function initApp() {
-  // Dropdown füllen
   recordSelect.innerHTML = "";
   Object.keys(data.steckbriefe).forEach(key => {
     const opt = document.createElement("option");
@@ -37,45 +28,25 @@ function initApp() {
     recordSelect.appendChild(opt);
   });
 
-  currentKey = recordSelect.value || Object.keys(data.steckbriefe)[0];
-
+  currentKey = recordSelect.value;
   recordSelect.addEventListener("change", () => {
     currentKey = recordSelect.value;
     buildTabs();
   });
 
-  // Sprachumschaltung
-  document.querySelectorAll(".lang-switch button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      currentLang = btn.dataset.lang;
-      document.querySelectorAll(".lang-switch button")
-        .forEach(b => b.classList.toggle("active", b === btn));
-      buildTabs(); // neue Sprache, neue Tabs
-    });
-  });
-
   buildTabs();
 }
 
-// ================================
-// Tabs bauen
-// ================================
+// Tabs aufbauen
 function buildTabs() {
-  if (!data || !currentKey) return;
-
   tabsEl.innerHTML = "";
+  const personDE = data.steckbriefe[currentKey]["de"];
+  const sections = Object.keys(personDE);
 
-  const person = data.steckbriefe[currentKey][currentLang];
-  if (!person) {
-    editorEl.innerHTML = "<p>Daten für diese Sprache nicht vorhanden</p>";
-    return;
-  }
-
-  const sections = Object.keys(person);
   sections.forEach((section, i) => {
     const btn = document.createElement("button");
     btn.textContent = section;
-    btn.classList.toggle("active", i === 0);
+    btn.classList.toggle("active", i===0);
     btn.onclick = () => openTab(section);
     tabsEl.appendChild(btn);
   });
@@ -86,58 +57,72 @@ function buildTabs() {
 function openTab(section) {
   currentSection = section;
   document.querySelectorAll(".tabs button").forEach(btn =>
-    btn.classList.toggle("active", btn.textContent === section)
+    btn.classList.toggle("active", btn.textContent===section)
   );
   renderSection(section);
 }
 
-// ================================
-// Editor Rendering
-// ================================
+// Editor rendern für DE und FR nebeneinander
 function renderSection(section) {
-  editorEl.innerHTML = "";
+  editorDE.innerHTML = "<h3>Deutsch</h3>";
+  editorFR.innerHTML = "<h3>Französisch</h3>";
 
-  const entries = data.steckbriefe[currentKey][currentLang][section];
-  if (!Array.isArray(entries)) return;
+  const entriesDE = data.steckbriefe[currentKey]["de"][section];
+  const entriesFR = data.steckbriefe[currentKey]["fr"][section];
 
-  entries.forEach(entry => {
-    const div = document.createElement("div");
-    div.className = "entry";
+  for (let i=0; i<Math.max(entriesDE.length, entriesFR.length); i++) {
+    // DE
+    const divDE = document.createElement("div");
+    divDE.className = "entry";
+    if (entriesDE[i]) {
+      Object.keys(entriesDE[i]).forEach(f => {
+        const label = document.createElement("label"); label.textContent = f;
+        const input = document.createElement("input"); input.value = entriesDE[i][f];
+        input.oninput = e => entriesDE[i][f] = e.target.value;
+        divDE.appendChild(label); divDE.appendChild(input);
+      });
+    }
+    editorDE.appendChild(divDE);
 
-    Object.keys(entry).forEach(field => {
-      const label = document.createElement("label");
-      label.textContent = field;
-      const input = document.createElement("input");
-      input.value = entry[field];
-      input.oninput = e => entry[field] = e.target.value;
-      div.appendChild(label);
-      div.appendChild(input);
-    });
+    // FR
+    const divFR = document.createElement("div");
+    divFR.className = "entry";
+    if (entriesFR[i]) {
+      Object.keys(entriesFR[i]).forEach(f => {
+        const label = document.createElement("label"); label.textContent = f;
+        const input = document.createElement("input"); input.value = entriesFR[i][f];
+        input.oninput = e => entriesFR[i][f] = e.target.value;
+        divFR.appendChild(label); divFR.appendChild(input);
+      });
+    }
+    editorFR.appendChild(divFR);
+  }
 
-    editorEl.appendChild(div);
-  });
-
+  // + Eintrag hinzufügen Button (synchron für DE/FR)
   const addBtn = document.createElement("button");
   addBtn.textContent = "+ Eintrag hinzufügen";
   addBtn.className = "add-btn";
   addBtn.onclick = () => addEntry(section);
-  editorEl.appendChild(addBtn);
+  editorDE.appendChild(addBtn);
+  editorFR.appendChild(addBtn.cloneNode(true)); // Button rechts kopieren
 }
 
 function addEntry(section) {
-  const entries = data.steckbriefe[currentKey][currentLang][section];
-  const template = entries[0]
-    ? Object.fromEntries(Object.keys(entries[0]).map(k => [k, ""]))
-    : {};
-  entries.push(template);
+  const entriesDE = data.steckbriefe[currentKey]["de"][section];
+  const entriesFR = data.steckbriefe[currentKey]["fr"][section];
+
+  const templateDE = entriesDE[0] ? Object.fromEntries(Object.keys(entriesDE[0]).map(k=>[k,""])) : {};
+  const templateFR = entriesFR[0] ? Object.fromEntries(Object.keys(entriesFR[0]).map(k=>[k,""])) : {};
+
+  entriesDE.push(templateDE);
+  entriesFR.push(templateFR);
+
   renderSection(section);
 }
 
-// ================================
-// Download
-// ================================
+// Download JSON
 document.getElementById("downloadBtn").onclick = () => {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "steckbriefe.json";
