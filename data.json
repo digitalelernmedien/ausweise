@@ -40,11 +40,7 @@
 }
 },
 "S002": {
-	"subtitle": {
-    "de": "Personenabfrage – Schmid Anna, 23.08.1992",
-    "fr": "Consultation de personne – Schmid Anna, 23.08.1992"
-    },
-    "de": {
+	"de": {
 "Vorgangsbearbeitung": [
 	  {"ESW": "VU mit Verletzten", "Verbindung": "Geschädigte Person", "description": "", "year": "24.02.2023", "objekt": "", "serial": ""},
 	  {"ESW": "Diebstahl, Handtasche entwendet", "Verbindung": "Geschädigte Person", "description": "", "year": "15.05.2022", "objekt": "", "serial": ""}],
@@ -78,11 +74,7 @@
 }
 },
 "S003": {
-	"subtitle": {
-    "de": "Personenabfrage – El-Sayed Omar, 12.12.1987",
-    "fr": "Consultation de personne – El-Sayed Omar, 12.12.1987"
-  	},
-  	"de": {
+	"de": {
 "Vorgangsbearbeitung": [
 	  {"ESW": "Ladendiebstahl", "Verbindung": "Beschuldigte Person", "description": "", "year": "05.06.2021", "objekt": "", "serial": ""},
 	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],	
@@ -112,11 +104,7 @@
 }		
 },
 "S004": {
-	"subtitle": {
-    "de": "Personenabfrage – Diallo Amina, 30.06.1990",
-    "fr": "Consultation de personne – Diallo Amina, 30.06.1990"
-  	},
-  	"de": {
+	"de": {
 "Vorgangsbearbeitung": [
 	  {"ESW": "Sachbeschädigung", "Verbindung": "Geschädigte Person", "description": "", "year": "22.05.2020", "objekt": "", "serial": ""},
 	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],		
@@ -146,11 +134,7 @@
 }
 },
 "S005": {
-	"subtitle": {
-    "de": "Personenabfrage – Jenni Ramon, 01.08.2000",
-    "fr": "Consultation de personne – Jenni Ramon, 01.08.2000"
-	},
-  	"de": {
+	"de": {
 "Vorgangsbearbeitung": [
 	  {"ESW": "Diebstahl", "Verbindung": "Geschädigte Person", "description": "", "year": "28.06.2019", "objekt": "", "serial": ""},
 	  {"ESW": "", "Verbindung": "Betroffene Person", "description": "Waffenerwerbsschein", "year": "28.09.2018", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM78526"}],	
@@ -180,11 +164,7 @@
 }
 },
 "S006": {
-	"subtitle": {
-    "de": "Personenabfrage – Ramseier Joel, 05.07.1985",
-    "fr": "Consultation de personne – Ramseier Joel, 05.07.1985"
-  	},
-  	"de": {
+	"de": {
 "Vorgangsbearbeitung": [
 	  {"ESW": "Whg gegen das BtmG, Konsum Kokain", "Verbindung": "Beschuldigte Person", "description": "", "year": "10.10.2024", "objekt": "", "serial": ""},
 	  {"ESW": "Whg gegen das BtmG, Konsum Kokain", "Verbindung": "Beschuldigte Person", "description": "", "year": "24.12.2025", "objekt": "", "serial": ""}],	
@@ -214,11 +194,7 @@
 }
 },
 "S007": {
-	"subtitle": {
-    "de": "Personenabfrage – Petrov Ivan, 14.02.1978",
-    "fr": "Consultation de personne – Petrov Ivan, 14.02.1978"
-	},
-  	"de": {
+	"de": {
 "Vorgangsbearbeitung": [
 	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
 	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],		
