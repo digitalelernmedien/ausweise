@@ -2,18 +2,29 @@ let data = null;
 let currentKey = null;
 let currentSection = null;
 
+// Mapping DE → FR
+const sectionMap = {
+  "Vorgangsbearbeitung": "Traitement des processus",
+  "GERES": "GERES",
+  "ISA": "ISA",
+  "FABER": "FABER",
+  "MOFIS": "MOFIS",
+  "ZEMIS": "ZEMIS",
+  "Hoogan": "Hoogan",
+  "RIPOL": "RIPOL"
+};
+
 const recordSelect = document.getElementById("recordSelect");
 const tabsEl = document.getElementById("tabs");
 const editorDE = document.getElementById("editor-de");
 const editorFR = document.getElementById("editor-fr");
-const downloadBtn = document.getElementById("downloadBtn");
 
 // ================================
-// JSON laden
+// JSON Laden
 // ================================
 fetch("data.json")
   .then(res => {
-    if (!res.ok) throw new Error("data.json konnte nicht geladen werden");
+    if (!res.ok) throw new Error("JSON konnte nicht geladen werden");
     return res.json();
   })
   .then(json => {
@@ -22,11 +33,11 @@ fetch("data.json")
   })
   .catch(err => {
     console.error("JSON konnte nicht geladen werden:", err);
-    alert("data.json konnte nicht geladen werden. Prüfe Pfad und Syntax.");
+    alert("data.json konnte nicht geladen werden");
   });
 
 // ================================
-// App initialisieren
+// App Initialisierung
 // ================================
 function initApp() {
   recordSelect.innerHTML = "";
@@ -49,21 +60,15 @@ function initApp() {
 }
 
 // ================================
-// Tabs erstellen
+// Tabs bauen (DE als Basis)
 // ================================
 function buildTabs() {
+  if (!data || !currentKey) return;
   tabsEl.innerHTML = "";
-  if (!currentKey || !data) return;
 
-  // DE oder FR nur für Tab-Namen prüfen, wir nehmen DE als Referenz
-  const sections = Object.keys(data.steckbriefe[currentKey].de || {});
-  if (sections.length === 0) {
-    editorDE.innerHTML = "<p>Keine Daten vorhanden</p>";
-    editorFR.innerHTML = "<p>Keine Daten vorhanden</p>";
-    return;
-  }
+  const deSections = Object.keys(data.steckbriefe[currentKey].de);
 
-  sections.forEach((section, i) => {
+  deSections.forEach((section, i) => {
     const btn = document.createElement("button");
     btn.textContent = section;
     btn.classList.toggle("active", i === 0);
@@ -71,7 +76,7 @@ function buildTabs() {
     tabsEl.appendChild(btn);
   });
 
-  openTab(sections[0]);
+  openTab(deSections[0]);
 }
 
 function openTab(section) {
@@ -83,76 +88,98 @@ function openTab(section) {
 }
 
 // ================================
-// Editor rendern (DE + FR nebeneinander)
+// Editor Rendering DE/FR
 // ================================
-function renderSection(section) {
-  editorDE.innerHTML = `<h3>Deutsch</h3>`;
-  editorFR.innerHTML = `<h3>Französisch</h3>`;
+function renderSection(deSection) {
+  const frSection = sectionMap[deSection] || deSection;
 
-  const entriesDE = data.steckbriefe[currentKey].de[section] || [];
-  const entriesFR = data.steckbriefe[currentKey].fr[section] || [];
+  editorDE.innerHTML = `<h3>${deSection}</h3>`;
+  editorFR.innerHTML = `<h3>${frSection}</h3>`;
 
-  // DE
+  const entriesDE = data.steckbriefe[currentKey].de[deSection] || [];
+  const entriesFR = data.steckbriefe[currentKey].fr[frSection] || [];
+
+  // ---- DE-Spalte ----
   entriesDE.forEach((entry, index) => {
     const div = document.createElement("div");
     div.className = "entry";
+
     Object.keys(entry).forEach(field => {
       const label = document.createElement("label");
       label.textContent = field;
       const input = document.createElement("input");
       input.value = entry[field];
-      input.oninput = e => entry[field] = e.target.value;
+      input.oninput = e => {
+        entry[field] = e.target.value;
+      };
       div.appendChild(label);
       div.appendChild(input);
     });
+
     editorDE.appendChild(div);
   });
 
+  // + Eintrag hinzufügen DE
   const addBtnDE = document.createElement("button");
-  addBtnDE.className = "add-btn";
   addBtnDE.textContent = "+ Eintrag hinzufügen";
-  addBtnDE.onclick = () => addEntry(section, "de");
+  addBtnDE.className = "add-btn";
+  addBtnDE.onclick = () => addEntry(deSection);
   editorDE.appendChild(addBtnDE);
 
-  // FR
+  // ---- FR-Spalte ----
   entriesFR.forEach((entry, index) => {
     const div = document.createElement("div");
     div.className = "entry";
+
     Object.keys(entry).forEach(field => {
       const label = document.createElement("label");
       label.textContent = field;
       const input = document.createElement("input");
       input.value = entry[field];
-      input.oninput = e => entry[field] = e.target.value;
+      input.oninput = e => {
+        entry[field] = e.target.value;
+      };
       div.appendChild(label);
       div.appendChild(input);
     });
+
     editorFR.appendChild(div);
   });
 
+  // + Eintrag hinzufügen FR (automatisch mit DE)
   const addBtnFR = document.createElement("button");
+  addBtnFR.textContent = "+ Eintrag hinzufügen";
   addBtnFR.className = "add-btn";
-  addBtnFR.textContent = "+ Ajouter une entrée";
-  addBtnFR.onclick = () => addEntry(section, "fr");
+  addBtnFR.onclick = () => addEntry(deSection);
   editorFR.appendChild(addBtnFR);
 }
 
 // ================================
-// Neue Einträge hinzufügen
+// Eintrag hinzufügen DE & FR
 // ================================
-function addEntry(section, lang) {
-  const entries = data.steckbriefe[currentKey][lang][section];
-  const template = entries[0]
-    ? Object.fromEntries(Object.keys(entries[0]).map(k => [k, ""]))
+function addEntry(deSection) {
+  const frSection = sectionMap[deSection] || deSection;
+
+  const entriesDE = data.steckbriefe[currentKey].de[deSection];
+  const entriesFR = data.steckbriefe[currentKey].fr[frSection];
+
+  const templateDE = entriesDE[0]
+    ? Object.fromEntries(Object.keys(entriesDE[0]).map(k => [k, ""]))
     : {};
-  entries.push(template);
-  renderSection(section);
+  const templateFR = entriesFR[0]
+    ? Object.fromEntries(Object.keys(entriesFR[0]).map(k => [k, ""]))
+    : {};
+
+  entriesDE.push(templateDE);
+  entriesFR.push(templateFR);
+
+  renderSection(deSection);
 }
 
 // ================================
 // JSON herunterladen
 // ================================
-downloadBtn.onclick = () => {
+document.getElementById("downloadBtn").onclick = () => {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
