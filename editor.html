@@ -2,47 +2,148 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>JSON Editor</title>
+  <title>JSON Steckbrief Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     body {
       font-family: system-ui, sans-serif;
-      margin: 20px;
-      background: #f7f7f7;
+      background: #f5f6f7;
+      margin: 0;
+      padding: 1rem;
     }
-    fieldset {
-      margin-bottom: 20px;
-      padding: 15px;
+
+    main {
+      max-width: 900px;
+      margin: auto;
       background: #fff;
-      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    legend {
+
+    h1 {
+      margin-top: 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Sprachumschaltung */
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .lang-switch button {
+      padding: 0.4rem 0.8rem;
+      border: none;
+      background: #ddd;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .lang-switch button.active {
+      background: #007AFF;
+      color: white;
       font-weight: bold;
     }
-    label {
-      display: block;
-      margin-top: 6px;
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
     }
-    input {
+
+    .tabs button {
+      padding: 0.4rem 0.6rem;
+      border: none;
+      background: #e0e0e0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .tabs button.active {
+      background: #007AFF;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Editor */
+    .entry {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .entry label {
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    .entry input {
       width: 100%;
-      padding: 6px;
+      padding: 0.4rem;
+      margin-bottom: 0.4rem;
+      box-sizing: border-box;
     }
-    button {
-      margin-top: 20px;
-      padding: 10px 16px;
-      font-size: 16px;
+
+    .add-btn {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background: #007AFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .download-btn {
+      margin-top: 1.5rem;
+      padding: 0.7rem;
+      width: 100%;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-<h1>Steckbrief Editor</h1>
+<main>
+  <h1>Steckbrief-Editor</h1>
 
-<select id="personSelect"></select>
+  <!-- Auswahl -->
+  <select id="recordSelect"></select>
 
-<div id="editor"></div>
+  <!-- Sprache -->
+  <div class="lang-switch">
+    <button data-lang="de" class="active">DE</button>
+    <button data-lang="fr">FR</button>
+  </div>
 
-<button onclick="downloadJSON()">JSON herunterladen</button>
+  <!-- Tabs -->
+  <div class="tabs" id="tabs"></div>
 
-<script src="editor.js"></script>
+  <!-- Editor -->
+  <div id="editor"></div>
+
+  <!-- Download -->
+  <button class="download-btn" id="downloadBtn">
+    JSON herunterladen
+  </button>
+</main>
+
+<script src="app.js"></script>
 </body>
 </html>
