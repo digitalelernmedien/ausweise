@@ -64,48 +64,57 @@ function openTab(section) {
 
 // Editor rendern für DE und FR nebeneinander
 function renderSection(section) {
-  editorDE.innerHTML = "<h3>Deutsch</h3>";
-  editorFR.innerHTML = "<h3>Französisch</h3>";
+  editorEl.innerHTML = "";
 
-  const entriesDE = data.steckbriefe[currentKey]["de"][section];
-  const entriesFR = data.steckbriefe[currentKey]["fr"][section];
+  // Absicherung: Section in DE und FR muss existieren
+  const personDE = data.steckbriefe[currentKey]?.de || {};
+  const personFR = data.steckbriefe[currentKey]?.fr || {};
 
-  for (let i=0; i<Math.max(entriesDE.length, entriesFR.length); i++) {
+  const entriesDE = Array.isArray(personDE[section]) ? personDE[section] : [];
+  const entriesFR = Array.isArray(personFR[section]) ? personFR[section] : [];
+
+  const maxLen = Math.max(entriesDE.length, entriesFR.length);
+
+  for (let i = 0; i < maxLen; i++) {
     // DE
     const divDE = document.createElement("div");
     divDE.className = "entry";
-    if (entriesDE[i]) {
-      Object.keys(entriesDE[i]).forEach(f => {
-        const label = document.createElement("label"); label.textContent = f;
-        const input = document.createElement("input"); input.value = entriesDE[i][f];
-        input.oninput = e => entriesDE[i][f] = e.target.value;
-        divDE.appendChild(label); divDE.appendChild(input);
-      });
-    }
-    editorDE.appendChild(divDE);
+    const entryDE = entriesDE[i] || {};
+    Object.keys(entryDE).forEach(f => {
+      const label = document.createElement("label");
+      label.textContent = f;
+      const input = document.createElement("input");
+      input.value = entryDE[f];
+      input.oninput = e => entryDE[f] = e.target.value;
+      divDE.appendChild(label);
+      divDE.appendChild(input);
+    });
+    editorEl.appendChild(divDE);
 
     // FR
     const divFR = document.createElement("div");
     divFR.className = "entry";
-    if (entriesFR[i]) {
-      Object.keys(entriesFR[i]).forEach(f => {
-        const label = document.createElement("label"); label.textContent = f;
-        const input = document.createElement("input"); input.value = entriesFR[i][f];
-        input.oninput = e => entriesFR[i][f] = e.target.value;
-        divFR.appendChild(label); divFR.appendChild(input);
-      });
-    }
-    editorFR.appendChild(divFR);
+    const entryFR = entriesFR[i] || {};
+    Object.keys(entryFR).forEach(f => {
+      const label = document.createElement("label");
+      label.textContent = f;
+      const input = document.createElement("input");
+      input.value = entryFR[f];
+      input.oninput = e => entryFR[f] = e.target.value;
+      divFR.appendChild(label);
+      divFR.appendChild(input);
+    });
+    editorEl.appendChild(divFR);
   }
 
-  // + Eintrag hinzufügen Button (synchron für DE/FR)
+  // + Eintrag hinzufügen
   const addBtn = document.createElement("button");
   addBtn.textContent = "+ Eintrag hinzufügen";
   addBtn.className = "add-btn";
   addBtn.onclick = () => addEntry(section);
-  editorDE.appendChild(addBtn);
-  editorFR.appendChild(addBtn.cloneNode(true)); // Button rechts kopieren
+  editorEl.appendChild(addBtn);
 }
+
 
 function addEntry(section) {
   const entriesDE = data.steckbriefe[currentKey]["de"][section];
