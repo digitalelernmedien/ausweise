@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Antrag neuer Steckbrief</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f5f6f7;
+    margin: 0;
+    padding: 1rem;
+  }
+
+  main {
+    max-width: 900px;
+    margin: auto;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+
+  h2 {
+    margin-top: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    margin-top: 0.8rem;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.2rem;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  .hint {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.3rem;
+  }
+
+  .checkbox-group label {
+    font-weight: normal;
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  .entry {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8rem;
+    margin-top: 0.8rem;
+    background: #fafafa;
+  }
+
+  .submit {
+    margin-top: 2rem;
+    padding: 0.8rem;
+    width: 100%;
+    background: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+
+<main>
+
+<h1>Antrag neuer Steckbrief</h1>
+
+<p class="hint">
+Bitte nur die für das Szenario relevanten Felder ausfüllen.  
+Nicht benötigte Bereiche können leer gelassen werden.
+</p>
+
+<!-- 1. Szenario -->
+<h2>1. Szenario / Rollenspiel</h2>
+
+<label>Beschreibung des geplanten Szenarios</label>
+<textarea rows="5" placeholder="Kurzbeschreibung der Übung, Rolle der Person, Ziel der Kontrolle etc."></textarea>
+
+<!-- 2. Ausweis -->
+<h2>2. Angaben für den Ausweis</h2>
+
+<label>Name</label>
+<input type="text">
+
+<label>Vorname</label>
+<input type="text">
+
+<label>Geburtsdatum</label>
+<input type="text" placeholder="TT.MM.JJJJ">
+
+<label>Herkunftsland</label>
+<input type="text">
+
+<label>Foto (optional)</label>
+<input type="file">
+
+<!-- 3. Datenbanken -->
+<h2>3. Benötigte Datenbanken</h2>
+
+<div class="checkbox-group">
+  <label><input type="checkbox"> Vorgangsbearbeitung</label>
+  <label><input type="checkbox"> GERES</label>
+  <label><input type="checkbox"> ISA</label>
+  <label><input type="checkbox"> FABER</label>
+  <label><input type="checkbox"> MOFIS</label>
+  <label><input type="checkbox"> ZEMIS</label>
+  <label><input type="checkbox"> Hoogan</label>
+  <label><input type="checkbox"> RIPOL</label>
+</div>
+
+<!-- 4. Beispiel Vorgangsbearbeitung -->
+<h2>4. Datenbank-Einträge</h2>
+
+<h3>Vorgangsbearbeitung</h3>
+
+<div class="entry">
+  <label>ESW</label>
+  <input type="text">
+
+  <label>Verbindung</label>
+  <input type="text">
+
+  <label>Datum</label>
+  <input type="text" placeholder="TT.MM.JJJJ">
+
+  <label>Beschreibung (optional)</label>
+  <input type="text">
+</div>
+
+<p class="hint">Weitere Einträge können später ergänzt werden.</p>
+
+<!-- 5. Ausschlüsse -->
+<h2>5. Ausschlüsse</h2>
+
+<label>Diese Inhalte dürfen im Steckbrief nicht enthalten sein</label>
+<textarea rows="4" placeholder="z.B. keine Gewaltstraftaten, kein Aufenthaltsstatus"></textarea>
+
+<!-- 6. Übermittlung -->
+<h2>6. Übermittlung</h2>
+
+<label>Bemerkungen / Hinweise</label>
+<textarea rows="3"></textarea>
+
+<button class="submit">Antrag absenden</button>
+
+</main>
+
+</body>
+</html>
