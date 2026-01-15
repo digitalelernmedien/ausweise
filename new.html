@@ -2,173 +2,257 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Antrag neuer Steckbrief</title>
+<title>Antrag neuer Steckbrief – Szenariotraining</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
-    font-family: system-ui, sans-serif;
-    background: #f5f6f7;
-    margin: 0;
-    padding: 1rem;
-  }
-
-  main {
-    max-width: 900px;
-    margin: auto;
-    background: #ffffff;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  h1 {
-    margin-top: 0;
-  }
-
-  h2 {
-    margin-top: 2rem;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 0.3rem;
-  }
-
-  label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: block;
-    margin-top: 0.8rem;
-  }
-
-  input, textarea, select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.2rem;
-    box-sizing: border-box;
-  }
-
-  textarea {
-    resize: vertical;
-  }
-
-  .hint {
-    font-size: 0.85rem;
-    color: #555;
-    margin-top: 0.3rem;
-  }
-
-  .checkbox-group label {
-    font-weight: normal;
-    display: block;
-    margin-top: 0.3rem;
-  }
-
-  .entry {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 0.8rem;
-    margin-top: 0.8rem;
-    background: #fafafa;
-  }
-
-  .submit {
-    margin-top: 2rem;
-    padding: 0.8rem;
-    width: 100%;
-    background: #007AFF;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+body {
+  font-family: system-ui, sans-serif;
+  background:#f5f6f7;
+  margin:0;
+  padding:1rem;
+}
+main {
+  max-width: 900px;
+  margin:auto;
+  background:white;
+  padding:1.5rem;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+h1 { margin-top:0; }
+h2 { margin-top:2rem; }
+fieldset {
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:1rem;
+  margin-bottom:1rem;
+}
+legend {
+  font-weight:600;
+  padding:0 0.5rem;
+}
+label {
+  display:block;
+  font-size:0.9rem;
+  margin-top:0.5rem;
+}
+input, textarea {
+  width:100%;
+  padding:0.4rem;
+  margin-top:0.2rem;
+}
+.db-toggle {
+  display:flex;
+  align-items:flex-start;
+  gap:0.6rem;
+  margin:0.8rem 0;
+}
+.db-toggle input {
+  margin-top:0.2rem;
+}
+.db-title {
+  font-weight:600;
+}
+.db-json {
+  font-size:0.8rem;
+  color:#666;
+}
+.entry {
+  border:1px dashed #ccc;
+  border-radius:6px;
+  padding:0.6rem;
+  margin:0.6rem 0;
+  background:#fafafa;
+}
+.note {
+  font-size:0.85rem;
+  color:#555;
+}
+.submit {
+  margin-top:2rem;
+  padding:0.8rem;
+  width:100%;
+  background:#007AFF;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:1rem;
+}
 </style>
 </head>
 
 <body>
-
 <main>
 
-<h1>Antrag neuer Steckbrief</h1>
+<h1>Antrag neuer Steckbrief – Szenariotraining</h1>
 
-<p class="hint">
-Bitte nur die für das Szenario relevanten Felder ausfüllen.  
-Nicht benötigte Bereiche können leer gelassen werden.
-</p>
-
-<!-- 1. Szenario -->
+<!-- ============================ -->
 <h2>1. Szenario / Rollenspiel</h2>
+<textarea rows="4" placeholder="Beschreibung des geplanten Szenarios, Lernziele, Kontext"></textarea>
 
-<label>Beschreibung des geplanten Szenarios</label>
-<textarea rows="5" placeholder="Kurzbeschreibung der Übung, Rolle der Person, Ziel der Kontrolle etc."></textarea>
-
-<!-- 2. Ausweis -->
+<!-- ============================ -->
 <h2>2. Angaben für den Ausweis</h2>
+<fieldset>
+<label>Nachname (lastname)</label>
+<input>
 
-<label>Name</label>
-<input type="text">
+<label>Vorname (firstname)</label>
+<input>
 
-<label>Vorname</label>
-<input type="text">
+<label>Geburtsdatum (dob)</label>
+<input placeholder="TT.MM.JJJJ">
 
-<label>Geburtsdatum</label>
-<input type="text" placeholder="TT.MM.JJJJ">
-
-<label>Herkunftsland</label>
-<input type="text">
+<label>Herkunft / Heimatort (poo)</label>
+<input>
 
 <label>Foto (optional)</label>
 <input type="file">
+</fieldset>
 
-<!-- 3. Datenbanken -->
-<h2>3. Benötigte Datenbanken</h2>
+<!-- ============================ -->
+<h2>3. Gewünschte Datenbanken</h2>
+<p class="note">
+Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt werden.
+</p>
 
-<div class="checkbox-group">
-  <label><input type="checkbox"> Vorgangsbearbeitung</label>
-  <label><input type="checkbox"> GERES</label>
-  <label><input type="checkbox"> ISA</label>
-  <label><input type="checkbox"> FABER</label>
-  <label><input type="checkbox"> MOFIS</label>
-  <label><input type="checkbox"> ZEMIS</label>
-  <label><input type="checkbox"> Hoogan</label>
-  <label><input type="checkbox"> RIPOL</label>
+<!-- Vorgangsbearbeitung -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">Vorgangsbearbeitung</div>
+    <div class="db-json">(Vorgangsbearbeitung / Traitement des processus)</div>
+  </div>
 </div>
-
-<!-- 4. Beispiel Vorgangsbearbeitung -->
-<h2>4. Datenbank-Einträge</h2>
-
-<h3>Vorgangsbearbeitung</h3>
 
 <div class="entry">
-  <label>ESW</label>
-  <input type="text">
-
-  <label>Verbindung</label>
-  <input type="text">
-
-  <label>Datum</label>
-  <input type="text" placeholder="TT.MM.JJJJ">
-
-  <label>Beschreibung (optional)</label>
-  <input type="text">
+  <label>Ereignis / Sachverhalt (ESW)</label><input>
+  <label>Bezug zur Person (Verbindung)</label><input>
+  <label>Datum (year)</label><input>
+  <label>Zusatzbeschreibung (description)</label><input>
+  <label>Objekt (objekt)</label><input>
+  <label>Seriennummer (serial)</label><input>
 </div>
 
-<p class="hint">Weitere Einträge können später ergänzt werden.</p>
+<!-- GERES -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">GERES – Personenregister</div>
+    <div class="db-json">(GERES)</div>
+  </div>
+</div>
 
-<!-- 5. Ausschlüsse -->
-<h2>5. Ausschlüsse</h2>
+<div class="entry">
+  <label>Nachname (lastname)</label><input>
+  <label>Vorname (firstname)</label><input>
+  <label>Geschlecht (gender)</label><input>
+  <label>Geburtsdatum (dob)</label><input>
+  <label>Herkunft (poo)</label><input>
+  <label>Adresse (adress)</label><input>
+  <label>Zivilstand (zivilstand)</label><input>
+</div>
 
-<label>Diese Inhalte dürfen im Steckbrief nicht enthalten sein</label>
-<textarea rows="4" placeholder="z.B. keine Gewaltstraftaten, kein Aufenthaltsstatus"></textarea>
+<!-- ISA -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">ISA – Informationssystem Ausweise</div>
+    <div class="db-json">(ISA)</div>
+  </div>
+</div>
 
-<!-- 6. Übermittlung -->
-<h2>6. Übermittlung</h2>
+<div class="entry">
+  <label>Nachname (lastname)</label><input>
+  <label>Vorname (firstname)</label><input>
+  <label>Geschlecht (gender)</label><input>
+  <label>Geburtsdatum (dob)</label><input>
+</div>
 
-<label>Bemerkungen / Hinweise</label>
-<textarea rows="3"></textarea>
+<!-- FABER -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">FABER – Führerausweis</div>
+    <div class="db-json">(FABER)</div>
+  </div>
+</div>
 
-<button class="submit">Antrag absenden</button>
+<div class="entry">
+  <label>Kategorie / Massnahme (category)</label><input>
+  <label>Seit (since)</label><input>
+</div>
+
+<!-- MOFIS -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">MOFIS – Fahrzeuge</div>
+    <div class="db-json">(MOFIS)</div>
+  </div>
+</div>
+
+<div class="entry">
+  <label>Kennzeichen (plate)</label><input>
+  <label>Fahrgestellnummer (vin)</label><input>
+  <label>Typ (type)</label><input>
+  <label>Marke (brand)</label><input>
+  <label>Modell (model)</label><input>
+</div>
+
+<!-- ZEMIS -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">ZEMIS – Ausländerregister</div>
+    <div class="db-json">(ZEMIS)</div>
+  </div>
+</div>
+
+<div class="entry">
+  <label>Status (status)</label><input>
+</div>
+
+<!-- Hoogan -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">HOOGAN – Gefährder / Massnahmen</div>
+    <div class="db-json">(Hoogan)</div>
+  </div>
+</div>
+
+<div class="entry">
+  <label>Massnahme (Massnahme)</label><input>
+  <label>Datum (date)</label><input>
+  <label>Beschreibung (description)</label><input>
+</div>
+
+<!-- RIPOL -->
+<div class="db-toggle">
+  <input type="checkbox">
+  <div>
+    <div class="db-title">RIPOL – Fahndungen</div>
+    <div class="db-json">(RIPOL)</div>
+  </div>
+</div>
+
+<div class="entry">
+  <label>Jahr / Datum (year)</label><input>
+  <label>Beschreibung (description)</label><input>
+  <label>Objekt (objekt)</label><input>
+  <label>Seriennummer (serial)</label><input>
+</div>
+
+<!-- ============================ -->
+<h2>4. Ausschlüsse</h2>
+<textarea rows="3" placeholder="Welche Informationen dürfen auf keinen Fall im Steckbrief erscheinen?"></textarea>
+
+<!-- ============================ -->
+<button class="submit">
+JSON-Antrag erstellen & E-Mail öffnen
+</button>
 
 </main>
-
 </body>
 </html>
