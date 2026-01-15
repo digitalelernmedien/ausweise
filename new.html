@@ -90,11 +90,11 @@ input, textarea {
 
 <h1>Antrag neuer Steckbrief – Szenariotraining</h1>
 
-<!-- ============================ -->
+<!-- 1. Szenario -->
 <h2>1. Szenario / Rollenspiel</h2>
 <textarea rows="4" placeholder="Beschreibung des geplanten Szenarios, Lernziele, Kontext"></textarea>
 
-<!-- ============================ -->
+<!-- 2. Angaben für den Ausweis -->
 <h2>2. Angaben für den Ausweis</h2>
 <fieldset>
 <label>Nachname (lastname)</label>
@@ -113,22 +113,20 @@ input, textarea {
 <input type="file">
 </fieldset>
 
-<!-- ============================ -->
+<!-- 3. Gewünschte Datenbanken -->
 <h2>3. Gewünschte Datenbanken</h2>
-<p class="note">
-Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt werden.
-</p>
+<p class="note">Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt werden.</p>
 
 <!-- Vorgangsbearbeitung -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="vorgang-section">
   <div>
     <div class="db-title">Vorgangsbearbeitung</div>
     <div class="db-json">(Vorgangsbearbeitung / Traitement des processus)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="vorgang-section" hidden>
   <label>Ereignis / Sachverhalt (ESW)</label><input>
   <label>Bezug zur Person (Verbindung)</label><input>
   <label>Datum (year)</label><input>
@@ -139,14 +137,14 @@ Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt wer
 
 <!-- GERES -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="geres-section">
   <div>
     <div class="db-title">GERES – Personenregister</div>
     <div class="db-json">(GERES)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="geres-section" hidden>
   <label>Nachname (lastname)</label><input>
   <label>Vorname (firstname)</label><input>
   <label>Geschlecht (gender)</label><input>
@@ -158,14 +156,14 @@ Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt wer
 
 <!-- ISA -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="isa-section">
   <div>
     <div class="db-title">ISA – Informationssystem Ausweise</div>
     <div class="db-json">(ISA)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="isa-section" hidden>
   <label>Nachname (lastname)</label><input>
   <label>Vorname (firstname)</label><input>
   <label>Geschlecht (gender)</label><input>
@@ -174,28 +172,28 @@ Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt wer
 
 <!-- FABER -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="faber-section">
   <div>
     <div class="db-title">FABER – Führerausweis</div>
     <div class="db-json">(FABER)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="faber-section" hidden>
   <label>Kategorie / Massnahme (category)</label><input>
   <label>Seit (since)</label><input>
 </div>
 
 <!-- MOFIS -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="mofis-section">
   <div>
     <div class="db-title">MOFIS – Fahrzeuge</div>
     <div class="db-json">(MOFIS)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="mofis-section" hidden>
   <label>Kennzeichen (plate)</label><input>
   <label>Fahrgestellnummer (vin)</label><input>
   <label>Typ (type)</label><input>
@@ -205,27 +203,27 @@ Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt wer
 
 <!-- ZEMIS -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="zemis-section">
   <div>
     <div class="db-title">ZEMIS – Ausländerregister</div>
     <div class="db-json">(ZEMIS)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="zemis-section" hidden>
   <label>Status (status)</label><input>
 </div>
 
 <!-- Hoogan -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="hoogan-section">
   <div>
     <div class="db-title">HOOGAN – Gefährder / Massnahmen</div>
     <div class="db-json">(Hoogan)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="hoogan-section" hidden>
   <label>Massnahme (Massnahme)</label><input>
   <label>Datum (date)</label><input>
   <label>Beschreibung (description)</label><input>
@@ -233,33 +231,42 @@ Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt wer
 
 <!-- RIPOL -->
 <div class="db-toggle">
-  <input type="checkbox">
+  <input type="checkbox" data-target="ripol-section">
   <div>
     <div class="db-title">RIPOL – Fahndungen</div>
     <div class="db-json">(RIPOL)</div>
   </div>
 </div>
 
-<div class="entry">
+<div class="entry" id="ripol-section" hidden>
   <label>Jahr / Datum (year)</label><input>
   <label>Beschreibung (description)</label><input>
   <label>Objekt (objekt)</label><input>
   <label>Seriennummer (serial)</label><input>
 </div>
 
-<!-- ============================ -->
+<!-- 4. Ausschlüsse -->
 <h2>4. Ausschlüsse</h2>
 <textarea rows="3" placeholder="Welche Informationen dürfen auf keinen Fall im Steckbrief erscheinen?"></textarea>
 
-<!-- ============================ -->
 <button class="submit">
 JSON-Antrag erstellen & E-Mail öffnen
 </button>
 
-  
-  <script src="new.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".db-toggle input[type='checkbox']").forEach(checkbox => {
+    const targetId = checkbox.dataset.target;
+    const section = document.getElementById(targetId);
+    if (!section) return;
+    section.hidden = !checkbox.checked;
+    checkbox.addEventListener("change", () => {
+      section.hidden = !checkbox.checked;
+    });
+  });
+});
+</script>
 
-  
 </main>
 </body>
 </html>
