@@ -43,14 +43,17 @@ input, textarea {
   margin-top:0.2rem;
 }
 .db-toggle {
-  display:flex;
-  align-items:flex-start;
-  gap:0.6rem;
-  margin:0.8rem 0;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: start;
+  column-gap: 0.6rem;
+  margin: 0.8rem 0;
 }
-.db-toggle input {
-  margin-top:0.2rem;
+
+.db-toggle input[type="checkbox"] {
+  margin: 0.15rem 0 0 0;
 }
+
 .db-title {
   font-weight:600;
 }
