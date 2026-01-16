@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const result = {
       scenario: textareas[0]?.value || "",
-      person: {},
+      ausweis: {},
       datenbanken: {},
       ausschluss: textareas[1]?.value || ""
     };
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("fieldset input").forEach(input => {
       const label = input.previousElementSibling?.innerText || "";
       const key = label.match(/\((.*?)\)/)?.[1];
-      if (key) result.person[key] = input.value;
+      if (key) result.ausweis[key] = input.value;
     });
 
     // -------------------------------
