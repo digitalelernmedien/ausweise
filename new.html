@@ -82,7 +82,7 @@ input, textarea {
   border-radius:10px;
   font-size:1rem;
 }
-  .hint {
+.hint {
   margin-top: 0.8rem;
   font-size: 0.85rem;
   color: #555;
@@ -95,7 +95,6 @@ input, textarea {
 .hide-json label::after {
   display: none;
 }
-  
 </style>
 </head>
 
@@ -111,16 +110,16 @@ input, textarea {
 <!-- 2. Angaben für den Ausweis -->
 <h2>2. Angaben für den Ausweis</h2>
 <fieldset>
-<label>Nachname<span class="json-key"> (lastname)</label>
+<label>Nachname <span class="db-json">(lastname)</span></label>
 <input>
 
-<label>Vorname<span class="json-key"> (firstname)</label>
+<label>Vorname <span class="db-json">(firstname)</span></label>
 <input>
 
-<label>Geburtsdatum<span class="json-key"> (dob)</label>
+<label>Geburtsdatum <span class="db-json">(dob)</span></label>
 <input placeholder="TT.MM.JJJJ">
 
-<label>Herkunft / Heimatort<span class="json-key"> (poo)</label>
+<label>Herkunft / Heimatort <span class="db-json">(poo)</span></label>
 <input>
 
 <label>Foto (optional)</label>
@@ -141,12 +140,12 @@ input, textarea {
 </div>
 
 <div class="entry" id="vorgang-section" hidden>
-  <label>Ereignis / Sachverhalt<span class="json-key"> (ESW)</label><input>
-  <label>Bezug zur Person<span class="json-key"> (Verbindung)</label><input>
-  <label>Datum<span class="json-key"> (year)</label><input>
-  <label>Zusatzbeschreibung<span class="json-key"> (description)</label><input>
-  <label>Objekt<span class="json-key"> (objekt)</label><input>
-  <label>Seriennummer<span class="json-key"> (serial)</label><input>
+  <label>Ereignis / Sachverhalt <span class="db-json">(ESW)</span></label><input>
+  <label>Bezug zur Person <span class="db-json">(Verbindung)</span></label><input>
+  <label>Datum <span class="db-json">(year)</span></label><input>
+  <label>Zusatzbeschreibung <span class="db-json">(description)</span></label><input>
+  <label>Objekt <span class="db-json">(objekt)</span></label><input>
+  <label>Seriennummer <span class="db-json">(serial)</span></label><input>
 </div>
 
 <!-- GERES -->
@@ -159,13 +158,13 @@ input, textarea {
 </div>
 
 <div class="entry" id="geres-section" hidden>
-  <label>Nachname<span class="json-key"> (lastname)</label><input>
-  <label>Vorname<span class="json-key"> (firstname)</label><input>
-  <label>Geschlecht<span class="json-key"> (gender)</label><input>
-  <label>Geburtsdatum<span class="json-key"> (dob)</label><input>
-  <label>Herkunft<span class="json-key"> (poo)</label><input>
-  <label>Adresse<span class="json-key"> (adress)</label><input>
-  <label>Zivilstand<span class="json-key"> (zivilstand)</label><input>
+  <label>Nachname <span class="db-json">(lastname)</span></label><input>
+  <label>Vorname <span class="db-json">(firstname)</span></label><input>
+  <label>Geschlecht <span class="db-json">(gender)</span></label><input>
+  <label>Geburtsdatum <span class="db-json">(dob)</span></label><input>
+  <label>Herkunft <span class="db-json">(poo)</span></label><input>
+  <label>Adresse <span class="db-json">(adress)</span></label><input>
+  <label>Zivilstand <span class="db-json">(zivilstand)</span></label><input>
 </div>
 
 <!-- ISA -->
@@ -178,10 +177,10 @@ input, textarea {
 </div>
 
 <div class="entry" id="isa-section" hidden>
-  <label>Nachname<span class="json-key"> (lastname)</label><input>
-  <label>Vorname<span class="json-key"> (firstname)</label><input>
-  <label>Geschlecht<span class="json-key"> (gender)</label><input>
-  <label>Geburtsdatum<span class="json-key"> (dob)</label><input>
+  <label>Nachname <span class="db-json">(lastname)</span></label><input>
+  <label>Vorname <span class="db-json">(firstname)</span></label><input>
+  <label>Geschlecht <span class="db-json">(gender)</span></label><input>
+  <label>Geburtsdatum <span class="db-json">(dob)</span></label><input>
 </div>
 
 <!-- FABER -->
@@ -194,8 +193,8 @@ input, textarea {
 </div>
 
 <div class="entry" id="faber-section" hidden>
-  <label>Kategorie / Massnahme<span class="json-key"> (category)</label><input>
-  <label>Seit<span class="json-key"> (since)</label><input>
+  <label>Kategorie / Massnahme <span class="db-json">(category)</span></label><input>
+  <label>Seit <span class="db-json">(since)</span></label><input>
 </div>
 
 <!-- MOFIS -->
@@ -208,11 +207,11 @@ input, textarea {
 </div>
 
 <div class="entry" id="mofis-section" hidden>
-  <label>Kennzeichen<span class="json-key"> (plate)</label><input>
-  <label>Fahrgestellnummer<span class="json-key"> (vin)</label><input>
-  <label>Typ<span class="json-key"> (type)</label><input>
-  <label>Marke<span class="json-key"> (brand)</label><input>
-  <label>Modell<span class="json-key"> (model)</label><input>
+  <label>Kennzeichen <span class="db-json">(plate)</span></label><input>
+  <label>Fahrgestellnummer <span class="db-json">(vin)</span></label><input>
+  <label>Typ <span class="db-json">(type)</span></label><input>
+  <label>Marke <span class="db-json">(brand)</span></label><input>
+  <label>Modell <span class="db-json">(model)</span></label><input>
 </div>
 
 <!-- ZEMIS -->
@@ -225,28 +224,27 @@ input, textarea {
 </div>
 
 <div class="entry" id="zemis-section" hidden>
-  <label>Nachname<span class="json-key"> (lastname)</label>
+  <label>Nachname <span class="db-json">(lastname)</span></label>
   <input>
 
-  <label>Vorname<span class="json-key"> (firstname)</label>
+  <label>Vorname <span class="db-json">(firstname)</span></label>
   <input>
 
-  <label>Geschlecht<span class="json-key"> (gender)</label>
+  <label>Geschlecht <span class="db-json">(gender)</span></label>
   <input>
 
-  <label>Geburtsdatum<span class="json-key"> (dob)</label>
+  <label>Geburtsdatum <span class="db-json">(dob)</span></label>
   <input placeholder="TT.MM.JJJJ">
 
-  <label>Herkunft / Heimatort<span class="json-key"> (poo)</label>
+  <label>Herkunft / Heimatort <span class="db-json">(poo)</span></label>
   <input>
 
-  <label>Adresse<span class="json-key"> (adress)</label>
+  <label>Adresse <span class="db-json">(adress)</span></label>
   <input>
 
-  <label>Status<span class="json-key"> (status)</label>
+  <label>Status <span class="db-json">(status)</span></label>
   <input>
 </div>
-
 
 <!-- Hoogan -->
 <div class="db-toggle">
@@ -258,9 +256,9 @@ input, textarea {
 </div>
 
 <div class="entry" id="hoogan-section" hidden>
-  <label>Massnahme<span class="json-key"> (Massnahme)</label><input>
-  <label>Datum<span class="json-key"> (date)</label><input>
-  <label>Beschreibung<span class="json-key"> (description)</label><input>
+  <label>Massnahme <span class="db-json">(Massnahme)</span></label><input>
+  <label>Datum <span class="db-json">(date)</span></label><input>
+  <label>Beschreibung <span class="db-json">(description)</span></label><input>
 </div>
 
 <!-- RIPOL -->
@@ -273,10 +271,10 @@ input, textarea {
 </div>
 
 <div class="entry" id="ripol-section" hidden>
-  <label>Jahr / Datum<span class="json-key"> (year)</label><input>
-  <label>Beschreibung<span class="json-key"> (description)</label><input>
-  <label>Objekt<span class="json-key"> (objekt)</label><input>
-  <label>Seriennummer<span class="json-key"> (serial)</label><input>
+  <label>Jahr / Datum <span class="db-json">(year)</span></label><input>
+  <label>Beschreibung <span class="db-json">(description)</span></label><input>
+  <label>Objekt <span class="db-json">(objekt)</span></label><input>
+  <label>Seriennummer <span class="db-json">(serial)</span></label><input>
 </div>
 
 <!-- 4. Ausschlüsse -->
@@ -288,9 +286,10 @@ input, textarea {
 <p class="hint">Bitte speichere die heruntergeladene Datei ab und sende Sie anschliessend per E-Mail an
   <strong>weiterbildung@police.be.ch</strong>.</p>
 
-  <button id="toggleJsonHints" type="button">
+<button id="toggleJsonHints" type="button">
   JSON-Begriffe ausblenden
 </button>
+
 <script src="new.js"></script>
 
 </main>
