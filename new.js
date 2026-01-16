@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Checkbox → Sektion ein/ausklappen
   // ===============================
   document.querySelectorAll(".db-toggle input[type='checkbox']").forEach(cb => {
-    const section = cb.closest(".db-toggle").nextElementSibling;
+    const targetId = cb.dataset.target;
+    const section = document.getElementById(targetId);
     if (!section) return;
 
     section.hidden = !cb.checked;
@@ -17,17 +18,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===============================
   // Export JSON
   // ===============================
-  document.getElementById("exportBtn").addEventListener("click", () => {
+  const exportBtn = document.getElementById("exportBtn");
+  if (!exportBtn) {
+    console.error("Export-Button nicht gefunden");
+    return;
+  }
+
+  exportBtn.addEventListener("click", () => {
+
+    const textareas = document.querySelectorAll("textarea");
 
     const result = {
-      scenario: document.querySelector("textarea").value,
+      scenario: textareas[0]?.value || "",
       person: {},
       datenbanken: {},
-      ausschluss: document.querySelectorAll("textarea")[1].value
+      ausschluss: textareas[1]?.value || ""
     };
 
     // -------------------------------
-    // Ausweisfelder
+    // Ausweis
     // -------------------------------
     document.querySelectorAll("fieldset input").forEach(input => {
       const label = input.previousElementSibling?.innerText || "";
@@ -43,11 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!checkbox.checked) return;
 
       const dbName = toggle.querySelector(".db-title").innerText;
-      const entry = toggle.nextElementSibling;
-      const data = {};
+      const entry = document.getElementById(checkbox.dataset.target);
+      if (!entry) return;
 
+      const data = {};
       entry.querySelectorAll("input").forEach(input => {
-        const label = input.previousElementSibling.innerText;
+        const label = input.previousElementSibling?.innerText || "";
         const key = label.match(/\((.*?)\)/)?.[1];
         if (key) data[key] = input.value;
       });
@@ -63,11 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
       { type: "application/json" }
     );
 
+    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = "antrag_steckbrief.json";
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(a.href);
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   });
 
 });
