@@ -20,6 +20,18 @@ main {
   border-radius:12px;
   box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
+h1 { margin-top:0; }
+h2 { margin-top:2rem; }
+fieldset {
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:1rem;
+  margin-bottom:1rem;
+}
+legend {
+  font-weight:600;
+  padding:0 0.5rem;
+}
 label {
   display:block;
   font-size:0.9rem;
@@ -30,10 +42,24 @@ input, textarea {
   padding:0.4rem;
   margin-top:0.2rem;
 }
+.db-toggle {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: start;
+  column-gap: 0.6rem;
+  margin: 0.8rem 0;
+}
+
+.db-toggle input[type="checkbox"] {
+  margin: 0.15rem 0 0 0;
+}
+
+.db-title {
+  font-weight:600;
+}
 .db-json {
   font-size:0.8rem;
   color:#666;
-  margin-left:0.25rem;
 }
 .entry {
   border:1px dashed #ccc;
@@ -42,9 +68,34 @@ input, textarea {
   margin:0.6rem 0;
   background:#fafafa;
 }
-.hide-json .db-json {
-  display:none;
+.note {
+  font-size:0.85rem;
+  color:#555;
 }
+.submit {
+  margin-top:2rem;
+  padding:0.8rem;
+  width:100%;
+  background:#007AFF;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:1rem;
+}
+  .hint {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: #555;
+  text-align: center;
+}
+.hide-json .db-json {
+  display: none;
+}
+
+.hide-json label::after {
+  display: none;
+}
+  
 </style>
 </head>
 
@@ -53,51 +104,190 @@ input, textarea {
 
 <h1>Antrag neuer Steckbrief – Szenariotraining</h1>
 
-<h2>1. Szenario</h2>
-<textarea rows="4"></textarea>
+<!-- 1. Szenario -->
+<h2>1. Szenario / Rollenspiel</h2>
+<textarea rows="4" placeholder="Beschreibung des geplanten Szenarios, Lernziele, Kontext"></textarea>
 
+<!-- 2. Angaben für den Ausweis -->
 <h2>2. Angaben für den Ausweis</h2>
 <fieldset>
-  <label>Nachname <span class="db-json">(lastname)</span></label>
-  <input type="text">
+<label>Nachname<span class="json-key"> (lastname)</label>
+<input>
 
-  <label>Vorname <span class="db-json">(firstname)</span></label>
-  <input type="text">
+<label>Vorname<span class="json-key"> (firstname)</label>
+<input>
 
-  <label>Geburtsdatum <span class="db-json">(dob)</span></label>
-  <input type="text" placeholder="TT.MM.JJJJ">
+<label>Geburtsdatum<span class="json-key"> (dob)</label>
+<input placeholder="TT.MM.JJJJ">
 
-  <label>Herkunft <span class="db-json">(poo)</span></label>
-  <input type="text">
+<label>Herkunft / Heimatort<span class="json-key"> (poo)</label>
+<input>
+
+<label>Foto (optional)</label>
+<input type="file">
 </fieldset>
 
+<!-- 3. Gewünschte Datenbanken -->
 <h2>3. Gewünschte Datenbanken</h2>
+<p class="note">Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt werden.</p>
 
+<!-- Vorgangsbearbeitung -->
+<div class="db-toggle">
+  <input type="checkbox" data-target="vorgang-section">
+  <div>
+    <div class="db-title">Vorgangsbearbeitung</div>
+    <div class="db-json">(Vorgangsbearbeitung / Traitement des processus)</div>
+  </div>
+</div>
+
+<div class="entry" id="vorgang-section" hidden>
+  <label>Ereignis / Sachverhalt<span class="json-key"> (ESW)</label><input>
+  <label>Bezug zur Person<span class="json-key"> (Verbindung)</label><input>
+  <label>Datum<span class="json-key"> (year)</label><input>
+  <label>Zusatzbeschreibung<span class="json-key"> (description)</label><input>
+  <label>Objekt<span class="json-key"> (objekt)</label><input>
+  <label>Seriennummer<span class="json-key"> (serial)</label><input>
+</div>
+
+<!-- GERES -->
 <div class="db-toggle">
   <input type="checkbox" data-target="geres-section">
   <div>
-    <strong>GERES – Personenregister</strong>
+    <div class="db-title">GERES – Personenregister</div>
     <div class="db-json">(GERES)</div>
   </div>
 </div>
 
 <div class="entry" id="geres-section" hidden>
-  <label>Nachname <span class="db-json">(lastname)</span></label>
+  <label>Nachname<span class="json-key"> (lastname)</label><input>
+  <label>Vorname<span class="json-key"> (firstname)</label><input>
+  <label>Geschlecht<span class="json-key"> (gender)</label><input>
+  <label>Geburtsdatum<span class="json-key"> (dob)</label><input>
+  <label>Herkunft<span class="json-key"> (poo)</label><input>
+  <label>Adresse<span class="json-key"> (adress)</label><input>
+  <label>Zivilstand<span class="json-key"> (zivilstand)</label><input>
+</div>
+
+<!-- ISA -->
+<div class="db-toggle">
+  <input type="checkbox" data-target="isa-section">
+  <div>
+    <div class="db-title">ISA – Informationssystem Ausweise</div>
+    <div class="db-json">(ISA)</div>
+  </div>
+</div>
+
+<div class="entry" id="isa-section" hidden>
+  <label>Nachname<span class="json-key"> (lastname)</label><input>
+  <label>Vorname<span class="json-key"> (firstname)</label><input>
+  <label>Geschlecht<span class="json-key"> (gender)</label><input>
+  <label>Geburtsdatum<span class="json-key"> (dob)</label><input>
+</div>
+
+<!-- FABER -->
+<div class="db-toggle">
+  <input type="checkbox" data-target="faber-section">
+  <div>
+    <div class="db-title">FABER – Führerausweis</div>
+    <div class="db-json">(FABER)</div>
+  </div>
+</div>
+
+<div class="entry" id="faber-section" hidden>
+  <label>Kategorie / Massnahme<span class="json-key"> (category)</label><input>
+  <label>Seit<span class="json-key"> (since)</label><input>
+</div>
+
+<!-- MOFIS -->
+<div class="db-toggle">
+  <input type="checkbox" data-target="mofis-section">
+  <div>
+    <div class="db-title">MOFIS – Fahrzeuge</div>
+    <div class="db-json">(MOFIS)</div>
+  </div>
+</div>
+
+<div class="entry" id="mofis-section" hidden>
+  <label>Kennzeichen<span class="json-key"> (plate)</label><input>
+  <label>Fahrgestellnummer<span class="json-key"> (vin)</label><input>
+  <label>Typ<span class="json-key"> (type)</label><input>
+  <label>Marke<span class="json-key"> (brand)</label><input>
+  <label>Modell<span class="json-key"> (model)</label><input>
+</div>
+
+<!-- ZEMIS -->
+<div class="db-toggle">
+  <input type="checkbox" data-target="zemis-section">
+  <div>
+    <div class="db-title">ZEMIS – Ausländerregister</div>
+    <div class="db-json">(ZEMIS)</div>
+  </div>
+</div>
+
+<div class="entry" id="zemis-section" hidden>
+  <label>Nachname<span class="json-key"> (lastname)</label>
   <input>
 
-  <label>Vorname <span class="db-json">(firstname)</span></label>
+  <label>Vorname<span class="json-key"> (firstname)</label>
   <input>
 
-  <label>Geburtsdatum <span class="db-json">(dob)</span></label>
+  <label>Geschlecht<span class="json-key"> (gender)</label>
+  <input>
+
+  <label>Geburtsdatum<span class="json-key"> (dob)</label>
+  <input placeholder="TT.MM.JJJJ">
+
+  <label>Herkunft / Heimatort<span class="json-key"> (poo)</label>
+  <input>
+
+  <label>Adresse<span class="json-key"> (adress)</label>
+  <input>
+
+  <label>Status<span class="json-key"> (status)</label>
   <input>
 </div>
 
+
+<!-- Hoogan -->
+<div class="db-toggle">
+  <input type="checkbox" data-target="hoogan-section">
+  <div>
+    <div class="db-title">HOOGAN – Gefährder / Massnahmen</div>
+    <div class="db-json">(Hoogan)</div>
+  </div>
+</div>
+
+<div class="entry" id="hoogan-section" hidden>
+  <label>Massnahme<span class="json-key"> (Massnahme)</label><input>
+  <label>Datum<span class="json-key"> (date)</label><input>
+  <label>Beschreibung<span class="json-key"> (description)</label><input>
+</div>
+
+<!-- RIPOL -->
+<div class="db-toggle">
+  <input type="checkbox" data-target="ripol-section">
+  <div>
+    <div class="db-title">RIPOL – Fahndungen</div>
+    <div class="db-json">(RIPOL)</div>
+  </div>
+</div>
+
+<div class="entry" id="ripol-section" hidden>
+  <label>Jahr / Datum<span class="json-key"> (year)</label><input>
+  <label>Beschreibung<span class="json-key"> (description)</label><input>
+  <label>Objekt<span class="json-key"> (objekt)</label><input>
+  <label>Seriennummer<span class="json-key"> (serial)</label><input>
+</div>
+
+<!-- 4. Ausschlüsse -->
 <h2>4. Ausschlüsse</h2>
-<textarea rows="3"></textarea>
+<textarea rows="3" placeholder="Welche Informationen dürfen auf keinen Fall im Steckbrief erscheinen?"></textarea>
 
-<button id="exportBtn">Datei speichern</button>
-<button id="toggleJsonHints">JSON-Begriffe ausblenden</button>
+<button class="submit" id="exportBtn" type="button">Datei speichern</button>
 
+<p class="hint">Bitte speichere die heruntergeladene Datei ab und sende Sie anschliessend per E-Mail an
+  <strong>weiterbildung@police.be.ch</strong>.</p>
+  
 <script src="new.js"></script>
 
 </main>
