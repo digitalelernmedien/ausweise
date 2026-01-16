@@ -270,21 +270,7 @@ input, textarea {
 <textarea rows="3" placeholder="Welche Informationen dürfen auf keinen Fall im Steckbrief erscheinen?"></textarea>
 
 <button class="submit" id="exportBtn" type="button">Datei speichern</button>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".db-toggle input[type='checkbox']").forEach(checkbox => {
-    const targetId = checkbox.dataset.target;
-    const section = document.getElementById(targetId);
-    if (!section) return;
-    section.hidden = !checkbox.checked;
-    checkbox.addEventListener("change", () => {
-      section.hidden = !checkbox.checked;
-    });
-  });
-});
-</script>
+<script src="new.js"></script>
 
 </main>
 </body>
