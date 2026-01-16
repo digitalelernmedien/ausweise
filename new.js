@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-document.getElementById("toggleJsonHints").addEventListener("click", () => {
-  document.body.classList.toggle("hide-json");
+  document.getElementById("toggleJsonHints").addEventListener("click", () => {
+    document.body.classList.toggle("hide-json");
 
-  const btn = document.getElementById("toggleJsonHints");
-  btn.textContent = document.body.classList.contains("hide-json")
-    ? "JSON-Begriffe einblenden"
-    : "JSON-Begriffe ausblenden";
-});
+    const btn = document.getElementById("toggleJsonHints");
+    btn.textContent = document.body.classList.contains("hide-json")
+      ? "JSON-Begriffe einblenden"
+      : "JSON-Begriffe ausblenden";
+  });
   
   // ===============================
   // Checkbox → Sektion ein/ausklappen
@@ -48,8 +48,9 @@ document.getElementById("toggleJsonHints").addEventListener("click", () => {
     // Ausweis
     // -------------------------------
     document.querySelectorAll("fieldset input").forEach(input => {
-      const label = input.previousElementSibling?.innerText || "";
-      const key = label.match(/\((.*?)\)/)?.[1];
+      const labelElem = input.closest("label");
+      const keyElem = labelElem?.querySelector(".db-json");
+      const key = keyElem?.textContent.replace(/[()]/g,'').trim();
       if (key) result.ausweis[key] = input.value;
     });
 
@@ -66,8 +67,9 @@ document.getElementById("toggleJsonHints").addEventListener("click", () => {
 
       const data = {};
       entry.querySelectorAll("input").forEach(input => {
-        const label = input.previousElementSibling?.innerText || "";
-        const key = label.match(/\((.*?)\)/)?.[1];
+        const labelElem = input.closest("label");
+        const keyElem = labelElem?.querySelector(".db-json");
+        const key = keyElem?.textContent.replace(/[()]/g,'').trim();
         if (key) data[key] = input.value;
       });
 
