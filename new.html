@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
 <meta charset="UTF-8">
@@ -21,18 +20,6 @@ main {
   border-radius:12px;
   box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
-h1 { margin-top:0; }
-h2 { margin-top:2rem; }
-fieldset {
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:1rem;
-  margin-bottom:1rem;
-}
-legend {
-  font-weight:600;
-  padding:0 0.5rem;
-}
 label {
   display:block;
   font-size:0.9rem;
@@ -43,24 +30,10 @@ input, textarea {
   padding:0.4rem;
   margin-top:0.2rem;
 }
-.db-toggle {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  align-items: start;
-  column-gap: 0.6rem;
-  margin: 0.8rem 0;
-}
-
-.db-toggle input[type="checkbox"] {
-  margin: 0.15rem 0 0 0;
-}
-
-.db-title {
-  font-weight:600;
-}
 .db-json {
   font-size:0.8rem;
   color:#666;
+  margin-left:0.25rem;
 }
 .entry {
   border:1px dashed #ccc;
@@ -69,49 +42,9 @@ input, textarea {
   margin:0.6rem 0;
   background:#fafafa;
 }
-.note {
-  font-size:0.85rem;
-  color:#555;
-}
-.submit {
-  margin-top:2rem;
-  padding:0.8rem;
-  width:100%;
-  background:#007AFF;
-  color:white;
-  border:none;
-  border-radius:10px;
-  font-size:1rem;
-}
-  .hint {
-  margin-top: 0.8rem;
-  font-size: 0.85rem;
-  color: #555;
-  text-align: center;
-}
-.toggle-json {
-  background: none;
-  border: none;
-  color: #888;
-  font-size: 0.75rem;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 0.5rem;
-}
-
-.toggle-json:hover {
-  color: #444;
-  text-decoration: underline;
-}
-  
 .hide-json .db-json {
-  display: none;
+  display:none;
 }
-
-.hide-json label::after {
-  display: none;
-}
-  
 </style>
 </head>
 
@@ -120,193 +53,50 @@ input, textarea {
 
 <h1>Antrag neuer Steckbrief – Szenariotraining</h1>
 
-<!-- 1. Szenario -->
-<h2>1. Szenario / Rollenspiel</h2>
-<textarea rows="4" placeholder="Beschreibung des geplanten Szenarios, Lernziele, Kontext"></textarea>
+<h2>1. Szenario</h2>
+<textarea rows="4"></textarea>
 
-<!-- 2. Angaben für den Ausweis -->
 <h2>2. Angaben für den Ausweis</h2>
 <fieldset>
-<label>Nachname<div class="db-json"> (lastname)</label>
-<input>
+  <label>Nachname <span class="db-json">(lastname)</span></label>
+  <input type="text">
 
-<label>Vorname<div class="db-json"> (firstname)</label>
-<input>
+  <label>Vorname <span class="db-json">(firstname)</span></label>
+  <input type="text">
 
-<label>Geburtsdatum<div class="db-json"> (dob)</label>
-<input placeholder="TT.MM.JJJJ">
+  <label>Geburtsdatum <span class="db-json">(dob)</span></label>
+  <input type="text" placeholder="TT.MM.JJJJ">
 
-<label>Herkunft / Heimatort<div class="db-json"> (poo)</label>
-<input>
-
-<label>Foto (optional)</label>
-<input type="file">
+  <label>Herkunft <span class="db-json">(poo)</span></label>
+  <input type="text">
 </fieldset>
 
-<!-- 3. Gewünschte Datenbanken -->
 <h2>3. Gewünschte Datenbanken</h2>
-<p class="note">Bitte nur die Datenbanken aktivieren, die im Szenario tatsächlich benötigt werden.</p>
 
-<!-- Vorgangsbearbeitung -->
-<div class="db-toggle">
-  <input type="checkbox" data-target="vorgang-section">
-  <div>
-    <div class="db-title">Vorgangsbearbeitung</div>
-    <div class="db-json">(Vorgangsbearbeitung / Traitement des processus)</div>
-  </div>
-</div>
-
-<div class="entry" id="vorgang-section" hidden>
-  <label>Ereignis / Sachverhalt<div class="db-json"> (ESW)</label><input>
-  <label>Bezug zur Person<div class="db-json"> (Verbindung)</label><input>
-  <label>Datum<div class="db-json"> (year)</label><input>
-  <label>Zusatzbeschreibung<div class="db-json"> (description)</label><input>
-  <label>Objekt<div class="db-json"> (objekt)</label><input>
-  <label>Seriennummer<div class="db-json"> (serial)</label><input>
-</div>
-
-<!-- GERES -->
 <div class="db-toggle">
   <input type="checkbox" data-target="geres-section">
   <div>
-    <div class="db-title">GERES – Personenregister</div>
+    <strong>GERES – Personenregister</strong>
     <div class="db-json">(GERES)</div>
   </div>
 </div>
 
 <div class="entry" id="geres-section" hidden>
-  <label>Nachname<div class="db-json"> (lastname)</label><input>
-  <label>Vorname<div class="db-json"> (firstname)</label><input>
-  <label>Geschlecht<div class="db-json"> (gender)</label><input>
-  <label>Geburtsdatum<div class="db-json"> (dob)</label><input>
-  <label>Herkunft<div class="db-json"> (poo)</label><input>
-  <label>Adresse<div class="db-json"> (adress)</label><input>
-  <label>Zivilstand<div class="db-json"> (zivilstand)</label><input>
-</div>
-
-<!-- ISA -->
-<div class="db-toggle">
-  <input type="checkbox" data-target="isa-section">
-  <div>
-    <div class="db-title">ISA – Informationssystem Ausweise</div>
-    <div class="db-json">(ISA)</div>
-  </div>
-</div>
-
-<div class="entry" id="isa-section" hidden>
-  <label>Nachname<div class="db-json"> (lastname)</label><input>
-  <label>Vorname<div class="db-json"> (firstname)</label><input>
-  <label>Geschlecht<div class="db-json"> (gender)</label><input>
-  <label>Geburtsdatum<div class="db-json"> (dob)</label><input>
-</div>
-
-<!-- FABER -->
-<div class="db-toggle">
-  <input type="checkbox" data-target="faber-section">
-  <div>
-    <div class="db-title">FABER – Führerausweis</div>
-    <div class="db-json">(FABER)</div>
-  </div>
-</div>
-
-<div class="entry" id="faber-section" hidden>
-  <label>Kategorie / Massnahme<div class="db-json"> (category)</label><input>
-  <label>Seit<div class="db-json"> (since)</label><input>
-</div>
-
-<!-- MOFIS -->
-<div class="db-toggle">
-  <input type="checkbox" data-target="mofis-section">
-  <div>
-    <div class="db-title">MOFIS – Fahrzeuge</div>
-    <div class="db-json">(MOFIS)</div>
-  </div>
-</div>
-
-<div class="entry" id="mofis-section" hidden>
-  <label>Kennzeichen<div class="db-json"> (plate)</label><input>
-  <label>Fahrgestellnummer<div class="db-json"> (vin)</label><input>
-  <label>Typ<div class="db-json"> (type)</label><input>
-  <label>Marke<div class="db-json"> (brand)</label><input>
-  <label>Modell<div class="db-json"> (model)</label><input>
-</div>
-
-<!-- ZEMIS -->
-<div class="db-toggle">
-  <input type="checkbox" data-target="zemis-section">
-  <div>
-    <div class="db-title">ZEMIS – Ausländerregister</div>
-    <div class="db-json">(ZEMIS)</div>
-  </div>
-</div>
-
-<div class="entry" id="zemis-section" hidden>
-  <label>Nachname<div class="db-json"> (lastname)</label>
+  <label>Nachname <span class="db-json">(lastname)</span></label>
   <input>
 
-  <label>Vorname<div class="db-json"> (firstname)</label>
+  <label>Vorname <span class="db-json">(firstname)</span></label>
   <input>
 
-  <label>Geschlecht<div class="db-json"> (gender)</label>
-  <input>
-
-  <label>Geburtsdatum<div class="db-json"> (dob)</label>
-  <input placeholder="TT.MM.JJJJ">
-
-  <label>Herkunft / Heimatort<div class="db-json"> (poo)</label>
-  <input>
-
-  <label>Adresse<div class="db-json"> (adress)</label>
-  <input>
-
-  <label>Status<div class="db-json"> (status)</label>
+  <label>Geburtsdatum <span class="db-json">(dob)</span></label>
   <input>
 </div>
 
-
-<!-- Hoogan -->
-<div class="db-toggle">
-  <input type="checkbox" data-target="hoogan-section">
-  <div>
-    <div class="db-title">HOOGAN – Gefährder / Massnahmen</div>
-    <div class="db-json">(Hoogan)</div>
-  </div>
-</div>
-
-<div class="entry" id="hoogan-section" hidden>
-  <label>Massnahme<div class="db-json"> (Massnahme)</label><input>
-  <label>Datum<div class="db-json"> (date)</label><input>
-  <label>Beschreibung<div class="db-json"> (description)</label><input>
-</div>
-
-<!-- RIPOL -->
-<div class="db-toggle">
-  <input type="checkbox" data-target="ripol-section">
-  <div>
-    <div class="db-title">RIPOL – Fahndungen</div>
-    <div class="db-json">(RIPOL)</div>
-  </div>
-</div>
-
-<div class="entry" id="ripol-section" hidden>
-  <label>Jahr / Datum<div class="db-json"> (year)</label><input>
-  <label>Beschreibung<div class="db-json"> (description)</label><input>
-  <label>Objekt<div class="db-json"> (objekt)</label><input>
-  <label>Seriennummer<div class="db-json"> (serial)</label><input>
-</div>
-
-<!-- 4. Ausschlüsse -->
 <h2>4. Ausschlüsse</h2>
-<textarea rows="3" placeholder="Welche Informationen dürfen auf keinen Fall im Steckbrief erscheinen?"></textarea>
+<textarea rows="3"></textarea>
 
-<button class="submit" id="exportBtn" type="button">Datei speichern</button>
-
-<p class="hint">Bitte speichere die heruntergeladene Datei ab und sende Sie anschliessend per E-Mail an
-  <strong>weiterbildung@police.be.ch</strong>.</p>
-
-  <button id="toggleJsonHints" type="button" class="toggle-json">
-  JSON-Begriffe ausblenden
-</button>
+<button id="exportBtn">Datei speichern</button>
+<button id="toggleJsonHints">JSON-Begriffe ausblenden</button>
 
 <script src="new.js"></script>
 
