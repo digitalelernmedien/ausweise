@@ -88,6 +88,21 @@ input, textarea {
   color: #555;
   text-align: center;
 }
+.toggle-json {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+.toggle-json:hover {
+  color: #444;
+  text-decoration: underline;
+}
+  
 .hide-json .db-json {
   display: none;
 }
@@ -287,7 +302,11 @@ input, textarea {
 
 <p class="hint">Bitte speichere die heruntergeladene Datei ab und sende Sie anschliessend per E-Mail an
   <strong>weiterbildung@police.be.ch</strong>.</p>
-  
+
+  <button id="toggleJsonHints" type="button" class="toggle-json">
+  JSON-Begriffe ausblenden
+</button>
+
 <script src="new.js"></script>
 
 </main>
