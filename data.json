@@ -235,7 +235,7 @@
 "ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
 "Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
 "RIPOL": [
-	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45689"},
+	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM222"},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]		
 },
 	"fr": {
@@ -249,7 +249,7 @@
 "ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
 "Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
 "RIPOL": [
-	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45689"},
+	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM222"},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]	
 }
 }
