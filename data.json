@@ -222,6 +222,39 @@
 	{"year": "04.06.2025", "description": "Recherché pour arrestation", "objekt": "", "serial": ""},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]	
 }
+},
+"S008": {
+	"de": {
+"Vorgangsbearbeitung": [
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],		
+"GERES": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "zivilstand": ""}],
+"ISA": [{"lastname": "", "firstname": "", "gender": "", "dob": ""}],
+"FABER": [{"category": "", "since": ""}],
+"MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
+"ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
+"Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
+"RIPOL": [
+	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45689"},
+	{"year": "", "description": "", "objekt": "", "serial": ""}]		
+},
+	"fr": {
+"Traitement des processus": [
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],
+"GERES": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "zivilstand": ""}],
+"ISA": [{"lastname": "", "firstname": "", "gender": "", "dob": ""}],
+"FABER": [{"category": "", "since": ""}],
+"MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
+"ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
+"Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
+"RIPOL": [
+	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45689"},
+	{"year": "", "description": "", "objekt": "", "serial": ""}]	
 }
+}
+
+
+	
 }
 }
