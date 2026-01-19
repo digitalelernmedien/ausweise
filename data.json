@@ -267,7 +267,7 @@
 "ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
 "Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
 "RIPOL": [
-	{"year": "01.06.2025", "description": "Entwendung zum Gebrauch", "objekt": "Diebstahl Kontrollschilder", "serial": "BE1646"},
+	{"year": "01.06.2025", "description": "Entwendung zum Gebrauch", "objekt": "", "serial": "FR24539"},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]		
 },
 	"fr": {
@@ -281,7 +281,7 @@
 "ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
 "Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
 "RIPOL": [
-	{"year": "01.06.2025", "description": "Vol d’usage de véhicules à moteur", "objekt": "Vol de plaques d’immatriculation", "serial": "BE1646"},
+	{"year": "01.06.2025", "description": "Vol d’usage de véhicules à moteur", "objekt": "", "serial": "FR24539"},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]	
 }
 }
