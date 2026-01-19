@@ -7,7 +7,8 @@
     "K005": "S005",
     "K006": "S006",
     "K007": "S007",
-	"K008": "S008"
+	"K008": "S008",
+	"K009": "S009"
   },
 "steckbriefe": {
 "S001": {
@@ -253,8 +254,37 @@
 	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45621"},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]	
 }
+},
+"S009": {
+	"de": {
+"Vorgangsbearbeitung": [
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],		
+"GERES": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "zivilstand": ""}],
+"ISA": [{"lastname": "", "firstname": "", "gender": "", "dob": ""}],
+"FABER": [{"category": "", "since": ""}],
+"MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
+"ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
+"Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
+"RIPOL": [
+	{"year": "01.06.2025", "description": "Entwendung zum Gebrauch", "objekt": "Diebstahl Kontrollschilder", "serial": "BE1646"},
+	{"year": "", "description": "", "objekt": "", "serial": ""}]		
+},
+	"fr": {
+"Traitement des processus": [
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],
+"GERES": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "zivilstand": ""}],
+"ISA": [{"lastname": "", "firstname": "", "gender": "", "dob": ""}],
+"FABER": [{"category": "", "since": ""}],
+"MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
+"ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
+"Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
+"RIPOL": [
+	{"year": "01.06.2025", "description": "Vol d’usage de véhicules à moteur", "objekt": "Vol de plaques d’immatriculation", "serial": "BE1646"},
+	{"year": "", "description": "", "objekt": "", "serial": ""}]	
 }
-
+}
 
 	
 }
