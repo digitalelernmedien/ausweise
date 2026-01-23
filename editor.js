@@ -2,6 +2,20 @@ let data = null;
 let currentKey = null;
 let currentSection = null;
 
+// ================================
+// Section Mapping DE → FR
+// ================================
+const sectionMap = {
+  "Vorgangsbearbeitung": "Traitement des processus",
+  "GERES": "GERES",
+  "ISA": "ISA",
+  "FABER": "FABER",
+  "MOFIS": "MOFIS",
+  "ZEMIS": "ZEMIS",
+  "Hoogan": "Hoogan",
+  "RIPOL": "RIPOL"
+};
+
 const recordSelect = document.getElementById("recordSelect");
 const tabsEl = document.getElementById("tabs");
 const editorDE = document.getElementById("editor-de");
@@ -18,7 +32,6 @@ fetch("data.json")
   .then(json => {
     data = json;
     initApp();
-    renderZuordnungen(); // Zuordnung direkt anzeigen
   })
   .catch(err => {
     console.error("JSON konnte nicht geladen werden:", err);
@@ -49,7 +62,7 @@ function initApp() {
 }
 
 // ================================
-// Tabs bauen
+// Tabs bauen (DE als Basis)
 // ================================
 function buildTabs() {
   if (!data || !currentKey) return;
@@ -79,12 +92,14 @@ function openTab(section) {
 // ================================
 // Editor Rendering DE/FR
 // ================================
-function renderSection(section) {
-  editorDE.innerHTML = `<h3>${section}</h3>`;
-  editorFR.innerHTML = `<h3>${section}</h3>`;
+function renderSection(deSection) {
+  const frSection = sectionMap[deSection] || deSection;
 
-  const entriesDE = data.steckbriefe[currentKey].de[section] || [];
-  const entriesFR = data.steckbriefe[currentKey].fr[section] || [];
+  editorDE.innerHTML = `<h3>${deSection}</h3>`;
+  editorFR.innerHTML = `<h3>${frSection}</h3>`;
+
+  const entriesDE = data.steckbriefe[currentKey].de[deSection] || [];
+  const entriesFR = data.steckbriefe[currentKey].fr[frSection] || [];
 
   // ---- DE-Spalte ----
   entriesDE.forEach((entry, index) => {
@@ -97,12 +112,12 @@ function renderSection(section) {
       const input = document.createElement("input");
       input.value = entry[field];
 
+      // DE → FR Synchronisation
       input.oninput = e => {
         entry[field] = e.target.value;
 
         if (entriesFR[index]) {
           entriesFR[index][field] = e.target.value;
-
           const frInputs = editorFR.querySelectorAll(".entry")[index].querySelectorAll("input");
           frInputs.forEach(inp => {
             if (inp.previousSibling.textContent === field) inp.value = e.target.value;
@@ -121,7 +136,7 @@ function renderSection(section) {
   const addBtnDE = document.createElement("button");
   addBtnDE.textContent = "+ Eintrag hinzufügen";
   addBtnDE.className = "add-btn";
-  addBtnDE.onclick = () => addEntry(section);
+  addBtnDE.onclick = () => addEntry(deSection);
   editorDE.appendChild(addBtnDE);
 
   // ---- FR-Spalte ----
@@ -135,6 +150,7 @@ function renderSection(section) {
       const input = document.createElement("input");
       input.value = entry[field];
 
+      // FR Input nur lokal
       input.oninput = e => {
         entry[field] = e.target.value;
       };
@@ -146,20 +162,22 @@ function renderSection(section) {
     editorFR.appendChild(div);
   });
 
-  // + Eintrag hinzufügen FR (über DE)
+  // + Eintrag hinzufügen FR
   const addBtnFR = document.createElement("button");
   addBtnFR.textContent = "+ Eintrag hinzufügen";
   addBtnFR.className = "add-btn";
-  addBtnFR.onclick = () => addEntry(section);
+  addBtnFR.onclick = () => addEntry(deSection);
   editorFR.appendChild(addBtnFR);
 }
 
 // ================================
 // Eintrag hinzufügen DE & FR
 // ================================
-function addEntry(section) {
-  const entriesDE = data.steckbriefe[currentKey].de[section];
-  const entriesFR = data.steckbriefe[currentKey].fr[section];
+function addEntry(deSection) {
+  const frSection = sectionMap[deSection] || deSection;
+
+  const entriesDE = data.steckbriefe[currentKey].de[deSection];
+  const entriesFR = data.steckbriefe[currentKey].fr[frSection];
 
   const templateDE = entriesDE[0]
     ? Object.fromEntries(Object.keys(entriesDE[0]).map(k => [k, ""]))
@@ -171,7 +189,7 @@ function addEntry(section) {
   entriesDE.push(templateDE);
   entriesFR.push(templateFR);
 
-  renderSection(section);
+  renderSection(deSection);
 }
 
 // ================================
@@ -180,12 +198,13 @@ function addEntry(section) {
 function addNewSteckbrief() {
   if (!data || !data.steckbriefe) return;
 
+  // Höchsten Key finden
   const keys = Object.keys(data.steckbriefe);
-  const lastKey = keys.sort().reverse()[0]; // letzter Steckbrief
+  const lastKey = keys.sort().reverse()[0];
   const nextNum = String(parseInt(lastKey.slice(1)) + 1).padStart(3, '0');
   const newKey = `S${nextNum}`;
 
-  // Template von erster Person
+  // Template der ersten Person nehmen
   const firstKey = keys[0];
   const templateDE = {};
   const templateFR = {};
@@ -200,8 +219,12 @@ function addNewSteckbrief() {
     );
   });
 
-  data.steckbriefe[newKey] = { de: templateDE, fr: templateFR };
+  data.steckbriefe[newKey] = {
+    de: templateDE,
+    fr: templateFR
+  };
 
+  // Neuer Key zur Auswahl hinzufügen
   const opt = document.createElement("option");
   opt.value = newKey;
   opt.textContent = newKey;
@@ -210,81 +233,58 @@ function addNewSteckbrief() {
   recordSelect.value = newKey;
   currentKey = newKey;
   buildTabs();
-  renderZuordnungen(); // Zuordnungen aktualisieren
 }
 
 // ================================
-// Zuordnungen K → S anzeigen & bearbeiten
+// Karten-Steckbrief-Zuordnung bearbeiten
 // ================================
-function renderZuordnungen() {
-  const container = document.getElementById("zuordnungContainer");
-  if (!container) return;
+function renderZuordnung() {
+  let zuordnungDiv = document.getElementById("zuordnungDiv");
+  if (!zuordnungDiv) {
+    zuordnungDiv = document.createElement("div");
+    zuordnungDiv.id = "zuordnungDiv";
+    zuordnungDiv.style.marginTop = "1rem";
+    document.querySelector("main").insertBefore(zuordnungDiv, document.getElementById("downloadBtn"));
+  }
 
-  container.innerHTML = "";
+  zuordnungDiv.innerHTML = "<h3>Karten-Steckbrief-Zuordnung</h3>";
 
-  if (!data || !data.zuordnung) return;
-
-  Object.entries(data.zuordnung).forEach(([k, s]) => {
+  Object.keys(data.zuordnung).forEach(kartenschluessel => {
     const div = document.createElement("div");
-    div.className = "entry";
+    div.style.marginBottom = "0.5rem";
 
-    const labelK = document.createElement("label");
-    labelK.textContent = "Code (Kxxx)";
-    const inputK = document.createElement("input");
-    inputK.value = k;
+    const label = document.createElement("label");
+    label.textContent = kartenschluessel;
+    label.style.marginRight = "0.5rem";
 
-    const labelS = document.createElement("label");
-    labelS.textContent = "Steckbrief (Sxxx)";
-    const inputS = document.createElement("input");
-    inputS.value = s;
+    const select = document.createElement("select");
+    Object.keys(data.steckbriefe).forEach(schluessel => {
+      const opt = document.createElement("option");
+      opt.value = schluessel;
+      opt.textContent = schluessel;
+      if (data.zuordnung[kartenschluessel] === schluessel) opt.selected = true;
+      select.appendChild(opt);
+    });
 
-    // Änderungen speichern
-    inputK.oninput = e => {
-      const oldKey = k;
-      const newKey = e.target.value;
-      if (newKey !== oldKey) {
-        data.zuordnung[newKey] = data.zuordnung[oldKey];
-        delete data.zuordnung[oldKey];
-        renderZuordnungen();
-      }
-    };
-    inputS.oninput = e => {
-      data.zuordnung[k] = e.target.value;
+    select.onchange = e => {
+      data.zuordnung[kartenschluessel] = e.target.value;
     };
 
-    div.appendChild(labelK);
-    div.appendChild(inputK);
-    div.appendChild(labelS);
-    div.appendChild(inputS);
-    container.appendChild(div);
+    div.appendChild(label);
+    div.appendChild(select);
+    zuordnungDiv.appendChild(div);
   });
-
-  const addBtn = document.createElement("button");
-  addBtn.textContent = "+ Zuordnung hinzufügen";
-  addBtn.className = "add-btn";
-  addBtn.onclick = () => {
-    const keys = Object.keys(data.zuordnung);
-    let nextK = "K001";
-    if (keys.length) {
-      const lastNum = Math.max(...keys.map(k => parseInt(k.slice(1))));
-      nextK = "K" + String(lastNum + 1).padStart(3, "0");
-    }
-    const lastS = Object.values(data.zuordnung).slice(-1)[0] || "S001";
-    const nextS = "S" + String(parseInt(lastS.slice(1)) + 1).padStart(3, "0");
-    data.zuordnung[nextK] = nextS;
-    renderZuordnungen();
-  };
-  container.appendChild(addBtn);
 }
 
 // ================================
-// Button Neuen Steckbrief erstellen
+// Button in HTML einfügen
 // ================================
 const newBtn = document.createElement("button");
 newBtn.textContent = "Neuen Steckbrief erstellen";
 newBtn.className = "download-btn";
 newBtn.style.background = "#007AFF";
-newBtn.onclick = addNewSteckbrief;
+newBtn.style.marginTop = "1rem";
+newBtn.onclick = () => { addNewSteckbrief(); renderZuordnung(); };
 document.querySelector("main").insertBefore(newBtn, document.getElementById("downloadBtn"));
 
 // ================================
@@ -298,3 +298,12 @@ document.getElementById("downloadBtn").onclick = () => {
   a.click();
   URL.revokeObjectURL(a.href);
 };
+
+// ================================
+// Initiale Zuordnung rendern
+// ================================
+function initZuordnung() {
+  if (data && data.zuordnung) renderZuordnung();
+}
+
+setTimeout(initZuordnung, 500); // kurz warten bis JSON geladen
