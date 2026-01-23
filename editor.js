@@ -194,6 +194,51 @@ function addEntry(deSection) {
 }
 
 // ================================
+// Neuen Steckbrief erstellen
+// ================================
+function addNewSteckbrief() {
+  if (!data || !data.steckbriefe) return;
+
+  // 1. Höchsten Key finden
+  const keys = Object.keys(data.steckbriefe);
+  const lastKey = keys.sort().reverse()[0]; // S009 z.B.
+  const nextNum = String(parseInt(lastKey.slice(1)) + 1).padStart(3, '0');
+  const newKey = `S${nextNum}`;
+
+  // 2. Template der ersten Person nehmen (DE + FR)
+  const firstKey = keys[0];
+  const templateDE = {};
+  const templateFR = {};
+  Object.keys(data.steckbriefe[firstKey].de).forEach(section => {
+    templateDE[section] = data.steckbriefe[firstKey].de[section].map(entry =>
+      Object.fromEntries(Object.keys(entry).map(k => [k, ""]))
+    );
+  });
+  Object.keys(data.steckbriefe[firstKey].fr).forEach(section => {
+    templateFR[section] = data.steckbriefe[firstKey].fr[section].map(entry =>
+      Object.fromEntries(Object.keys(entry).map(k => [k, ""]))
+    );
+  });
+
+  // 3. Neuen Steckbrief anlegen
+  data.steckbriefe[newKey] = {
+    de: templateDE,
+    fr: templateFR
+  };
+
+  // 4. Neuer Key zur Auswahl hinzufügen
+  const opt = document.createElement("option");
+  opt.value = newKey;
+  opt.textContent = newKey;
+  recordSelect.appendChild(opt);
+
+  // 5. Direkt auswählen & Editor öffnen
+  recordSelect.value = newKey;
+  currentKey = newKey;
+  buildTabs();
+}
+
+// ================================
 // JSON herunterladen
 // ================================
 document.getElementById("downloadBtn").onclick = () => {
