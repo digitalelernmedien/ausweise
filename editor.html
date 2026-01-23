@@ -24,20 +24,34 @@
   .entry label { font-size:0.75rem; color:#666; display:block; margin-top:0.3rem; }
   .entry input { width:100%; padding:0.4rem; margin-bottom:0.3rem; box-sizing:border-box; }
 
-  .add-btn { margin-top:2.5rem; padding:0.5rem; background:#007AFF; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; }
+  .add-btn { margin-top:0.5rem; padding:0.5rem; background:#007AFF; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; }
+
+  /* ---------------- Action Bar für Buttons ---------------- */
+  .action-bar {
+    display: flex;
+    gap: 1rem;           /* Abstand zwischen Buttons */
+    margin-top: 2rem;    /* Abstand zur vorherigen Sektion */
+  }
 
   .download-btn {
-  margin-top: 2.5rem;
-  padding: 0.6rem 1.2rem;
-  background: #28a745;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  width: auto;          /* wichtig */
-  display: inline-block;
-}
+    padding: 0.6rem 1.2rem;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    width: auto;         /* nicht full-width */
+  }
+
+  #newBtn {
+    background: #007AFF; /* separater Stil für neuen Steckbrief */
+  }
+
+  #toggleZuordnungBtn {
+    background:#6c757d;
+    margin-top:1rem;
+  }
 
 </style>
 </head>
@@ -62,15 +76,17 @@
     </div>
   </div>
 
-  <button id="toggleZuordnungBtn" class="download-btn" style="background:#6c757d; margin-top:1rem;">
-  Karten-Steckbrief-Zuordnung anzeigen
-</button>
-<div id="zuordnungDiv" style="display:none; margin-top:0.5rem;"></div>
+  <!-- Toggle Zuordnung -->
+  <button id="toggleZuordnungBtn">
+    Karten-Steckbrief-Zuordnung anzeigen
+  </button>
+  <div id="zuordnungDiv" style="display:none; margin-top:0.5rem;"></div>
 
-
-  <!-- Download -->
-  <button class="download-btn" id="downloadBtn">JSON herunterladen</button>
-
+  <!-- Action Bar mit Buttons -->
+  <div class="action-bar">
+    <button id="newBtn">Neuen Steckbrief erstellen</button>
+    <button id="downloadBtn">JSON herunterladen</button>
+  </div>
 
 </main>
 
