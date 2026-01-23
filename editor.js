@@ -258,14 +258,26 @@ function initZuordnung() {
 // ================================
 document.getElementById("toggleZuordnungBtn").onclick = () => {
   const div = document.getElementById("zuordnungDiv");
-  div.style.display = div.style.display === "none" ? "block" : "none";
+  if (div.style.display === "none") {
+    div.style.display = "block";
+    document.getElementById("toggleZuordnungBtn").textContent = "Karten-Steckbrief-Zuordnung ausblenden";
+  } else {
+    div.style.display = "none";
+    document.getElementById("toggleZuordnungBtn").textContent = "Karten-Steckbrief-Zuordnung anzeigen";
+  }
 };
 
-const newBtn = document.createElement("button");
-newBtn.textContent = "Neuen Steckbrief erstellen";
-newBtn.className = "download-btn";
-newBtn.onclick = addNewSteckbrief;
-document.querySelector("main").insertBefore(newBtn, document.getElementById("downloadBtn"));
+document.getElementById("newBtn").onclick = addNewSteckbrief;
+
+document.getElementById("downloadBtn").onclick = () => {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "steckbriefe.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
 
 document.getElementById("downloadBtn").onclick = () => {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
