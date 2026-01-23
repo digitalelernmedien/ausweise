@@ -239,6 +239,16 @@ function addNewSteckbrief() {
 }
 
 // ================================
+// Button in HTML einfügen
+// ================================
+const newBtn = document.createElement("button");
+newBtn.textContent = "Neuen Steckbrief erstellen";
+newBtn.className = "download-btn";
+newBtn.style.background = "#007AFF";
+newBtn.onclick = addNewSteckbrief;
+document.querySelector("main").insertBefore(newBtn, document.getElementById("downloadBtn"));
+
+// ================================
 // JSON herunterladen
 // ================================
 document.getElementById("downloadBtn").onclick = () => {
