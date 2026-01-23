@@ -27,31 +27,56 @@
   .add-btn { margin-top:0.5rem; padding:0.5rem; background:#007AFF; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; }
 
   /* ---------------- Action Bar für Buttons ---------------- */
-  .action-bar {
-    display: flex;
-    gap: 1rem;           /* Abstand zwischen Buttons */
-    margin-top: 2rem;    /* Abstand zur vorherigen Sektion */
-  }
+.action-bar {
+  display: flex;
+  gap: 1rem;            /* Abstand zwischen Buttons */
+  margin-top: 1.5rem;
+}
 
-  .download-btn {
-    padding: 0.6rem 1.2rem;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    width: auto;         /* nicht full-width */
-  }
+.action-bar button {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 12px;   /* schön rund */
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
 
-  #newBtn {
-    background: #007AFF; /* separater Stil für neuen Steckbrief */
-  }
+.action-bar button#newBtn {
+  background: #007AFF;   /* frisches Blau */
+  color: white;
+}
 
-  #toggleZuordnungBtn {
-    background:#6c757d;
-    margin-top:1rem;
-  }
+.action-bar button#newBtn:hover {
+  background: #005ecb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.action-bar button#downloadBtn {
+  background: #28a745;   /* modernes Grün */
+  color: white;
+}
+
+.action-bar button#downloadBtn:hover {
+  background: #1e7e34;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.action-bar button#toggleZuordnungBtn {
+  background: #6c757d;   /* neutrale Grau-Taste */
+  color: white;
+}
+
+.action-bar button#toggleZuordnungBtn:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
 
 </style>
 </head>
