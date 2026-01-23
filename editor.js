@@ -116,7 +116,7 @@ function renderSection(deSection) {
         frDiv.querySelectorAll("input").forEach(frInput => {
           if (frInput.previousSibling.textContent !== field) return;
 
-          // 👉 nur synchronisieren, wenn FR nicht manuell geändert wurde
+          // Nur synchronisieren, wenn FR noch nicht manuell geändert wurde
           if (frInput.dataset.locked !== "true") {
             frEntry[field] = value;
             frInput.value = value;
@@ -199,11 +199,9 @@ function addNewSteckbrief() {
   data.steckbriefe[newKey] = JSON.parse(JSON.stringify(base));
 
   Object.values(data.steckbriefe[newKey].de).forEach(arr =>
-    arr.forEach(obj => Object.keys(obj).forEach(k => obj[k] = ""))
-  );
+    arr.forEach(obj => Object.keys(obj).forEach(k => obj[k] = "")));
   Object.values(data.steckbriefe[newKey].fr).forEach(arr =>
-    arr.forEach(obj => Object.keys(obj).forEach(k => obj[k] = ""))
-  );
+    arr.forEach(obj => Object.keys(obj).forEach(k => obj[k] = "")));
 
   const kKeys = Object.keys(data.zuordnung).sort();
   const nextK = String(parseInt(kKeys.at(-1).slice(1)) + 1).padStart(3, "0");
@@ -254,16 +252,17 @@ function initZuordnung() {
 }
 
 // ================================
-// Buttons
+// Action-Bar Buttons
 // ================================
 document.getElementById("toggleZuordnungBtn").onclick = () => {
   const div = document.getElementById("zuordnungDiv");
+  const btn = document.getElementById("toggleZuordnungBtn");
   if (div.style.display === "none") {
     div.style.display = "block";
-    document.getElementById("toggleZuordnungBtn").textContent = "Karten-Steckbrief-Zuordnung ausblenden";
+    btn.textContent = "Karten-Steckbrief-Zuordnung ausblenden";
   } else {
     div.style.display = "none";
-    document.getElementById("toggleZuordnungBtn").textContent = "Karten-Steckbrief-Zuordnung anzeigen";
+    btn.textContent = "Karten-Steckbrief-Zuordnung anzeigen";
   }
 };
 
@@ -276,13 +275,4 @@ document.getElementById("downloadBtn").onclick = () => {
   a.download = "steckbriefe.json";
   a.click();
   URL.revokeObjectURL(a.href);
-};
-
-
-document.getElementById("downloadBtn").onclick = () => {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "steckbriefe.json";
-  a.click();
 };
