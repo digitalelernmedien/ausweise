@@ -25,26 +25,18 @@ const editorFR = document.getElementById("editor-fr");
 // JSON laden
 // ================================
 fetch("data.json")
-  .then(res => {
-    if (!res.ok) throw new Error("JSON konnte nicht geladen werden");
-    return res.json();
-  })
+  .then(res => res.json())
   .then(json => {
     data = json;
     initApp();
     initZuordnung();
-  })
-  .catch(err => {
-    console.error(err);
-    alert("data.json konnte nicht geladen werden");
   });
 
 // ================================
-// App Initialisierung
+// App Init
 // ================================
 function initApp() {
   recordSelect.innerHTML = "";
-
   Object.keys(data.steckbriefe).forEach(key => {
     const opt = document.createElement("option");
     opt.value = key;
@@ -53,11 +45,10 @@ function initApp() {
   });
 
   currentKey = recordSelect.value;
-
-  recordSelect.addEventListener("change", () => {
+  recordSelect.onchange = () => {
     currentKey = recordSelect.value;
     buildTabs();
-  });
+  };
 
   buildTabs();
 }
@@ -66,8 +57,6 @@ function initApp() {
 // Tabs
 // ================================
 function buildTabs() {
-  if (!data || !currentKey) return;
-
   tabsEl.innerHTML = "";
   const sections = Object.keys(data.steckbriefe[currentKey].de);
 
@@ -91,7 +80,7 @@ function openTab(section) {
 }
 
 // ================================
-// Editor Rendering
+// Rendering DE / FR
 // ================================
 function renderSection(deSection) {
   const frSection = sectionMap[deSection] || deSection;
@@ -99,8 +88,8 @@ function renderSection(deSection) {
   editorDE.innerHTML = `<h3>${deSection}</h3>`;
   editorFR.innerHTML = `<h3>${frSection}</h3>`;
 
-  const entriesDE = data.steckbriefe[currentKey].de[deSection] || [];
-  const entriesFR = data.steckbriefe[currentKey].fr[frSection] || [];
+  const entriesDE = data.steckbriefe[currentKey].de[deSection];
+  const entriesFR = data.steckbriefe[currentKey].fr[frSection];
 
   // ---------- DE ----------
   entriesDE.forEach((entry, index) => {
@@ -115,24 +104,24 @@ function renderSection(deSection) {
       input.value = entry[field];
 
       input.oninput = e => {
-        const newValue = e.target.value;
-        entry[field] = newValue;
+        const value = e.target.value;
+        entry[field] = value;
 
-        if (entriesFR[index]) {
-          const frValue = entriesFR[index][field];
-          if (frValue === "" || frValue === null || frValue === undefined) {
-            entriesFR[index][field] = newValue;
+        const frEntry = entriesFR[index];
+        if (!frEntry) return;
 
-            const frDiv = editorFR.querySelectorAll(".entry")[index];
-            if (frDiv) {
-              frDiv.querySelectorAll("input").forEach(inp => {
-                if (inp.previousSibling.textContent === field) {
-                  inp.value = newValue;
-                }
-              });
-            }
+        const frDiv = editorFR.querySelectorAll(".entry")[index];
+        if (!frDiv) return;
+
+        frDiv.querySelectorAll("input").forEach(frInput => {
+          if (frInput.previousSibling.textContent !== field) return;
+
+          // 👉 nur synchronisieren, wenn FR nicht manuell geändert wurde
+          if (frInput.dataset.locked !== "true") {
+            frEntry[field] = value;
+            frInput.value = value;
           }
-        }
+        });
       };
 
       div.appendChild(label);
@@ -149,7 +138,7 @@ function renderSection(deSection) {
   editorDE.appendChild(addBtnDE);
 
   // ---------- FR ----------
-  entriesFR.forEach(entry => {
+  entriesFR.forEach((entry, index) => {
     const div = document.createElement("div");
     div.className = "entry";
 
@@ -159,7 +148,12 @@ function renderSection(deSection) {
 
       const input = document.createElement("input");
       input.value = entry[field];
-      input.oninput = e => entry[field] = e.target.value;
+      input.dataset.locked = entry[field] ? "true" : "false";
+
+      input.oninput = e => {
+        entry[field] = e.target.value;
+        input.dataset.locked = "true"; // FR ist jetzt manuell
+      };
 
       div.appendChild(label);
       div.appendChild(input);
@@ -184,53 +178,50 @@ function addEntry(deSection) {
   const entriesDE = data.steckbriefe[currentKey].de[deSection];
   const entriesFR = data.steckbriefe[currentKey].fr[frSection];
 
-  const template = obj =>
-    Object.fromEntries(Object.keys(obj).map(k => [k, ""]));
+  const templateDE = Object.fromEntries(Object.keys(entriesDE[0]).map(k => [k, ""]));
+  const templateFR = Object.fromEntries(Object.keys(entriesFR[0]).map(k => [k, ""]));
 
-  entriesDE.push(entriesDE[0] ? template(entriesDE[0]) : {});
-  entriesFR.push(entriesFR[0] ? template(entriesFR[0]) : {});
+  entriesDE.push(templateDE);
+  entriesFR.push(templateFR);
 
   renderSection(deSection);
 }
 
 // ================================
-// Neuen Steckbrief erstellen
+// Neuen Steckbrief + Zuordnung
 // ================================
 function addNewSteckbrief() {
   const keys = Object.keys(data.steckbriefe).sort();
-  const last = keys[keys.length - 1];
-  const next = `S${String(parseInt(last.slice(1)) + 1).padStart(3, "0")}`;
+  const next = String(parseInt(keys.at(-1).slice(1)) + 1).padStart(3, "0");
+  const newKey = `S${next}`;
 
   const base = data.steckbriefe[keys[0]];
-  const clone = obj =>
-    Object.fromEntries(Object.entries(obj).map(
-      ([k, v]) => [k, v.map(e => Object.fromEntries(Object.keys(e).map(f => [f, ""])))]
-    ));
+  data.steckbriefe[newKey] = JSON.parse(JSON.stringify(base));
 
-  data.steckbriefe[next] = {
-    de: clone(base.de),
-    fr: clone(base.fr)
-  };
+  Object.values(data.steckbriefe[newKey].de).forEach(arr =>
+    arr.forEach(obj => Object.keys(obj).forEach(k => obj[k] = ""))
+  );
+  Object.values(data.steckbriefe[newKey].fr).forEach(arr =>
+    arr.forEach(obj => Object.keys(obj).forEach(k => obj[k] = ""))
+  );
 
   const kKeys = Object.keys(data.zuordnung).sort();
-  const lastK = kKeys[kKeys.length - 1];
-  const nextK = `K${String(parseInt(lastK.slice(1)) + 1).padStart(3, "0")}`;
-  data.zuordnung[nextK] = next;
+  const nextK = String(parseInt(kKeys.at(-1).slice(1)) + 1).padStart(3, "0");
+  data.zuordnung[`K${nextK}`] = newKey;
 
   const opt = document.createElement("option");
-  opt.value = next;
-  opt.textContent = next;
+  opt.value = newKey;
+  opt.textContent = newKey;
   recordSelect.appendChild(opt);
 
-  recordSelect.value = next;
-  currentKey = next;
-
+  recordSelect.value = newKey;
+  currentKey = newKey;
   buildTabs();
   renderZuordnung();
 }
 
 // ================================
-// Zuordnung rendern
+// Zuordnung
 // ================================
 function renderZuordnung() {
   const div = document.getElementById("zuordnungDiv");
@@ -241,7 +232,6 @@ function renderZuordnung() {
 
     const label = document.createElement("label");
     label.textContent = k;
-    label.style.marginRight = "0.5rem";
 
     const select = document.createElement("select");
     Object.keys(data.steckbriefe).forEach(s => {
@@ -254,14 +244,13 @@ function renderZuordnung() {
 
     select.onchange = e => data.zuordnung[k] = e.target.value;
 
-    row.appendChild(label);
-    row.appendChild(select);
+    row.append(label, select);
     div.appendChild(row);
   });
 }
 
 function initZuordnung() {
-  if (data?.zuordnung) renderZuordnung();
+  renderZuordnung();
 }
 
 // ================================
@@ -269,30 +258,19 @@ function initZuordnung() {
 // ================================
 document.getElementById("toggleZuordnungBtn").onclick = () => {
   const div = document.getElementById("zuordnungDiv");
-  const btn = document.getElementById("toggleZuordnungBtn");
-
-  const open = div.style.display !== "none";
-  div.style.display = open ? "none" : "block";
-  btn.textContent = open
-    ? "Karten-Steckbrief-Zuordnung anzeigen"
-    : "Karten-Steckbrief-Zuordnung ausblenden";
+  div.style.display = div.style.display === "none" ? "block" : "none";
 };
 
 const newBtn = document.createElement("button");
 newBtn.textContent = "Neuen Steckbrief erstellen";
 newBtn.className = "download-btn";
-newBtn.style.background = "#007AFF";
 newBtn.onclick = addNewSteckbrief;
 document.querySelector("main").insertBefore(newBtn, document.getElementById("downloadBtn"));
 
-// ================================
-// JSON Download
-// ================================
 document.getElementById("downloadBtn").onclick = () => {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "steckbriefe.json";
   a.click();
-  URL.revokeObjectURL(a.href);
 };
