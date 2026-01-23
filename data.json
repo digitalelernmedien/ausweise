@@ -237,7 +237,7 @@
 "ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
 "Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
 "RIPOL": [
-	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45621"},
+	{"year": "01.01.2026", "description": "Gesucht", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45621"},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]		
 },
 	"fr": {
@@ -251,7 +251,7 @@
 "ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
 "Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
 "RIPOL": [
-	{"year": "", "description": "", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45621"},
+	{"year": "01.01.2026", "description": "Recherché", "objekt": "Pistole, SIG P229, 9mm Para", "serial": "AM45621"},
 	{"year": "", "description": "", "objekt": "", "serial": ""}]	
 }
 },
