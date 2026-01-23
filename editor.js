@@ -220,9 +220,30 @@ function addNewSteckbrief() {
   });
 
   data.steckbriefe[newKey] = {
-    de: templateDE,
-    fr: templateFR
-  };
+  de: templateDE,
+  fr: templateFR
+};
+
+// 3a. Neuen Karten-Eintrag erstellen
+const keysZuordnung = Object.keys(data.zuordnung);
+const lastKeyZuordnung = keysZuordnung.sort().reverse()[0]; // z. B. K009
+const nextNumK = String(parseInt(lastKeyZuordnung.slice(1)) + 1).padStart(3, '0');
+const newKartenschluessel = `K${nextNumK}`;
+data.zuordnung[newKartenschluessel] = newKey; // neuer Karten-Eintrag zeigt auf neuen Steckbrief
+
+// 4. Neuer Key zur Auswahl hinzufügen
+const opt = document.createElement("option");
+opt.value = newKey;
+opt.textContent = newKey;
+recordSelect.appendChild(opt);
+
+// 5. Direkt auswählen & Editor öffnen
+recordSelect.value = newKey;
+currentKey = newKey;
+buildTabs();
+
+// 6. Zuordnung neu rendern
+renderZuordnung();
 
   // Neuer Key zur Auswahl hinzufügen
   const opt = document.createElement("option");
