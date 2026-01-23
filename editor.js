@@ -112,19 +112,16 @@ function renderSection(deSection) {
 
       // DE → FR Synchronisation
       input.oninput = e => {
-    entry[field] = e.target.value;
+        entry[field] = e.target.value;
 
-    // Immer DE → FR synchronisieren
-    if (entriesFR[index]) {
-        entriesFR[index][field] = e.target.value;
-
-        // FR Input sofort aktualisieren
-        const frInputs = editorFR.querySelectorAll(".entry")[index].querySelectorAll("input");
-        frInputs.forEach(inp => {
+        if (entriesFR[index]) {
+          entriesFR[index][field] = e.target.value;
+          const frInputs = editorFR.querySelectorAll(".entry")[index].querySelectorAll("input");
+          frInputs.forEach(inp => {
             if (inp.previousSibling.textContent === field) inp.value = e.target.value;
-        });
-    }
-};
+          });
+        }
+      };
 
       div.appendChild(label);
       div.appendChild(input);
@@ -151,7 +148,6 @@ function renderSection(deSection) {
       const input = document.createElement("input");
       input.value = entry[field];
 
-      // FR Input nur lokal
       input.oninput = e => {
         entry[field] = e.target.value;
       };
@@ -194,18 +190,18 @@ function addEntry(deSection) {
 }
 
 // ================================
-// Neuen Steckbrief erstellen
+// Neuen Steckbrief erstellen mit Zuordnungen
 // ================================
 function addNewSteckbrief() {
   if (!data || !data.steckbriefe) return;
 
   // 1. Höchsten Key finden
   const keys = Object.keys(data.steckbriefe);
-  const lastKey = keys.sort().reverse()[0]; // S009 z.B.
+  const lastKey = keys.sort().reverse()[0];
   const nextNum = String(parseInt(lastKey.slice(1)) + 1).padStart(3, '0');
   const newKey = `S${nextNum}`;
 
-  // 2. Template der ersten Person nehmen (DE + FR)
+  // 2. Template der ersten Person nehmen
   const firstKey = keys[0];
   const templateDE = {};
   const templateFR = {};
@@ -220,22 +216,78 @@ function addNewSteckbrief() {
     );
   });
 
-  // 3. Neuen Steckbrief anlegen
+  // 3. Vorschlag für Zuordnungen erstellen
+  const suggestedMap = {};
+  Object.keys(sectionMap).forEach(deSec => {
+    suggestedMap[deSec] = sectionMap[deSec]; // Vorschlag übernehmen
+  });
+
+  // 4. Neuen Steckbrief anlegen
   data.steckbriefe[newKey] = {
     de: templateDE,
-    fr: templateFR
+    fr: templateFR,
+    zuordnung: suggestedMap // Zuordnungen initial einfügen
   };
 
-  // 4. Neuer Key zur Auswahl hinzufügen
+  // 5. Neuer Key zur Auswahl hinzufügen
   const opt = document.createElement("option");
   opt.value = newKey;
   opt.textContent = newKey;
   recordSelect.appendChild(opt);
 
-  // 5. Direkt auswählen & Editor öffnen
+  // 6. Direkt auswählen & Editor öffnen
   recordSelect.value = newKey;
   currentKey = newKey;
   buildTabs();
+
+  // 7. Zuordnung rendern
+  renderZuordnung();
+}
+
+// ================================
+// Zuordnung rendern & bearbeiten
+// ================================
+function renderZuordnung() {
+  const existing = document.getElementById("zuordnungContainer");
+  if (existing) existing.remove();
+
+  const container = document.createElement("div");
+  container.id = "zuordnungContainer";
+  container.style.border = "1px solid #ccc";
+  container.style.padding = "0.5rem";
+  container.style.marginTop = "1rem";
+  container.style.borderRadius = "6px";
+
+  const h3 = document.createElement("h3");
+  h3.textContent = "Zuordnungen DE → FR";
+  container.appendChild(h3);
+
+  const map = data.steckbriefe[currentKey].zuordnung || {};
+
+  Object.keys(map).forEach(deSec => {
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.gap = "0.5rem";
+    div.style.marginBottom = "0.3rem";
+
+    const label = document.createElement("label");
+    label.textContent = deSec;
+    label.style.flex = "1";
+
+    const input = document.createElement("input");
+    input.value = map[deSec] || "";
+    input.style.flex = "1";
+
+    input.oninput = e => {
+      data.steckbriefe[currentKey].zuordnung[deSec] = e.target.value;
+    };
+
+    div.appendChild(label);
+    div.appendChild(input);
+    container.appendChild(div);
+  });
+
+  document.querySelector("main").insertBefore(container, document.getElementById("downloadBtn"));
 }
 
 // ================================
