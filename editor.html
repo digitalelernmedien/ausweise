@@ -27,57 +27,56 @@
   .add-btn { margin-top:0.5rem; padding:0.5rem; background:#007AFF; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; }
 
   /* ---------------- Action Bar für Buttons ---------------- */
-.action-bar {
-  display: flex;
-  gap: 1rem;            /* Abstand zwischen Buttons */
-  margin-top: 1.5rem;
-}
+  .action-bar {
+    display: flex;
+    gap: 1rem;            /* Abstand zwischen Buttons */
+    margin-top: 1.5rem;
+  }
 
-.action-bar button {
-  padding: 0.6rem 1.4rem;
-  border: none;
-  border-radius: 12px;   /* schön rund */
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
+  /* Basis-Style für alle Buttons */
+  .action-bar button {
+    padding: 0.6rem 1.4rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
 
-.action-bar button#newBtn {
-  background: #007AFF;   /* frisches Blau */
-  color: white;
-}
+  /* Neuer Steckbrief */
+  .action-bar button#newBtn {
+    background: #007AFF;  /* Blau */
+    color: white;
+  }
+  .action-bar button#newBtn:hover {
+    background: #005ecb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
 
-.action-bar button#newBtn:hover {
-  background: #005ecb;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+  /* JSON herunterladen */
+  .action-bar button#downloadBtn {
+    background: #28a745; /* Grün */
+    color: white;
+  }
+  .action-bar button#downloadBtn:hover {
+    background: #1e7e34;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
 
-.action-bar button#downloadBtn {
-  background: #28a745;   /* modernes Grün */
-  color: white;
-}
-
-.action-bar button#downloadBtn:hover {
-  background: #1e7e34;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.action-bar button#toggleZuordnungBtn {
-  background: #6c757d;   /* neutrale Grau-Taste */
-  color: white;
-}
-
-.action-bar button#toggleZuordnungBtn:hover {
-  background: #5a6268;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-
+  /* Zuordnung anzeigen/ausblenden */
+  .action-bar button#toggleZuordnungBtn {
+    background: #6c757d; /* Grau */
+    color: white;
+  }
+  .action-bar button#toggleZuordnungBtn:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
 </style>
 </head>
 <body>
@@ -101,17 +100,14 @@
     </div>
   </div>
 
-  <!-- Toggle Zuordnung -->
-  <button id="toggleZuordnungBtn">
-    Karten-Steckbrief-Zuordnung anzeigen
-  </button>
-  <div id="zuordnungDiv" style="display:none; margin-top:0.5rem;"></div>
-
   <!-- Action Bar mit Buttons -->
   <div class="action-bar">
     <button id="newBtn">Neuen Steckbrief erstellen</button>
     <button id="downloadBtn">JSON herunterladen</button>
+    <button id="toggleZuordnungBtn">Karten-Steckbrief-Zuordnung anzeigen</button>
   </div>
+
+  <div id="zuordnungDiv" style="display:none; margin-top:0.5rem;"></div>
 
 </main>
 
