@@ -32,6 +32,7 @@ fetch("data.json")
   .then(json => {
     data = json;
     initApp();
+    initZuordnung(); // Zuordnung direkt rendern
   })
   .catch(err => {
     console.error("JSON konnte nicht geladen werden:", err);
@@ -115,7 +116,6 @@ function renderSection(deSection) {
       // DE → FR Synchronisation
       input.oninput = e => {
         entry[field] = e.target.value;
-
         if (entriesFR[index]) {
           entriesFR[index][field] = e.target.value;
           const frInputs = editorFR.querySelectorAll(".entry")[index].querySelectorAll("input");
@@ -132,7 +132,6 @@ function renderSection(deSection) {
     editorDE.appendChild(div);
   });
 
-  // + Eintrag hinzufügen DE
   const addBtnDE = document.createElement("button");
   addBtnDE.textContent = "+ Eintrag hinzufügen";
   addBtnDE.className = "add-btn";
@@ -150,7 +149,6 @@ function renderSection(deSection) {
       const input = document.createElement("input");
       input.value = entry[field];
 
-      // FR Input nur lokal
       input.oninput = e => {
         entry[field] = e.target.value;
       };
@@ -162,7 +160,6 @@ function renderSection(deSection) {
     editorFR.appendChild(div);
   });
 
-  // + Eintrag hinzufügen FR
   const addBtnFR = document.createElement("button");
   addBtnFR.textContent = "+ Eintrag hinzufügen";
   addBtnFR.className = "add-btn";
@@ -193,18 +190,16 @@ function addEntry(deSection) {
 }
 
 // ================================
-// Neuen Steckbrief erstellen
+// Neuen Steckbrief erstellen + Karten-Zuordnung
 // ================================
 function addNewSteckbrief() {
   if (!data || !data.steckbriefe) return;
 
-  // Höchsten Key finden
   const keys = Object.keys(data.steckbriefe);
   const lastKey = keys.sort().reverse()[0];
   const nextNum = String(parseInt(lastKey.slice(1)) + 1).padStart(3, '0');
   const newKey = `S${nextNum}`;
 
-  // Template der ersten Person nehmen
   const firstKey = keys[0];
   const templateDE = {};
   const templateFR = {};
@@ -219,33 +214,16 @@ function addNewSteckbrief() {
     );
   });
 
-  data.steckbriefe[newKey] = {
-  de: templateDE,
-  fr: templateFR
-};
+  data.steckbriefe[newKey] = { de: templateDE, fr: templateFR };
 
-// 3a. Neuen Karten-Eintrag erstellen
-const keysZuordnung = Object.keys(data.zuordnung);
-const lastKeyZuordnung = keysZuordnung.sort().reverse()[0]; // z. B. K009
-const nextNumK = String(parseInt(lastKeyZuordnung.slice(1)) + 1).padStart(3, '0');
-const newKartenschluessel = `K${nextNumK}`;
-data.zuordnung[newKartenschluessel] = newKey; // neuer Karten-Eintrag zeigt auf neuen Steckbrief
+  // Neue Karte für Zuordnung
+  const keysZuordnung = Object.keys(data.zuordnung);
+  const lastKeyZuordnung = keysZuordnung.sort().reverse()[0];
+  const nextNumK = String(parseInt(lastKeyZuordnung.slice(1)) + 1).padStart(3, '0');
+  const newKartenschluessel = `K${nextNumK}`;
+  data.zuordnung[newKartenschluessel] = newKey;
 
-// 4. Neuer Key zur Auswahl hinzufügen
-const opt = document.createElement("option");
-opt.value = newKey;
-opt.textContent = newKey;
-recordSelect.appendChild(opt);
-
-// 5. Direkt auswählen & Editor öffnen
-recordSelect.value = newKey;
-currentKey = newKey;
-buildTabs();
-
-// 6. Zuordnung neu rendern
-renderZuordnung();
-
-  // Neuer Key zur Auswahl hinzufügen
+  // Auswahl aktualisieren
   const opt = document.createElement("option");
   opt.value = newKey;
   opt.textContent = newKey;
@@ -254,10 +232,12 @@ renderZuordnung();
   recordSelect.value = newKey;
   currentKey = newKey;
   buildTabs();
+
+  renderZuordnung(); // Zuordnung aktualisieren
 }
 
 // ================================
-// Karten-Steckbrief-Zuordnung bearbeiten
+// Karten-Steckbrief-Zuordnung rendern
 // ================================
 function renderZuordnung() {
   let zuordnungDiv = document.getElementById("zuordnungDiv");
@@ -298,14 +278,14 @@ function renderZuordnung() {
 }
 
 // ================================
-// Button in HTML einfügen
+// Button Neuen Steckbrief erstellen
 // ================================
 const newBtn = document.createElement("button");
 newBtn.textContent = "Neuen Steckbrief erstellen";
 newBtn.className = "download-btn";
 newBtn.style.background = "#007AFF";
 newBtn.style.marginTop = "1rem";
-newBtn.onclick = () => { addNewSteckbrief(); renderZuordnung(); };
+newBtn.onclick = addNewSteckbrief;
 document.querySelector("main").insertBefore(newBtn, document.getElementById("downloadBtn"));
 
 // ================================
@@ -326,5 +306,3 @@ document.getElementById("downloadBtn").onclick = () => {
 function initZuordnung() {
   if (data && data.zuordnung) renderZuordnung();
 }
-
-setTimeout(initZuordnung, 500); // kurz warten bis JSON geladen
