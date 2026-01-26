@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const h3 = document.createElement("h3");
       h3.style.cursor = "pointer";
       h3.innerText =
-        lang === "fr" ? `Pièce d'identité/Fichier ${id}` : `Ausweis/Datensatz ${id}`;
+        lang === "fr" ? `Fichier / Pièce d'identité ${id}` : `Datensatz / Ausweis ${id}`;
       card.appendChild(h3);
 
       const sectionsDivs = [];
