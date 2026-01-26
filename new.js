@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  document.getElementById("toggleJsonHints").addEventListener("click", () => {
-    document.body.classList.toggle("hide-json");
+  document.getElementById("toggleJsonA").addEventListener("click", () => {
+  document.body.classList.toggle("hide-json");
+});
 
-    const btn = document.getElementById("toggleJsonHints");
-    btn.textContent = document.body.classList.contains("hide-json")
-      ? "JSON-Begriffe einblenden"
-      : "JSON-Begriffe ausblenden";
-  });
   
   // ===============================
   // Checkbox → Sektion ein/ausklappen
