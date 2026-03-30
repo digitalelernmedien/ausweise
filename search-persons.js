@@ -147,17 +147,34 @@ const queryText = queryParts.join(", ");
   }
 
   // Auswertung
-  if (matchingKarten.length === 0) {
-    errorEl.innerText = t.errorNoMatch;
-  } else if (matchingKarten.length === 1) {
-    window.location.href = `index.html?karte=${matchingKarten[0]}&query=${encodeURIComponent(queryText)}`;
-  } else {
-    // Mehrfachtreffer mit Namen anzeigen
-    const selection = matchingKarten.map(k => {
-      const steckbrief = dataGlobal.steckbriefe[dataGlobal.zuordnung[k]];
-      const name = steckbrief[currentLang].GERES?.[0]?.lastname || k;
-      return `<li><a href="index.html?karte=${k}&query=${encodeURIComponent(name)}">${name}</a></li>`;
-    }).join("");
-    errorEl.innerHTML = `<strong>${t.errorMultiple}</strong><ul>${selection}</ul>`;
-  }
+if (matchingKarten.length === 0) {
+  errorEl.innerText = t.errorNoMatch;
+
+} else if (matchingKarten.length === 1) {
+  window.location.href = `index.html?karte=${matchingKarten[0]}&query=${encodeURIComponent(queryText)}`;
+
+} else {
+// Mehrfachtreffer mit Namen,Vornamen und Geburtsdatum anzeigen 
+  const selection = matchingKarten.map(k => {
+    const steckbrief = dataGlobal.steckbriefe[dataGlobal.zuordnung[k]];
+    const person = steckbrief?.[currentLang]?.GERES?.[0] || {};
+
+    const lastname = person.lastname || "";
+    const firstname = person.firstname || "";
+    const dob = person.dob || "";
+
+    const label = [lastname, firstname, dob].filter(Boolean).join(", ");
+
+    return `<li>
+      <a href="index.html?karte=${k}&query=${encodeURIComponent(label)}">
+        ${label}
+      </a>
+    </li>`;
+  }).join("");
+
+  errorEl.innerHTML = `
+    <strong>${t.errorMultiple}</strong>
+    <ul>${selection}</ul>
+  `;
+}
 });
