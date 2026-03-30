@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(data => {
       dataGlobal = data;
-      setupFooter();
     })
     .catch(err => {
       console.error("Fehler beim Laden der Daten:", err);
@@ -126,75 +125,3 @@ document.getElementById("search-form").addEventListener("submit", e => {
   }
 });
 
-/* ---------------------------
-   Footer-Funktionen
---------------------------- */
-function setupFooter() {
-  const infoBtn = document.getElementById("info-btn");
-  const speechBtn = document.getElementById("speech-btn");
-  const resetBtn = document.getElementById("reset-btn");
-  const backBtn = document.getElementById("back-btn");
-  const settingsMenu = document.getElementById("settings-menu");
-  const backdrop = document.getElementById("backdrop");
-  const infoModal = document.getElementById("info-modal");
-  const infoCloseBtn = document.getElementById("info-close-btn");
-
-  infoBtn?.addEventListener("click", () => {
-    if (!dataGlobal) return;
-    const infoData = dataGlobal.info_text[currentLang];
-
-    document.getElementById("modal-title").innerHTML = infoData.title;
-    document.getElementById("modal-body").innerHTML = infoData.body;
-    document.getElementById("modal-functions-title").innerHTML =
-      infoData.functions_title;
-
-    const ul = document.getElementById("modal-functions-list");
-    ul.innerHTML = "";
-    infoData.functions.forEach(fn => {
-      const li = document.createElement("li");
-      li.innerHTML = fn;
-      ul.appendChild(li);
-    });
-
-    document.getElementById("modal-warning").innerHTML = infoData.warning;
-    document.getElementById("modal-credits").innerHTML = infoData.credits;
-
-    infoModal.style.display = "flex";
-  });
-
-  infoCloseBtn?.addEventListener("click", () => {
-    infoModal.style.display = "none";
-  });
-
-  infoModal?.addEventListener("click", e => {
-    if (e.target === infoModal) infoModal.style.display = "none";
-  });
-
-  speechBtn?.addEventListener("click", () => {
-    settingsMenu.style.display = "flex";
-    backdrop.style.display = "block";
-  });
-
-  settingsMenu?.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      currentLang = btn.dataset.lang;
-      localStorage.setItem("appLang", currentLang);
-      settingsMenu.style.display = "none";
-      backdrop.style.display = "none";
-      updateUIText();
-      feather.replace();
-    });
-  });
-
-  backdrop?.addEventListener("click", () => {
-    settingsMenu.style.display = "none";
-    backdrop.style.display = "none";
-  });
-
-  resetBtn?.addEventListener("click", () => {
-    document.getElementById("serial").value = "";
-    document.getElementById("error").textContent = "";
-  });
-
-  backBtn?.addEventListener("click", () => window.history.back());
-}
