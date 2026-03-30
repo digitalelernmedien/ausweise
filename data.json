@@ -8,7 +8,8 @@
     "K006": "S006",
     "K007": "S007",
 	"K008": "S008",
-	"K009": "S009"
+	"K009": "S009",
+	"K010": "S010"
   },
 "steckbriefe": {
 "S001": {
@@ -275,6 +276,37 @@
 	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
 	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],
 "GERES": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "zivilstand": ""}],
+"ISA": [{"lastname": "", "firstname": "", "gender": "", "dob": ""}],
+"FABER": [{"category": "", "since": ""}],
+"MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
+"ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
+"Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
+"RIPOL": [
+	{"year": "01.06.2025", "description": "Vol d’usage de véhicules à moteur", "objekt": "", "serial": "", "plate": "FR24539", "vin": ""},
+	{"year": "", "description": "", "objekt": "", "serial": "", "plate": "", "vin": ""}]	
+}
+},
+
+"S010": {
+	"de": {
+"Vorgangsbearbeitung": [
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],		
+"GERES": [{"lastname": "Meier", "firstname": "Hans",  "gender": "m", "dob": "12.03.1980", "poo": "von Bern BE", "adress": "wft. 3000 Bern, Hauptstrasse 10", "zivilstand": "ledig"}],
+"ISA": [{"lastname": "", "firstname": "", "gender": "", "dob": ""}],
+"FABER": [{"category": "", "since": ""}],
+"MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
+"ZEMIS": [{"lastname": "", "firstname": "", "gender": "", "dob": "", "poo": "", "adress": "", "status": ""}],
+"Hoogan": [{"Massnahme": "", "date": "", "description": ""}, {"Massnahme": "", "date": "", "description": ""}],
+"RIPOL": [
+	{"year": "01.06.2025", "description": "Entwendung zum Gebrauch", "objekt": "", "serial": "", "plate": "FR24539", "vin": ""},
+	{"year": "", "description": "", "objekt": "", "serial": "", "plate": "", "vin": ""}]		
+},
+	"fr": {
+"Traitement des processus": [
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""},
+	  {"ESW": "", "Verbindung": "", "description": "", "year": "", "objekt": "", "serial": ""}],
+"GERES": [{"lastname": "Meier", "firstname": "Hans", "gender": "m", "dob": "12.03.1980", "poo": "de Berne BE", "adress": "domicilié 3000 Berne, Rue principale 10", "zivilstand": "célibataire"}],
 "ISA": [{"lastname": "", "firstname": "", "gender": "", "dob": ""}],
 "FABER": [{"category": "", "since": ""}],
 "MOFIS": [{"plate": "", "vin": "", "type": "", "brand": "", "model": ""}],
