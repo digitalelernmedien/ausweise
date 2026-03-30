@@ -30,6 +30,10 @@ fetch("data.json")
     data = json;
     initApp();
     initZuordnung();
+  })
+  .catch(err => {
+    console.error("Fehler beim Laden von data.json:", err);
+    alert("Fehler: data.json konnte nicht geladen werden.");
   });
 
 // ================================
@@ -114,7 +118,7 @@ function renderSection(deSection) {
         if (!frDiv) return;
 
         frDiv.querySelectorAll("input").forEach(frInput => {
-          if (frInput.previousSibling.textContent !== field) return;
+          if (frInput.previousElementSibling?.textContent !== field) return;
 
           // Nur synchronisieren, wenn FR noch nicht manuell geändert wurde
           if (frInput.dataset.locked !== "true") {
@@ -177,6 +181,11 @@ function addEntry(deSection) {
 
   const entriesDE = data.steckbriefe[currentKey].de[deSection];
   const entriesFR = data.steckbriefe[currentKey].fr[frSection];
+
+  if (!entriesDE.length || !entriesFR.length) {
+    alert("Keine Vorlage vorhanden – Sektion ist leer.");
+    return;
+  }
 
   const templateDE = Object.fromEntries(Object.keys(entriesDE[0]).map(k => [k, ""]));
   const templateFR = Object.fromEntries(Object.keys(entriesFR[0]).map(k => [k, ""]));

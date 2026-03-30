@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const backdrop = document.getElementById("backdrop");
   const printBtn = document.getElementById("print-btn");
 
-  let lang = "de";
+  let lang = localStorage.getItem("appLang") || (navigator.language.startsWith("fr") ? "fr" : "de");
   let dataGlobal = null;
 
   // -------------------------
